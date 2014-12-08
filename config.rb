@@ -44,14 +44,9 @@ set :blog_logo, nil
 
 page '/feed.xml', layout: false
 
-###
-# Compass
-###
+set :haml, {:attr_wrapper => '"', :format => :html5, :remove_whitespace => false}
+set :sass, { :line_comments => false, :debug_info => false, :style => :expanded }
 
-# Change Compass configuration
-# compass_config do |config|
-#   config.output_style = :compact
-# end
 
 ###
 # Page options, layouts, aliases and proxies
