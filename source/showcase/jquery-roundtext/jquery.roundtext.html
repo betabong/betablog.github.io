@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+	<title>jquery.roundtext</title>
+	<script src="jquery.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="jquery.roundtext.js" type="text/javascript" charset="utf-8"></script>
+	
+	<script type="text/javascript" charset="utf-8">
+		var mytext , myradius;
+		
+		$(document).ready(function($) {
+			$('input[type="text"]').keyup(update).change(update).change();
+			$('input[type="range"]').change(update).change();
+		});
+		
+		function update() {
+			var mytext = $('#text').val();
+			var myradius = $('#radius').val() - 0; //we want number
+			$('p').text( mytext ).roundtext({radius: myradius});
+			$('#radiusvalue').text( myradius );
+		}
+		
+	</script>
+	
+	<style type="text/css" media="screen">
+		p {
+			position: absolute;
+		}
+
+		p.test1 {
+			left: 200pt; top: 100pt;
+			font-size: 20pt;
+			text-transform: uppercase;
+		}
+		p.test1 > span > span {
+			margin: 0 2px;
+		}
+		p.test2 {
+			right: 200pt; top: 200pt;
+			font-family: Georgia;
+			font-size: 40pt;
+		}
+		
+		
+		body {
+			margin: 0; padding: 20px;
+			background-color: #95CBFF;
+			text-align: center;
+			font-family: Helvetica,Arial;
+			font-weight: Bold;
+			text-shadow: 0 1px 0 #fff;
+		}
+		
+		div {
+			margin-bottom: 10pt;
+		}
+	</style>
+</head>
+
+<body>
+
+	
+	<p class="test1">That's a first test</p>
+	
+	<p class="test2">A second test</p>
+	
+	<div>
+		<label for="text">Change text:</label>
+		<input type="text" name="text" value="I wanna be round" id="text"/>
+	</div>
+	<div>
+		<label for="radius">Change radius:</label>
+		<input type="range" name="radius" value="200" id="radius" min="50" max="400" />
+		<span id="radiusvalue"></span>
+	</div>
+	
+</body>
+</html>

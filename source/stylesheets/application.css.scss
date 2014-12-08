@@ -1,0 +1,94 @@
+@import 'vendor/casper';
+@import 'syntax';
+
+// Overwrite some styles from casper.css
+pre {
+  background: transparent;
+  border-style: none;
+  padding: initial;
+}
+
+
+.blog-title {
+
+}
+
+.post-template {
+	.blog-title {
+
+	}
+}
+
+
+.site-head, .site-footer {
+	background-color: #F7F8F9;
+	color: inherit;
+}
+.site-footer {
+	color: #BBC7CC;
+}
+
+
+.post-title {
+	font-weight: normal;
+}
+
+.post-meta {
+	// font-style: italic;
+}
+
+
+.post-content, .post-excerpt {
+	a {
+		font-style: italic;
+		text-decoration: none;
+
+		position: relative;
+
+		&:after {
+			content: '';
+			display: block;
+			position: absolute;
+			height: 6px;
+			bottom: 0; left: 0; right: 0;
+			transition: all 150ms ease-out;
+			background: rgba(#9ac9ff, 0.2);
+			border: 1px solid rgba(#9ac9ff, 0);
+		}
+
+		&:hover {
+			&:after {
+				height: 110%;
+				left: -5px; right: -5px;
+				bottom: -5%;
+				border: 1px solid rgba(#9ac9ff, 0.2);
+				background: rgba(#9ac9ff, 0.2);
+			}
+		}
+	}
+
+	pre {
+		line-height: 1.5;
+		padding: 1em;
+	}
+}
+
+
+
+
+.blog-title {
+    text-transform: uppercase;
+    font-weight: normal;
+    letter-spacing: 0.3ex;
+    font-size: inherit;
+    background: url("../images/logo-betabong.gif") no-repeat center top;
+    background-size: 70px 70px;
+
+    .post-template &, & {
+    	padding-top: 90px;
+    }
+}
+
+.blog-description {
+    font-style: italic;
+}
