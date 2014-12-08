@@ -5,17 +5,13 @@ date: 2009-04-17
 ---
 
 
-This is a follow-up of [this](/2009/04/13/metatunnel-1k-demo-as-vs-js/). ![metatunnel-pixelbender](---
-
-/uploads/2009/04/metatunnel-pixelbender.jpg) Yeah well, I was more than optimistic to show [those JS guys](http://demoscene.appjet.net/) how fast Flash can be with the help of some brand new Adobe magic – but Pixel Bender was, unfortunately, quite disappointing: 
+This is a follow-up of [this](/2009/04/13/metatunnel-1k-demo-as-vs-js/). ![metatunnel-pixelbender](/uploads/2009/04/metatunnel-pixelbender.jpg) Yeah well, I was more than optimistic to show [those JS guys](http://demoscene.appjet.net/) how fast Flash can be with the help of some brand new Adobe magic – but Pixel Bender was, unfortunately, quite disappointing: 
 
   1. I spent hours to successfully migrate the code to Pixel Bender Toolkit (wasn't that difficult actually, but a wrong character there and your math is all screwed up). So here the first letdown: Pixel Bender Toolkit is **not a very nice coding environment**. It's a rough baby. But I'd do everything for speed :-)..
   2. Once I had it running (the above picture is captured from Pixel Bender) I tried to export it for Flash Player. But hoohoo! **no support for loops** in Flash Player! Yeah, well, ..(and also **no custom functions** by the way)
   3. But I didn't give up. I just calculated how many max loops where needed (about 100) and replicated the while loop with many if-conditions (I love to do computer's dummy job ;). Then finally: Export to Flash Player! But in Flash Player having the shader as Filter for a BitmapData just **really fucked up the rendering**. I even went down to 1fps, but still no luck. What a bummer! (sometimes I saw a few pixels blue, but very unusable: I've written [to the Pixel Bender Forum ](http://forums.adobe.com/thread/419485)\- invited by [@Pixelbender](http://twitter.com/pixelbender) – but that led to nothing so far).
   4. Today, finally, I got it working by taking a more rough approach (not BitmapFilter, but ShaderJob). **But hell is it slow!!!** And it eats all my 8 cpu cores!! So I wondered how that could be: Fast as hell in Pixel Bender Toolkit (uses may be 2% of my cpu at full fps!), but slow as hell in Flash Player?! The answer is obvious: **Adobe decided not to talk to the GCU (Graphics Card)** for the calculations, probably to keep the Flash Player be as platform independent as possible - and as small as possible. But then I wonder.. WTF do you give us this toy if we can't use it?!! It's like Apple would say: «Great news: we have Core Graphics on the iPhone - without hardware acceleration..» Adobe, to me, this doesn't make too much sense. (But I'm so very much pleased about the new Text Engine – *that* was a good job)
-Here the result: (Click to start, it'll eat your cpu!) [swfobj src="---
-
-/uploads/flash/MetaTunnelBender.swf" height="128"] And for the geeks, here we go with the source codes: 
+Here the result: (Click to start, it'll eat your cpu!) [swfobj src="/uploads/flash/MetaTunnelBender.swf" height="128"] And for the geeks, here we go with the source codes: 
     
     
     

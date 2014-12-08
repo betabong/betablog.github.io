@@ -34,9 +34,7 @@ That's looks quite more complex. And it certainly is. But it works like a charm 
 
 ### Example
 
-[View Example](---
-
-/uploads/2009/02/example-inlineblock.html)
+[View Example](/uploads/2009/02/example-inlineblock.html)
     
     <style type="text/css" media="screen">
         .codeexample span {

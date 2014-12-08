@@ -13,9 +13,7 @@ I don't discover as many bugs nowadays as I've used to in the old days when I wa
   * C's scrollrect property is set, so A is shows up (well, it doesn't – that's the bug after all ;)
 Here the example: 
 
-[bug-3d-shadow.swf](---
-
-/uploads/2009/04/bug-3d-shadow.swf) And here the code: 
+[bug-3d-shadow.swf](/uploads/2009/04/bug-3d-shadow.swf) And here the code: 
     
     
     /* Flash Bug - Flash Player 10.0.22.87

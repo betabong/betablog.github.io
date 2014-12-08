@@ -8,9 +8,7 @@ date: 2008-12-06
 Most of the Flash application deal with server side data like images, xml files etc. We tend to forget about that because the default Run or Debug commands in Flex will open a local html file (and also because we developers often have quite a nice internet connection when testing remotely). Thus all data is loaded nearly instantely. In Flash we have a menu command called **«Simulate Download»** to see how things run at different bandwidth situations. **But how to achieve this in Flex?** I've been using Sloppy for a long time. It's little java app that can be started via a simple web click. It's really easy to use and does very well what it does. For debugging your app (your flash website) throttled in Flex Builder simply follow these steps:   
 
   1. [Open the **Sloppy website**](http://www.dallaway.com/sloppy/)
-  2. Click the little **Sloppy icon**: ![](/uploads/2008/12/picture-10.png)[ ](http://blog.betabong.com---
-
-/uploads/2008/12/picture-10.png)
+  2. Click the little **Sloppy icon**: ![](/uploads/2008/12/picture-10.png)[ ](http://blog.betabong.com/uploads/2008/12/picture-10.png)
   3. A «sloppy.jnlp» file is downloaded. **Open it** if doesn't open automatically.
   4. The actual application will be downloaded and started. If it asks you to trust: **trust!** :-)
   5. **Enter the address** of your html file in the bin-debug or bin-release folder. It should be a webserver address. I usually create a [symbolic link](http://www.macupdate.com/info.php/id/10433/symboliclinker) of my project directory and put it into my local webserver directory. ![](/uploads/2008/12/picture-11.png)

@@ -5,9 +5,7 @@ date: 2009-09-22
 ---
 
 
-![betabits](---
-
-/uploads/2009/09/betabits.png) I went down a few algorithmic roads recently, digging into path finding and – for some obscure reasons – bit manipulations. Or byte. Whatever. Along this way some utility methods (or functions) were born, and I thought: May be some day some of them may be in use to any of you ;) For my dear non-geeky readers: A bit is the smallest part in software. It's either this or that, either 0 or 1, either false or true. With a group of 2 bits you already have 4 states: 00, 01, 10 and 11. With 8 it's 256 and so on (2^n). As it would be too boring to just type 0 or 1, and because we have more than 2 fingers, man invented numbers to accumulate these bits: so 9 stands for 1001, and because 9 is shorter than 1001, we prefer 9. Some even write AB for 10101011, but that's where we come back to geeky world. So after this highly informative introduction, let's get to some code. First, let's count bits: 
+![betabits](/uploads/2009/09/betabits.png) I went down a few algorithmic roads recently, digging into path finding and – for some obscure reasons – bit manipulations. Or byte. Whatever. Along this way some utility methods (or functions) were born, and I thought: May be some day some of them may be in use to any of you ;) For my dear non-geeky readers: A bit is the smallest part in software. It's either this or that, either 0 or 1, either false or true. With a group of 2 bits you already have 4 states: 00, 01, 10 and 11. With 8 it's 256 and so on (2^n). As it would be too boring to just type 0 or 1, and because we have more than 2 fingers, man invented numbers to accumulate these bits: so 9 stands for 1001, and because 9 is shorter than 1001, we prefer 9. Some even write AB for 10101011, but that's where we come back to geeky world. So after this highly informative introduction, let's get to some code. First, let's count bits: 
     
     
     static public function countBits( value : uint ) : uint {

@@ -5,15 +5,7 @@ date: 2009-04-05
 ---
 
 
-I did some speed tests today, comparing two string parsing methods. And I've made some very interesting discoveries: The execution speed between SWF compiled for debugging and those compiled without differs. Ha! Okay, that's not that much of news (even for me). But what astonishes me is how much this speed gap can be, especially when it comes to massive data calculations. I somehow always had a somewhat 20 percent speed decrease in mind (I was just presuming, me dumb). But for a 3d particle test we're talking factor 8!! Now this made me curious... so I've tested with Debug and Release Player both debug and release SWFs: **Debug Player running Debug SWF** **![Flash Debug in Debug](---
-
-/uploads/2009/04/picture-11.png)** **Debug Player running Release SWF** **![Release in Debug](http://blog.betabong.com---
-
-/uploads/2009/04/picture-9.png)** **Release Player running Debug SWF** **![Debug in Release](http://blog.betabong.com---
-
-/uploads/2009/04/picture-12.png)** **Release Player running Release SWF** **![Release in Release](http://blog.betabong.com---
-
-/uploads/2009/04/picture-13.png)** **A few conclusions:**
+I did some speed tests today, comparing two string parsing methods. And I've made some very interesting discoveries: The execution speed between SWF compiled for debugging and those compiled without differs. Ha! Okay, that's not that much of news (even for me). But what astonishes me is how much this speed gap can be, especially when it comes to massive data calculations. I somehow always had a somewhat 20 percent speed decrease in mind (I was just presuming, me dumb). But for a 3d particle test we're talking factor 8!! Now this made me curious... so I've tested with Debug and Release Player both debug and release SWFs: **Debug Player running Debug SWF** **![Flash Debug in Debug](/uploads/2009/04/picture-11.png)** **Debug Player running Release SWF** **![Release in Debug](http://blog.betabong.com/uploads/2009/04/picture-9.png)** **Release Player running Debug SWF** **![Debug in Release](http://blog.betabong.com/uploads/2009/04/picture-12.png)** **Release Player running Release SWF** **![Release in Release](http://blog.betabong.com/uploads/2009/04/picture-13.png)** **A few conclusions:**
 
   * **Never release a SWF file with debug code** (or otherwise said: put only stuff online from bin-release, never bin-debug). Though common users won't notice the speed decrease, your friendly flash developers may, at least if you're app is somewhat cpu intensive. And of course: debug SWF are much bigger in size (just in case you give a fuck about flash devs ;-)
   * **Speed tests should be played in the release player.** Why? After all, I wouldn't care if the relation would stay the same. Usually you just need to know how much faster one thing is compared to the other one, so that would do it. But unfortunately the ratio won't always be the same. In the above example the ration is 3.66 for debug and 2.92 for release. And it can differ muuuuch more.

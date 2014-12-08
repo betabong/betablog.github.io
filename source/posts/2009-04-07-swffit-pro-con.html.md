@@ -14,11 +14,7 @@ Still there is a **CONTRA** side:
 
   * You'll **need javascript** (well, that's no biggy at all – as a matter of fact, you're just pretty in the desert without javascript in todays websites)
   * You have no control over **scrollbar design** (neither a biggy – as another matter of fact I consider that a good thing anyway, but don't tell the brand agency ;-)
-  * It has **performance disadvantages**. Well that I consider a biggy! Because the movie will always be in its full height, it will do rerender for the entire area!! Imagine long page with animations here and there: Given Flash's «not so fast» rendering engine, this can become a huge performance killer. Let me give you a quick'n'dirty example: [Full Height](---
-
-/uploads/flash/SWF_Size_Performance/performance-killer-percent.html) compared to [«Cropped» to Window Height](---
-
-/uploads/flash/SWF_Size_Performance/performance-killer-wsize.html) (just resize browser window to real small size to see the big difference).
+  * It has **performance disadvantages**. Well that I consider a biggy! Because the movie will always be in its full height, it will do rerender for the entire area!! Imagine long page with animations here and there: Given Flash's «not so fast» rendering engine, this can become a huge performance killer. Let me give you a quick'n'dirty example: [Full Height](/uploads/flash/SWF_Size_Performance/performance-killer-percent.html) compared to [«Cropped» to Window Height](/uploads/flash/SWF_Size_Performance/performance-killer-wsize.html) (just resize browser window to real small size to see the big difference).
 **Conclusion:** I'm just glad I found one good reason to not declare my internal scrollbar like in [www.betabong.com](http://www.betabong.com) as complete bullshit ;-)
 
 ## Comments
