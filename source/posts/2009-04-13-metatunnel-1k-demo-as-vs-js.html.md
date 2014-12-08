@@ -5,7 +5,11 @@ date: 2009-04-13
 ---
 
 
-I did a quick port of a «graphic demo» called [«metatunnel» (created by FRequency).](http://www.pouet.net/prod.php?which=52777) [Paulo Falcão ported this to Javascript](http://demoscene.appjet.net/) using canvas. To make the set complete I ported Paulos JS version to Actionscript, just quick'n'dirty. Click on it to start the animation: [swfobj src="/uploads/flash/MetaTunnel.swf" width="128" height="128"]  Here's the code: 
+I did a quick port of a «graphic demo» called [«metatunnel» (created by FRequency).](http://www.pouet.net/prod.php?which=52777) [Paulo Falcão ported this to Javascript](http://demoscene.appjet.net/) using canvas. To make the set complete I ported Paulos JS version to Actionscript, just quick'n'dirty. Click on it to start the animation:  
+
+<object data="/uploads/flash/MetaTunnel.swf" width="128" height="128"></object>
+
+  Here's the code: 
     
     
     package test
@@ -111,4 +115,8 @@ I did a quick port of a «graphic demo» called [«metatunnel» (created by FReq
     	}
     }
 
-**Update:** A quickly optimized version (nothing advanced really). [swfobj src="/uploads/flash/MetaTunnel-optim-1.swf" width="128" height="128"] (You can switch quality in this version with key up or down).
+**Update:** A quickly optimized version (nothing advanced really). 
+
+<object data="/uploads/flash/MetaTunnel-optim-1.swf" width="128" height="128"></object>
+
+(You can switch quality in this version with key up or down).

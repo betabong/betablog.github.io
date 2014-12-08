@@ -5,7 +5,15 @@ date: 2009-04-13
 ---
 
 
-GridFitType has a great impact on Text rendering: [swfobj src="/uploads/flash/GridFitType/GridFitType.swf"] Well not really much to say here: 
+GridFitType has a great impact on Text rendering: 
+
+ 
+
+<object data="/uploads/flash/GridFitType/GridFitType.swf"></object>
+
+
+
+Well not really much to say here: 
 
   * **NONE** Good for animation and people who prefer Font appearance over readability
   * **SUBPIXEL** Good compromise between readability (small sizes) and appearance
