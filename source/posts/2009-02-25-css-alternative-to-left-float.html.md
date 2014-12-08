@@ -1,13 +1,7 @@
 ---
 title: CSS Alternative to Left Float
 link: http://blog.betabong.com/2009/02/25/css-alternative-to-left-float/
-description: 
-post_id: 196
 date: 2009-02-25
-created: 2009/02/25 22:19:54
-created_gmt: 2009/02/25 21:19:54
-post_name: css-alternative-to-left-float
-post_type: post
 ---
 
 
@@ -40,8 +34,7 @@ That's looks quite more complex. And it certainly is. But it works like a charm 
 
 ### Example
 
-[View Example](post_type: post
----
+[View Example](---
 
 /uploads/2009/02/example-inlineblock.html)
     

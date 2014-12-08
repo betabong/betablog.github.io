@@ -1,13 +1,7 @@
 ---
 title: Nested inner functions can be evil
 link: http://blog.betabong.com/2008/07/21/nested-inner-functions-can-be-evil/
-description: 
-post_id: 39
 date: 2008-07-21
-created: 2008/07/21 08:53:29
-created_gmt: 2008/07/21 07:53:29
-post_name: nested-inner-functions-can-be-evil
-post_type: post
 ---
 
 

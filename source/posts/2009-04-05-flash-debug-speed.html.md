@@ -1,27 +1,17 @@
 ---
 title: Flash Debug Speed
 link: http://blog.betabong.com/2009/04/05/flash-debug-speed/
-description: 
-post_id: 225
 date: 2009-04-05
-created: 2009/04/05 01:49:46
-created_gmt: 2009/04/05 00:49:46
-post_name: flash-debug-speed
-post_type: post
 ---
 
 
-I did some speed tests today, comparing two string parsing methods. And I've made some very interesting discoveries: The execution speed between SWF compiled for debugging and those compiled without differs. Ha! Okay, that's not that much of news (even for me). But what astonishes me is how much this speed gap can be, especially when it comes to massive data calculations. I somehow always had a somewhat 20 percent speed decrease in mind (I was just presuming, me dumb). But for a 3d particle test we're talking factor 8!! Now this made me curious... so I've tested with Debug and Release Player both debug and release SWFs: **Debug Player running Debug SWF** **![Flash Debug in Debug](post_type: post
----
+I did some speed tests today, comparing two string parsing methods. And I've made some very interesting discoveries: The execution speed between SWF compiled for debugging and those compiled without differs. Ha! Okay, that's not that much of news (even for me). But what astonishes me is how much this speed gap can be, especially when it comes to massive data calculations. I somehow always had a somewhat 20 percent speed decrease in mind (I was just presuming, me dumb). But for a 3d particle test we're talking factor 8!! Now this made me curious... so I've tested with Debug and Release Player both debug and release SWFs: **Debug Player running Debug SWF** **![Flash Debug in Debug](---
 
-/uploads/2009/04/picture-11.png)** **Debug Player running Release SWF** **![Release in Debug](http://blog.betabong.compost_type: post
----
+/uploads/2009/04/picture-11.png)** **Debug Player running Release SWF** **![Release in Debug](http://blog.betabong.com---
 
-/uploads/2009/04/picture-9.png)** **Release Player running Debug SWF** **![Debug in Release](http://blog.betabong.compost_type: post
----
+/uploads/2009/04/picture-9.png)** **Release Player running Debug SWF** **![Debug in Release](http://blog.betabong.com---
 
-/uploads/2009/04/picture-12.png)** **Release Player running Release SWF** **![Release in Release](http://blog.betabong.compost_type: post
----
+/uploads/2009/04/picture-12.png)** **Release Player running Release SWF** **![Release in Release](http://blog.betabong.com---
 
 /uploads/2009/04/picture-13.png)** **A few conclusions:**
 

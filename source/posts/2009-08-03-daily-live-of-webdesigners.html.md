@@ -1,13 +1,7 @@
 ---
 title: Daily Live of Webdesigners
 link: http://blog.betabong.com/2009/08/03/daily-live-of-webdesigners/
-description: 
-post_id: 278
 date: 2009-08-03
-created: 2009/08/03 17:28:03
-created_gmt: 2009/08/03 16:28:03
-post_name: daily-live-of-webdesigners
-post_type: post
 ---
 
 

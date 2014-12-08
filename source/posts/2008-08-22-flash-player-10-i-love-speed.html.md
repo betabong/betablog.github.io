@@ -1,13 +1,7 @@
 ---
 title: Flash Player 10 – I love speed
 link: http://blog.betabong.com/2008/08/22/flash-player-10-i-love-speed/
-description: 
-post_id: 77
 date: 2008-08-22
-created: 2008/08/22 09:30:03
-created_gmt: 2008/08/22 08:30:03
-post_name: flash-player-10-i-love-speed
-post_type: post
 ---
 
 

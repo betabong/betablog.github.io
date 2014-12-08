@@ -1,13 +1,7 @@
 ---
 title: 3D Point Cloud with Javascript and Canvas
 link: http://blog.betabong.com/2009/03/05/javascript-canvas-3d/
-description: 
-post_id: 208
 date: 2009-03-05
-created: 2009/03/05 16:02:32
-created_gmt: 2009/03/05 15:02:32
-post_name: javascript-canvas-3d
-post_type: post
 ---
 
 

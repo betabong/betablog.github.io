@@ -1,13 +1,7 @@
 ---
 title: SVN Hook – auto-upload to FTP
 link: http://blog.betabong.com/2008/08/14/svn-hook-%e2%80%93-auto-upload-to-ftp/
-description: 
-post_id: 51
 date: 2008-08-14
-created: 2008/08/14 09:52:39
-created_gmt: 2008/08/14 08:52:39
-post_name: svn-hook-%e2%80%93-auto-upload-to-ftp
-post_type: post
 ---
 
 

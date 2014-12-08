@@ -1,13 +1,7 @@
 ---
 title: "Blog Feature: Code Lightbox"
 link: http://blog.betabong.com/2008/10/03/blog-feature-code-lightbox/
-description: 
-post_id: 127
 date: 2008-10-03
-created: 2008/10/03 18:07:49
-created_gmt: 2008/10/03 17:07:49
-post_name: blog-feature-code-lightbox
-post_type: post
 ---
 
 

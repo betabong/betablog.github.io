@@ -1,13 +1,7 @@
 ---
 title: Simplicity follows Performance – parsing Strings in Actionscript 3
 link: http://blog.betabong.com/2008/09/01/speed-parsing-string-in-as3/
-description: 
-post_id: 101
 date: 2008-09-01
-created: 2008/09/01 17:18:25
-created_gmt: 2008/09/01 16:18:25
-post_name: speed-parsing-string-in-as3
-post_type: post
 ---
 
 

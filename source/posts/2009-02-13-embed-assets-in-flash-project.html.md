@@ -1,13 +1,7 @@
 ---
 title: Embed Assets in Flash Project
 link: http://blog.betabong.com/2009/02/13/embed-assets-in-flash-project/
-description: 
-post_id: 190
 date: 2009-02-13
-created: 2009/02/13 14:00:18
-created_gmt: 2009/02/13 13:00:18
-post_name: embed-assets-in-flash-project
-post_type: post
 ---
 
 

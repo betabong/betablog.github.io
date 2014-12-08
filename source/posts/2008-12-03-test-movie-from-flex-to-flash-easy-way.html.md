@@ -1,13 +1,7 @@
 ---
 title: Test Movie from Flex to Flash (easy way)
 link: http://blog.betabong.com/2008/12/03/test-movie-from-flex-to-flash-easy-way/
-description: 
-post_id: 154
 date: 2008-12-03
-created: 2008/12/03 12:23:33
-created_gmt: 2008/12/03 11:23:33
-post_name: test-movie-from-flex-to-flash-easy-way
-post_type: post
 ---
 
 
@@ -97,11 +91,9 @@ This tests the frontmost document in Flash IDE. (basically what does [this plugi
 </project>
 ```
 
-This has pretty much the same results as [posted here](/2008/11/29/flex-builder-t-flash-ide/). I have created a Flex Project that contains all necessary files (fla, main class, build file). Just download and import into Flex: [ Download Flex Project](http://blog.betabong.compost_type: post
----
+This has pretty much the same results as [posted here](/2008/11/29/flex-builder-t-flash-ide/). I have created a Flex Project that contains all necessary files (fla, main class, build file). Just download and import into Flex: [ Download Flex Project](http://blog.betabong.com---
 
-/uploads/2008/12/flaproject.zip) **Update: **Mirko Sablijic sent me a Hello World project for Windows (he runs Vista): [Download Flex Project (Windows)](http://blog.betabong.compost_type: post
----
+/uploads/2008/12/flaproject.zip) **Update: **Mirko Sablijic sent me a Hello World project for Windows (he runs Vista): [Download Flex Project (Windows)](http://blog.betabong.com---
 
 /uploads/2008/12/helloworld.zip)
 

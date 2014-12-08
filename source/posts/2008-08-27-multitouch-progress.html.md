@@ -1,13 +1,7 @@
 ---
 title: Multitouch Finger Fun
 link: http://blog.betabong.com/2008/08/27/multitouch-progress/
-description: 
-post_id: 94
 date: 2008-08-27
-created: 2008/08/27 22:22:48
-created_gmt: 2008/08/27 21:22:48
-post_name: multitouch-progress
-post_type: post
 ---
 
 

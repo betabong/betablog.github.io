@@ -1,13 +1,7 @@
 ---
 title: Weak Method Closure
 link: http://blog.betabong.com/2008/09/26/weak-method-closure/
-description: 
-post_id: 115
 date: 2008-09-26
-created: 2008/09/26 00:36:16
-created_gmt: 2008/09/25 23:36:16
-post_name: weak-method-closure
-post_type: post
 ---
 
 

@@ -1,18 +1,11 @@
 ---
 title: "Metatunnel 1k Demo: AS vs. JS"
 link: http://blog.betabong.com/2009/04/13/metatunnel-1k-demo-as-vs-js/
-description: 
-post_id: 245
 date: 2009-04-13
-created: 2009/04/13 11:16:17
-created_gmt: 2009/04/13 10:16:17
-post_name: metatunnel-1k-demo-as-vs-js
-post_type: post
 ---
 
 
-I did a quick port of a «graphic demo» called [«metatunnel» (created by FRequency).](http://www.pouet.net/prod.php?which=52777) [Paulo Falcão ported this to Javascript](http://demoscene.appjet.net/) using canvas. To make the set complete I ported Paulos JS version to Actionscript, just quick'n'dirty. Click on it to start the animation: [swfobj src="post_type: post
----
+I did a quick port of a «graphic demo» called [«metatunnel» (created by FRequency).](http://www.pouet.net/prod.php?which=52777) [Paulo Falcão ported this to Javascript](http://demoscene.appjet.net/) using canvas. To make the set complete I ported Paulos JS version to Actionscript, just quick'n'dirty. Click on it to start the animation: [swfobj src="---
 
 /uploads/flash/MetaTunnel.swf" width="128" height="128"]  Here's the code: 
     
@@ -120,7 +113,6 @@ I did a quick port of a «graphic demo» called [«metatunnel» (created by FReq
     	}
     }
 
-**Update:** A quickly optimized version (nothing advanced really). [swfobj src="post_type: post
----
+**Update:** A quickly optimized version (nothing advanced really). [swfobj src="---
 
 /uploads/flash/MetaTunnel-optim-1.swf" width="128" height="128"] (You can switch quality in this version with key up or down).

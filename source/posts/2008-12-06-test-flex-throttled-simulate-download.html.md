@@ -1,21 +1,14 @@
 ---
 title: Test Flex/Flash throttled (aka Simulate Download)
 link: http://blog.betabong.com/2008/12/06/test-flex-throttled-simulate-download/
-description: 
-post_id: 161
 date: 2008-12-06
-created: 2008/12/06 16:52:55
-created_gmt: 2008/12/06 15:52:55
-post_name: test-flex-throttled-simulate-download
-post_type: post
 ---
 
 
 Most of the Flash application deal with server side data like images, xml files etc. We tend to forget about that because the default Run or Debug commands in Flex will open a local html file (and also because we developers often have quite a nice internet connection when testing remotely). Thus all data is loaded nearly instantely. In Flash we have a menu command called **«Simulate Download»** to see how things run at different bandwidth situations. **But how to achieve this in Flex?** I've been using Sloppy for a long time. It's little java app that can be started via a simple web click. It's really easy to use and does very well what it does. For debugging your app (your flash website) throttled in Flex Builder simply follow these steps:   
 
   1. [Open the **Sloppy website**](http://www.dallaway.com/sloppy/)
-  2. Click the little **Sloppy icon**: ![](/uploads/2008/12/picture-10.png)[ ](http://blog.betabong.compost_type: post
----
+  2. Click the little **Sloppy icon**: ![](/uploads/2008/12/picture-10.png)[ ](http://blog.betabong.com---
 
 /uploads/2008/12/picture-10.png)
   3. A «sloppy.jnlp» file is downloaded. **Open it** if doesn't open automatically.

@@ -1,13 +1,7 @@
 ---
 title: Develop in Flex Builder, publish in Flash IDE (Mac OS X)
 link: http://blog.betabong.com/2008/11/29/flex-builder-t-flash-ide/
-description: 
-post_id: 144
 date: 2008-11-29
-created: 2008/11/29 13:12:43
-created_gmt: 2008/11/29 12:12:43
-post_name: flex-builder-t-flash-ide
-post_type: post
 ---
 
 

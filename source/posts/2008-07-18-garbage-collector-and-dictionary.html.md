@@ -1,13 +1,7 @@
 ---
 title: Garbage Collector and Dictionary
 link: http://blog.betabong.com/2008/07/18/garbage-collector-and-dictionary/
-description: 
-post_id: 27
 date: 2008-07-18
-created: 2008/07/18 00:59:11
-created_gmt: 2008/07/17 23:59:11
-post_name: garbage-collector-and-dictionary
-post_type: post
 ---
 
 

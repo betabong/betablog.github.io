@@ -1,13 +1,7 @@
 ---
 title: E4X String Parser
 link: http://blog.betabong.com/2008/09/23/e4x-string-parser/
-description: 
-post_id: 111
 date: 2008-09-23
-created: 2008/09/23 12:13:00
-created_gmt: 2008/09/23 11:13:00
-post_name: e4x-string-parser
-post_type: post
 ---
 
 

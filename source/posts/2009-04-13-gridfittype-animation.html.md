@@ -1,18 +1,11 @@
 ---
 title: GridFitType (& animation)
 link: http://blog.betabong.com/2009/04/13/gridfittype-animation/
-description: 
-post_id: 242
 date: 2009-04-13
-created: 2009/04/13 00:02:58
-created_gmt: 2009/04/12 23:02:58
-post_name: gridfittype-animation
-post_type: post
 ---
 
 
-GridFitType has a great impact on Text rendering: [swfobj src="post_type: post
----
+GridFitType has a great impact on Text rendering: [swfobj src="---
 
 /uploads/flash/GridFitType/GridFitType.swf"] Well not really much to say here: 
 

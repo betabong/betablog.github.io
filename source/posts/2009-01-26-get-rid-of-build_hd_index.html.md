@@ -1,13 +1,7 @@
 ---
 title: Get rid of build_hd_index
 link: http://blog.betabong.com/2009/01/26/get-rid-of-build_hd_index/
-description: 
-post_id: 184
 date: 2009-01-26
-created: 2009/01/26 01:07:12
-created_gmt: 2009/01/26 00:07:12
-post_name: get-rid-of-build_hd_index
-post_type: post
 ---
 
 

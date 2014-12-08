@@ -1,13 +1,7 @@
 ---
 title: "Bug Hunting: Shadowed 3D and ScrollRect"
 link: http://blog.betabong.com/2009/04/01/bug-hunting-shadowed-3d-and-scrollrect/
-description: 
-post_id: 217
 date: 2009-04-01
-created: 2009/04/01 17:02:05
-created_gmt: 2009/04/01 16:02:05
-post_name: bug-hunting-shadowed-3d-and-scrollrect
-post_type: post
 ---
 
 
@@ -19,8 +13,7 @@ I don't discover as many bugs nowadays as I've used to in the old days when I wa
   * C's scrollrect property is set, so A is shows up (well, it doesn't – that's the bug after all ;)
 Here the example: 
 
-[bug-3d-shadow.swf](post_type: post
----
+[bug-3d-shadow.swf](---
 
 /uploads/2009/04/bug-3d-shadow.swf) And here the code: 
     

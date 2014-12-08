@@ -1,13 +1,7 @@
 ---
 title: iPhone OS 2.0 - great new feature
 link: http://blog.betabong.com/2008/08/25/iphone-os-20-great-new-feature/
-description: 
-post_id: 89
 date: 2008-08-25
-created: 2008/08/25 21:16:39
-created_gmt: 2008/08/25 20:16:39
-post_name: iphone-os-20-great-new-feature
-post_type: post
 ---
 
 

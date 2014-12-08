@@ -1,13 +1,7 @@
 ---
 title: How to watch TV from abroad
 link: http://blog.betabong.com/2009/11/30/how-to-watch-tv-from-abroad/
-description: 
-post_id: 304
 date: 2009-11-30
-created: 2009/11/30 16:12:17
-created_gmt: 2009/11/30 15:12:17
-post_name: how-to-watch-tv-from-abroad
-post_type: post
 ---
 
 
@@ -15,14 +9,12 @@ From time to time I spend a few weeks abroad. From time to time I'd like to watc
 
   1. Open Terminal, enter: **ssh -2 -C -D 2001 **_**username**_**@**_**yourserver.com**_ (_username_ is your account on the remote machine – and _yourserver.com_ could be an ip or whatever address your server has. I use [Dynamic DNS](http://www.dyndns.com/) for mine.)
   2. Enter the password for _username_
-  3. Open «**System Preferences**» and go to «**Network**» (You can close the Terminal). Click the Button «**Advanced...**» ![Screen shot 2009-11-30 at 15.41.17](post_type: post
----
+  3. Open «**System Preferences**» and go to «**Network**» (You can close the Terminal). Click the Button «**Advanced...**» ![Screen shot 2009-11-30 at 15.41.17](---
 
 /uploads/2009/11/Screen-shot-2009-11-30-at-15.41.17-300x234.png)
   4. Go to «**Proxies**» and activate SOCKS Proxy and enter Socks Proxy Server: **127.0.0.1** : **2001** (see picture)
   5. Go to [What Is My IP Address?](http://whatismyipaddress.com/) or this [IP Tracer](http://www.ip-adress.com/ip_tracer/) to check if everything works. If the map shows you're at home, you're good to go!
-Now for TV I recommand [Wilmaa](http://www.wilmaa.com/): worked perfectly for me. Surprisingly good quality, and it's for free! Great for football matches or Heidi in swiss german ;-) ![Screen shot 2009-11-30 at Mo. 30.11  16.24.56](post_type: post
----
+Now for TV I recommand [Wilmaa](http://www.wilmaa.com/): worked perfectly for me. Surprisingly good quality, and it's for free! Great for football matches or Heidi in swiss german ;-) ![Screen shot 2009-11-30 at Mo. 30.11  16.24.56](---
 
 /uploads/2009/11/Screen-shot-2009-11-30-at-Mo.-30.11-16.24.56-520x325.png)
 

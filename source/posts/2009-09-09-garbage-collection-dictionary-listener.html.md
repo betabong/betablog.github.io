@@ -1,18 +1,11 @@
 ---
 title: Garbage Collection, Dictionaries and Listeners
 link: http://blog.betabong.com/2009/09/09/garbage-collection-dictionary-listener/
-description: 
-post_id: 286
 date: 2009-09-09
-created: 2009/09/09 18:06:03
-created_gmt: 2009/09/09 17:06:03
-post_name: garbage-collection-dictionary-listener
-post_type: post
 ---
 
 
-![031609_garbage_can](post_type: post
----
+![031609_garbage_can](---
 
 /uploads/2009/09/031609_garbage_can-211x300.jpg)As we all know Flash's garbage collector is a hell of a beast. It tries to free memory from "unused" objects (aka objects not somehow cross-referenced by the root). **So from time to time our garbage collector checks for those objects and kicks them out of memory.. at least some of them.** There are lots of articles written about the garbage collector and I'm not going into it any deeper. Let's just summarize that no developer likes that kind of behaviour -- it's totally **unpredictable**. System.gc() would help a little, but it's only available to debug players. You may say: what do you care about memory handling! And I'd answer: not that much actually! :-) But what I really care about is false behaviour that can result. Within Flash we have two ways to keep weak references to objects: Dictionary and weak listeners (weak method closures). We use weak references so that objects will be collected by the garbage collector. Now when it comes to Dictionaries, they behave as I'd expect. A "dead" object won't be listed in a for each loop. But events events events.... **they'll be dispatched to each and every "dead" object residing in memory!! Which is such a pain in the ass really!** After a lot of testing I can give only the advice you've probably heard many times before: **Always remove listeners! Even the weak ones!** Otherwise you have to potentially deal with unexpected behaviour. I may gonna create some utility class for that that deals with this problem.  Here my testing code: 
     
