@@ -193,7 +193,6 @@ h4, h5, h6 {
 h1 {
     font-size: 5rem;
     line-height: 1.2em;
-    letter-spacing: -1px;
     text-indent: -3px;
 }
 
@@ -472,7 +471,6 @@ margin on the iframe, cause it breaks stuff. */
 .blog-title {
     margin: 10px 0 10px 0;
     font-size: 5rem;
-    letter-spacing: -1px;
     font-weight: bold;
     font-family: inherit; /*title*/
 }
@@ -482,7 +480,6 @@ margin on the iframe, cause it breaks stuff. */
     font-size: 1.8rem;
     line-height: 1.5em;
     font-weight: 300;
-    letter-spacing: 0;
 }
 
 /* Every post, on every page, gets this style on its <article> tag */
@@ -525,7 +522,7 @@ margin on the iframe, cause it breaks stuff. */
 
 .post-excerpt p {
     margin: 1.6rem 0 0 0;
-    font-size: 0.9em;
+    font-size: 1em;
     line-height: 1.6em;
 }
 
@@ -920,7 +917,6 @@ margin on the iframe, cause it breaks stuff. */
 
     .blog-title {
         font-size: 4rem;
-        letter-spacing: -1px;
     }
 
     .blog-description {
