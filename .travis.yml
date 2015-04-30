@@ -1,9 +1,11 @@
 language: ruby
 rvm:
-  - 2.2.0
+  - 2.1.5
 
 env:
-  # GIT_NAME GIT_EMAIL GH_TOKEN
+  # Github: Profile > Settings > Personal access tokens > Generate new token
+  # gem install travis
+  # travis encrypt -r <username>/demosite 'GIT_NAME="Your Name" GIT_EMAIL=you@example.com GH_TOKEN=<token>'
   secure: "ID29MmNChgRcCOXUjUtfmewOc8NVbUF06d1/BWKg1bPdNRn0FaollarmBov77RaahQ3GkFCSny8T6jeKAABf+nZGkDyX9fGugC5Bf2PqFppx8xvd0B6tkjmn/dVjEsL0RNLD2ElKTZAo28Ik+zflfiPSDRZhxS716XX+4gZI9YE="
 
 
