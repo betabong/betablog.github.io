@@ -8,9 +8,9 @@ env:
 
 
 install:
-  - bundle install
   - git config --global user.email $GIT_NAME
   - git config --global user.name $GIT_EMAIL
+  - bundle install
 
 script:  bundle exec middleman build
 
