@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Betablog: Flash Debug Speed</title>
+<meta content='I did some speed tests today, comparing two string parsing methods. And I’ve made some very interesting discoveries: The execution speed between SWF compiled' name='description'>
+<meta charset='utf-8'>
+<meta content='width=device-width, initial-scale=1.0' name='viewport'>
+<meta content='IE=edge' http-equiv='X-UA-Compatible'>
+<meta content='True' name='HandheldFriendly'>
+<meta content='320' name='MobileOptimized'>
+<link rel="alternate" type="application/atom+xml" title="Atom Feed" href="/feed.xml" />
+<link href="/images/favicon.ico" rel="icon" type="image/ico" />
+<link href="/stylesheets/application.css" rel="stylesheet" type="text/css" />
+</head>
+<body class='post-template tag-getting-started'>
+<main class='content' role='main'>
+<article class='post tag-getting-started'>
+<header class='post-header'>
+<a class='blog-logo' href='/'>
+<span class='blog-title'>Betablog</span>
+</a>
+</header>
+<span class='post-meta'>
+<time datetime='2009-04-05'>
+05 Apr 2009
+</time>
+</span>
+<h1 class='post-title'>Flash Debug Speed</h1>
+<section class='post-content'><p>I did some speed tests today, comparing two string parsing methods. And I&rsquo;ve made some very interesting discoveries: The execution speed between SWF compiled for debugging and those compiled without differs. Ha! Okay, that&rsquo;s not that much of news (even for me). But what astonishes me is how much this speed gap can be, especially when it comes to massive data calculations. I somehow always had a somewhat 20 percent speed decrease in mind (I was just presuming, me dumb). But for a 3d particle test we&rsquo;re talking factor 8!! Now this made me curious&hellip; so I&rsquo;ve tested with Debug and Release Player both debug and release SWFs: <strong>Debug Player running Debug SWF</strong> <strong><img alt="Flash Debug in Debug" src="/uploads/2009/04/picture-11.png" /></strong> <strong>Debug Player running Release SWF</strong> <strong><img alt="Release in Debug" src="http://blog.betabong.com/uploads/2009/04/picture-9.png" /></strong> <strong>Release Player running Debug SWF</strong> <strong><img alt="Debug in Release" src="http://blog.betabong.com/uploads/2009/04/picture-12.png" /></strong> <strong>Release Player running Release SWF</strong> <strong><img alt="Release in Release" src="http://blog.betabong.com/uploads/2009/04/picture-13.png" /></strong> <strong>A few conclusions:</strong></p>
+
+<ul>
+<li><strong>Never release a SWF file with debug code</strong> (or otherwise said: put only stuff online from bin-release, never bin-debug). Though common users won&rsquo;t notice the speed decrease, your friendly flash developers may, at least if you&rsquo;re app is somewhat cpu intensive. And of course: debug SWF are much bigger in size (just in case you give a fuck about flash devs ;-)</li>
+<li><p><strong>Speed tests should be played in the release player.</strong> Why? After all, I wouldn&rsquo;t care if the relation would stay the same. Usually you just need to know how much faster one thing is compared to the other one, so that would do it. But unfortunately the ratio won&rsquo;t always be the same. In the above example the ration is 3.66 for debug and 2.92 for release. And it can differ muuuuch more.
+The last one bugs me quite a bit. It&rsquo;s just a pain in the ass to export a release build each time you wanna compare performance. And it also means you can&rsquo;t do quick&#39;n&#39;dirty trace outputs for the time result (not a biggy if you&rsquo;re testing within a Flex project though). So here we go with <strong>two wishes for Adobe</strong>: </p></li>
+<li><p>Let us quickly test release builds within Flex Builder (a simple command would do it – I thought it might be «Run Testapp» (instead of «Debug Testapp»), but that just doesn&rsquo;t bring up the Debugger (and same speed)</p></li>
+<li><p>An option to turn off debugging mode in Debug Player!!! That would solve almost all problems, and we could also use our Plugin for normal browsing without performance penalties (is this why Youtube eats so much cpu here?</p></li>
+</ul>
+
+<h2>Comments</h2>
+
+<p><strong><a title="2012-01-22 18:41:27" href="#614">Sebb</a>:</strong> Thanks for saving me some time, i was curious about this as my computer seemed to go nuts whenever i ran a project in my debugger but keep it&rsquo;s cool when i played in a non debug player, the difference really is quite staggering.</p>
+</section>
+<footer class='post-footer'>
+<section class='author'>
+<h4>Severin Klaus</h4>
+<p>@betabong.</p>
+</section>
+<section class='share'>
+<h4>Share this post</h4>
+<a class='icon-twitter' href='https://twitter.com/share?text=Flash Debug Speed&amp;amp;url=http://blog.betabong.com/2009/04/05/flash-debug-speed/' onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+<span class='hidden'>Twitter</span>
+</a>
+<a class='icon-facebook' href='https://www.facebook.com/sharer/sharer.php?u=http://blog.betabong.com/2009/04/05/flash-debug-speed/' onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+<span class='hidden'>Facebook</span>
+</a>
+<a class='icon-google-plus' href='https://plus.google.com/share?url=http://blog.betabong.com/2009/04/05/flash-debug-speed/' onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+<span class='hidden'>Google+</span>
+</a>
+</section>
+</footer>
+</article>
+</main>
+
+<footer class='site-footer'>
+<a class='subscribe icon-feed' href='/feed.xml'>
+<span class='tooltip'>Subscribe!</span>
+</a>
+<div class='inner'>
+<section class='copyright'>
+All content copyright
+<a href="/">Betablog</a>
+&copy;
+2015
+&bull; All rights reserved.
+</section>
+<section class='poweredby'>
+Proudly published with
+<a href='http://middlemanapp.com'>Middleman</a>
+</section>
+<section class='poweredby'>
+Casper theme powered by
+<a class='icon-ghost' href='https://ghost.org'>Ghost</a>
+</section>
+</div>
+</footer>
+<link href='//fonts.googleapis.com/css?family=Old+Standard+TT:400,400italic,700' rel='stylesheet' type='text/css'>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  
+  ga('create', 'UA-359384-6', 'auto');
+  ga('send', 'pageview');
+</script>
+</body>
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Betablog: swffit - pro & contra</title>
+<meta content='swffit is a great little library that smartly resizes your flash movie depending on its content. It gives you native scrollbars for free whenever your' name='description'>
+<meta charset='utf-8'>
+<meta content='width=device-width, initial-scale=1.0' name='viewport'>
+<meta content='IE=edge' http-equiv='X-UA-Compatible'>
+<meta content='True' name='HandheldFriendly'>
+<meta content='320' name='MobileOptimized'>
+<link rel="alternate" type="application/atom+xml" title="Atom Feed" href="/feed.xml" />
+<link href="/images/favicon.ico" rel="icon" type="image/ico" />
+<link href="/stylesheets/application.css" rel="stylesheet" type="text/css" />
+</head>
+<body class='post-template tag-getting-started'>
+<main class='content' role='main'>
+<article class='post tag-getting-started'>
+<header class='post-header'>
+<a class='blog-logo' href='/'>
+<span class='blog-title'>Betablog</span>
+</a>
+</header>
+<span class='post-meta'>
+<time datetime='2009-04-07'>
+07 Apr 2009
+</time>
+</span>
+<h1 class='post-title'>swffit - pro & contra</h1>
+<section class='post-content'><p><img src="http://swffit.millermedeiros.com/img/swffit_logo.gif" /><a href="http://swffit.millermedeiros.com/">swffit</a> is a great little library that smartly resizes your flash movie depending on its content. It gives you <strong>native scrollbars for free</strong> whenever your content is longer than the browser window. Another strategy is to always have the flash movie fill 100% the browser window and let Flash do the scrolling. There are a lot of <strong>PRO</strong> for the <a href="http://swffit.millermedeiros.com/">swffit</a> way: </p>
+
+<ul>
+<li>It gives users the <strong>system scrollbar</strong>. Users are used to that, they know what it means, they know how to deal with it.</li>
+<li>*<em>Mouse wheels just work! *</em>It&rsquo;s scrolling a standard browser window, no magic at all: great! (You have to use <a href="http://blog.pixelbreaker.com/flash/as30-mousewheel-on-mac-os-x/">this</a> otherwise)</li>
+<li><p>It&rsquo;s <strong>easy</strong> to implement.
+Still there is a <strong>CONTRA</strong> side: </p></li>
+<li><p>You&rsquo;ll <strong>need javascript</strong> (well, that&rsquo;s no biggy at all – as a matter of fact, you&rsquo;re just pretty in the desert without javascript in todays websites)</p></li>
+<li><p>You have no control over <strong>scrollbar design</strong> (neither a biggy – as another matter of fact I consider that a good thing anyway, but don&rsquo;t tell the brand agency ;-)</p></li>
+<li><p>It has <strong>performance disadvantages</strong>. Well that I consider a biggy! Because the movie will always be in its full height, it will do rerender for the entire area!! Imagine long page with animations here and there: Given Flash&rsquo;s «not so fast» rendering engine, this can become a huge performance killer. Let me give you a quick&#39;n&#39;dirty example: <a href="/uploads/flash/SWF_Size_Performance/performance-killer-percent.html">Full Height</a> compared to <a href="/uploads/flash/SWF_Size_Performance/performance-killer-wsize.html">«Cropped» to Window Height</a> (just resize browser window to real small size to see the big difference).
+<strong>Conclusion:</strong> I&rsquo;m just glad I found one good reason to not declare my internal scrollbar like in <a href="http://www.betabong.com">www.betabong.com</a> as complete bullshit ;-)</p></li>
+</ul>
+
+<h2>Comments</h2>
+
+<p><strong><a title="2009-04-08 22:03:16" href="#29">simurai</a>:</strong> Nice post betaboy. I never really thought about your last contra point. Haaa.. ps. I think the &ldquo;100% Height&rdquo; link points also to the &ldquo;Full Height&rdquo; page..? But I kinda can picture how it would look. ;-)</p>
+
+<p><strong><a title="2009-04-08 23:43:49" href="#30">betabong</a>:</strong> hey simi, thx for pointing that out - corrected. I was thinking of another «contra» today while layouting for a little website which needed some &ldquo;fixed position&rdquo; stuff. But as I said, apart from that, I really like it.</p>
+
+<p><strong><a title="2009-07-11 23:05:00" href="#49">drus</a>:</strong> I think if the developer <em>knows</em> the max possible heigth of the content always is better to use the native browser scroll. Its silly to change the way the user scroll a page, its just another page, and the worst is that the flash scrollbar loose the focus and doesnt response when you leave the stage, and that is very easy while you are scrolling. Interesting blog!! PD:yeah, poor english :(</p>
+
+<p><strong><a title="2009-08-18 11:17:20" href="#53">Mesknot</a>:</strong> i&rsquo;ve found one &ldquo;contra&rdquo; and it pissed me off, i did a fullbrowser flash website with a custom vertical scroller and i used swffit to put the horizontal scroller at a fixed width&hellip; and voila! my custom vertical scroller stops at the fixed width too and it doesnt shows if the browser window is lower than the fixed width for the horizontal scroller&hellip;. DAMN! so i will not use swffit&hellip; ill try to learn how to do that in flash, how to show a bottom scrollbar at a determinated width&hellip;</p>
+</section>
+<footer class='post-footer'>
+<section class='author'>
+<h4>Severin Klaus</h4>
+<p>@betabong.</p>
+</section>
+<section class='share'>
+<h4>Share this post</h4>
+<a class='icon-twitter' href='https://twitter.com/share?text=swffit - pro &amp; contra&amp;amp;url=http://blog.betabong.com/2009/04/07/swffit-pro-con/' onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+<span class='hidden'>Twitter</span>
+</a>
+<a class='icon-facebook' href='https://www.facebook.com/sharer/sharer.php?u=http://blog.betabong.com/2009/04/07/swffit-pro-con/' onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+<span class='hidden'>Facebook</span>
+</a>
+<a class='icon-google-plus' href='https://plus.google.com/share?url=http://blog.betabong.com/2009/04/07/swffit-pro-con/' onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+<span class='hidden'>Google+</span>
+</a>
+</section>
+</footer>
+</article>
+</main>
+
+<footer class='site-footer'>
+<a class='subscribe icon-feed' href='/feed.xml'>
+<span class='tooltip'>Subscribe!</span>
+</a>
+<div class='inner'>
+<section class='copyright'>
+All content copyright
+<a href="/">Betablog</a>
+&copy;
+2015
+&bull; All rights reserved.
+</section>
+<section class='poweredby'>
+Proudly published with
+<a href='http://middlemanapp.com'>Middleman</a>
+</section>
+<section class='poweredby'>
+Casper theme powered by
+<a class='icon-ghost' href='https://ghost.org'>Ghost</a>
+</section>
+</div>
+</footer>
+<link href='//fonts.googleapis.com/css?family=Old+Standard+TT:400,400italic,700' rel='stylesheet' type='text/css'>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  
+  ga('create', 'UA-359384-6', 'auto');
+  ga('send', 'pageview');
+</script>
+</body>
+</html>

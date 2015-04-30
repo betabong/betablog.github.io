@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Betablog: Garbage Collector and Dictionary</title>
+<meta content='Weak references are cool. No. they are substantial. I don’t know how we lived without them before. Anyway, they made our (we = flash developers) life better' name='description'>
+<meta charset='utf-8'>
+<meta content='width=device-width, initial-scale=1.0' name='viewport'>
+<meta content='IE=edge' http-equiv='X-UA-Compatible'>
+<meta content='True' name='HandheldFriendly'>
+<meta content='320' name='MobileOptimized'>
+<link rel="alternate" type="application/atom+xml" title="Atom Feed" href="/feed.xml" />
+<link href="/images/favicon.ico" rel="icon" type="image/ico" />
+<link href="/stylesheets/application.css" rel="stylesheet" type="text/css" />
+</head>
+<body class='post-template tag-getting-started'>
+<main class='content' role='main'>
+<article class='post tag-getting-started'>
+<header class='post-header'>
+<a class='blog-logo' href='/'>
+<span class='blog-title'>Betablog</span>
+</a>
+</header>
+<span class='post-meta'>
+<time datetime='2008-07-18'>
+18 Jul 2008
+</time>
+</span>
+<h1 class='post-title'>Garbage Collector and Dictionary</h1>
+<section class='post-content'><p><a href="http://dispatchevent.org/mims/creating-weak-references-in-as3/">Weak references</a> are cool. No. they are substantial. I don&rsquo;t know how we lived without them before. Anyway, they made our (we = flash developers) life better. I use them very often, when adding event listeners or caching with dictionaries (and I&rsquo;m sure I&rsquo;d use them even more often if there was any more possibilty provided). Still you can struggle over unexpected behaviour. First of all there is no guarantee that objects are <a href="http://www.adobe.com/devnet/flashplayer/articles/garbage_collection.html">garbaged</a> (well it&rsquo;s probably not a memory thing.. more about unreferencing, what the heck do I know?!) as soon as there aren&rsquo;t any references left. But, in my experience, weak references work quite good.. I didn&rsquo;t have to worry about them living for some more seconds or so. But. But! They&rsquo;ll live on at least until next rendering step, meaning until actionscript execution is done. I struggled over this with a validation manager, that keeps tracks of unvalidated objects in a weak dictionary. So when object unvalidates, it tells so to the validator who will validate before rendering update. Now let&rsquo;s assume the object shall be destroyed in the mean time – it will unlisten to dispatchers, it will unlink sprites and so on.. but may be it&rsquo;s already registered in the validator. So it&rsquo;ll stay alive to fullfill next validation processing. (Which led into uncaught errors due to null references in the destroyed object in my example.) I could of course unregister at the validator at destroy. But.. hmm.. I want my engine to be as fast and robust as possible and unregistering can be difficult and time consuming (especially when 1000 objects will be destroyed). So what I&rsquo;ve done is, I set a flag &lsquo;destroyed&rsquo; when destruction is complete, and on each validation I&rsquo;ll check for that flag: </p>
+<pre class="highlight plaintext"><code>public function validateDisplay() : void {
+  if ( _render_dirty &amp;&amp; !destroyed ) {
+    render();
+  }
+}
+</code></pre>
+
+<p>Checking against a boolean flag is fast as hell, so that&rsquo;s cool. And also, it won&rsquo;t happen often (it was really a rare exceptional case actually). So besides weak references in AS3 we still have to be careful as hell about memory leaks. By the way, the profiler in Flex Pro is just fucking great :-) On a side note: Any one any info on MethodClosure objects lying around in memory?? I know what they are used for, but it seems they live and live and live&hellip;.</p>
+</section>
+<footer class='post-footer'>
+<section class='author'>
+<h4>Severin Klaus</h4>
+<p>@betabong.</p>
+</section>
+<section class='share'>
+<h4>Share this post</h4>
+<a class='icon-twitter' href='https://twitter.com/share?text=Garbage Collector and Dictionary&amp;amp;url=http://blog.betabong.com/2008/07/18/garbage-collector-and-dictionary/' onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+<span class='hidden'>Twitter</span>
+</a>
+<a class='icon-facebook' href='https://www.facebook.com/sharer/sharer.php?u=http://blog.betabong.com/2008/07/18/garbage-collector-and-dictionary/' onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+<span class='hidden'>Facebook</span>
+</a>
+<a class='icon-google-plus' href='https://plus.google.com/share?url=http://blog.betabong.com/2008/07/18/garbage-collector-and-dictionary/' onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+<span class='hidden'>Google+</span>
+</a>
+</section>
+</footer>
+</article>
+</main>
+
+<footer class='site-footer'>
+<a class='subscribe icon-feed' href='/feed.xml'>
+<span class='tooltip'>Subscribe!</span>
+</a>
+<div class='inner'>
+<section class='copyright'>
+All content copyright
+<a href="/">Betablog</a>
+&copy;
+2015
+&bull; All rights reserved.
+</section>
+<section class='poweredby'>
+Proudly published with
+<a href='http://middlemanapp.com'>Middleman</a>
+</section>
+<section class='poweredby'>
+Casper theme powered by
+<a class='icon-ghost' href='https://ghost.org'>Ghost</a>
+</section>
+</div>
+</footer>
+<link href='//fonts.googleapis.com/css?family=Old+Standard+TT:400,400italic,700' rel='stylesheet' type='text/css'>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  
+  ga('create', 'UA-359384-6', 'auto');
+  ga('send', 'pageview');
+</script>
+</body>
+</html>

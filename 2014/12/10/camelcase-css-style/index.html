@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Betablog: Camel Style Structured CSS (CSSCSS)</title>
+<meta content='In my Company we’ve been using some custom SMACSS / OOCSS / BEM inspired css methodology for quite a while. Those conventions look something like this' name='description'>
+<meta charset='utf-8'>
+<meta content='width=device-width, initial-scale=1.0' name='viewport'>
+<meta content='IE=edge' http-equiv='X-UA-Compatible'>
+<meta content='True' name='HandheldFriendly'>
+<meta content='320' name='MobileOptimized'>
+<link rel="alternate" type="application/atom+xml" title="Atom Feed" href="/feed.xml" />
+<link href="/images/favicon.ico" rel="icon" type="image/ico" />
+<link href="/stylesheets/application.css" rel="stylesheet" type="text/css" />
+</head>
+<body class='post-template tag-getting-started'>
+<main class='content' role='main'>
+<article class='post tag-getting-started'>
+<header class='post-header'>
+<a class='blog-logo' href='/'>
+<span class='blog-title'>Betablog</span>
+</a>
+</header>
+<span class='post-meta'>
+<time datetime='2014-12-10'>
+10 Dec 2014
+</time>
+</span>
+<h1 class='post-title'>Camel Style Structured CSS (CSSCSS)</h1>
+<section class='post-content'><p>In my <a href="http://www.hinderlingvolkart.com">Company</a> we&rsquo;ve been using some custom SMACSS / OOCSS / BEM inspired css methodology for quite a while.</p>
+
+<p>Those conventions look something like this:</p>
+<pre class="highlight css"><code><span class="nc">.my-module</span> <span class="p">{</span>
+  <span class="err">…</span>
+<span class="p">}</span>
+<span class="nc">.my-module--variant</span> <span class="p">{</span>
+  <span class="err">…</span>
+<span class="p">}</span>
+<span class="nc">.my-module__named-child</span> <span class="p">{</span>
+  <span class="err">…</span>
+<span class="p">}</span>
+
+<span class="c">/* or */</span>
+
+<span class="nc">.my_module</span> <span class="p">{</span>
+  <span class="err">…</span>
+<span class="p">}</span>
+<span class="nc">.my_module-variant</span> <span class="p">{</span>
+  <span class="err">…</span>
+<span class="p">}</span>
+<span class="nc">.my_module--named_child</span> <span class="p">{</span>
+  <span class="err">…</span>
+<span class="p">}</span>
+</code></pre>
+
+<p>The latter one is pretty close to what we currently used. While we all appreciate the safety and quality we gain out of going down that way (read more about it here or here), I personally never liked very much the reading experience. I mean, we read this code day in day out, so it should be easy to read and write.</p>
+
+<p>Too many underscores and dashes just kind of look geeky and techie and not elegant. So why not use something our near-native language came up with in the first place (or so it seems)? In german language we use uppercase a lot, basically for every Substantive and there&rsquo;s a Lot out the in the Wild. While that might break things for english users who are used to have an uppercase letter separate sentences from each other (in most cases, God and Texas and John are well known exceptions), we are floated by uppercase and it can help structuring.</p>
+
+<p>To come to the point: why not use uppercase letters to structure selectors? After all, CSS selectors are case sensitive when it comes to IDs and classes. How would that look like? </p>
+<pre class="highlight css"><code><span class="nc">.MyModule</span> <span class="p">{</span>
+  <span class="err">…</span>
+<span class="p">}</span>
+<span class="nc">.MyModule_variant</span> <span class="p">{</span>
+  <span class="err">…</span>
+<span class="p">}</span>
+<span class="nc">.MyModule--namedChild</span> <span class="p">{</span>
+  <span class="err">…</span>
+<span class="p">}</span>
+<span class="nc">.MyModule.isActive</span> <span class="p">{</span>
+  <span class="err">…</span>
+<span class="p">}</span>
+<span class="nc">.js-MyModule</span> <span class="p">{</span>
+  <span class="c">/* for associating with JS modules - not for styling */</span>
+<span class="p">}</span>
+</code></pre>
+
+<p>I&rsquo;m still using two dashes to mark a child, mainly because the sepearation should be that distinct. Is it more readable? I think it is, but not by much. But it is more logical to me: modules start with an uppercase letter, everything else not. The distinction between module name, states and descendants becomes clearer.</p>
+</section>
+<footer class='post-footer'>
+<section class='author'>
+<h4>Severin Klaus</h4>
+<p>@betabong.</p>
+</section>
+<section class='share'>
+<h4>Share this post</h4>
+<a class='icon-twitter' href='https://twitter.com/share?text=Camel Style Structured CSS (CSSCSS)&amp;amp;url=http://blog.betabong.com/2014/12/10/camelcase-css-style/' onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+<span class='hidden'>Twitter</span>
+</a>
+<a class='icon-facebook' href='https://www.facebook.com/sharer/sharer.php?u=http://blog.betabong.com/2014/12/10/camelcase-css-style/' onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+<span class='hidden'>Facebook</span>
+</a>
+<a class='icon-google-plus' href='https://plus.google.com/share?url=http://blog.betabong.com/2014/12/10/camelcase-css-style/' onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+<span class='hidden'>Google+</span>
+</a>
+</section>
+</footer>
+</article>
+</main>
+
+<footer class='site-footer'>
+<a class='subscribe icon-feed' href='/feed.xml'>
+<span class='tooltip'>Subscribe!</span>
+</a>
+<div class='inner'>
+<section class='copyright'>
+All content copyright
+<a href="/">Betablog</a>
+&copy;
+2015
+&bull; All rights reserved.
+</section>
+<section class='poweredby'>
+Proudly published with
+<a href='http://middlemanapp.com'>Middleman</a>
+</section>
+<section class='poweredby'>
+Casper theme powered by
+<a class='icon-ghost' href='https://ghost.org'>Ghost</a>
+</section>
+</div>
+</footer>
+<link href='//fonts.googleapis.com/css?family=Old+Standard+TT:400,400italic,700' rel='stylesheet' type='text/css'>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  
+  ga('create', 'UA-359384-6', 'auto');
+  ga('send', 'pageview');
+</script>
+</body>
+</html>

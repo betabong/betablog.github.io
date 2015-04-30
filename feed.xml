@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Betablog</title>
+  <subtitle>The deprecated blog of Severin Klaus.</subtitle>
+  <id>http://blog.betabong.com</id>
+  <link href="http://blog.betabong.com"/>
+  <link href="http://blog.betabong.com/feed.xml" rel="self"/>
+  <updated>2014-12-17T01:00:00+01:00</updated>
+  <author>
+    <name>Severin Klaus</name>
+  </author>
+  <entry>
+    <title>Best Google Fonts – a selection</title>
+    <link rel="alternate" href="http://blog.betabong.com/2014/12/17/google-fonts/"/>
+    <id>http://blog.betabong.com/2014/12/17/google-fonts/</id>
+    <published>2014-12-17T01:00:00+01:00</published>
+    <updated>2014-12-17T09:15:38+01:00</updated>
+    <author>
+      <name>Severin Klaus</name>
+    </author>
+    <summary type="html">
+
+
+
+  Lato
+
+  A nice, well readable and warm font.
+
+  
+
+  Lorem ipsum Magna occaecat id commodo culpa nulla ut dolor labore deserunt irure cillum consequat...</summary>
+  </entry>
+  <entry>
+    <title>Camel Style Structured CSS (CSSCSS)</title>
+    <link rel="alternate" href="http://blog.betabong.com/2014/12/10/camelcase-css-style/"/>
+    <id>http://blog.betabong.com/2014/12/10/camelcase-css-style/</id>
+    <published>2014-12-10T01:00:00+01:00</published>
+    <updated>2014-12-10T16:38:27+01:00</updated>
+    <author>
+      <name>Severin Klaus</name>
+    </author>
+    <summary type="html">In my Company we’ve been using some custom SMACSS / OOCSS / BEM inspired css methodology for quite a while.
+
+Those conventions look something like this...</summary>
+  </entry>
+  <entry>
+    <title>Reset all CSS</title>
+    <link rel="alternate" href="http://blog.betabong.com/2014/12/10/reset-all-css/"/>
+    <id>http://blog.betabong.com/2014/12/10/reset-all-css/</id>
+    <published>2014-12-10T01:00:00+01:00</published>
+    <updated>2014-12-17T08:59:37+01:00</updated>
+    <author>
+      <name>Severin Klaus</name>
+    </author>
+    <summary type="html">I know there’s been a lot of debate on this one, but I still like the simplicity of a universal reset:
+html {
+  font-size: 100%;
+  line-height: 1;
+</summary>
+  </entry>
+  <entry>
+    <title>Fluid Ratio Height</title>
+    <link rel="alternate" href="http://blog.betabong.com/2012/02/02/fluid-ratio-height/"/>
+    <id>http://blog.betabong.com/2012/02/02/fluid-ratio-height/</id>
+    <published>2012-02-02T01:00:00+01:00</published>
+    <updated>2014-12-08T16:32:28+01:00</updated>
+    <author>
+      <name>Severin Klaus</name>
+    </author>
+    <summary type="html">Rouven, a co-worker of mine, found a very neat CSS trick on how to create proportional container. Let’s say you want to embed a video in your fluid...</summary>
+  </entry>
+  <entry>
+    <title>Using CSSEdit with LESS</title>
+    <link rel="alternate" href="http://blog.betabong.com/2011/05/15/using-cssedit-with-less/"/>
+    <id>http://blog.betabong.com/2011/05/15/using-cssedit-with-less/</id>
+    <published>2011-05-15T02:00:00+02:00</published>
+    <updated>2014-12-08T16:32:28+01:00</updated>
+    <author>
+      <name>Severin Klaus</name>
+    </author>
+    <summary type="html"> CSSEdit is a great app I can’t live (or at least work) without. I’ve recently discovered the LESS language, which basically extends CSS with some very...</summary>
+  </entry>
+  <entry>
+    <title>jQuery Plugin: Round Text</title>
+    <link rel="alternate" href="http://blog.betabong.com/2010/05/13/jquery-plugin-round-text/"/>
+    <id>http://blog.betabong.com/2010/05/13/jquery-plugin-round-text/</id>
+    <published>2010-05-13T02:00:00+02:00</published>
+    <updated>2014-12-08T16:32:28+01:00</updated>
+    <author>
+      <name>Severin Klaus</name>
+    </author>
+    <summary type="html">My very first jQuery plugin: warps the text along a circle. It’s simple and certainly far from perfect – I needed it, so may be you’ll need it too ...</summary>
+  </entry>
+</feed>

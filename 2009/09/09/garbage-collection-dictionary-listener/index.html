@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Betablog: Garbage Collection, Dictionaries and Listeners</title>
+<meta content='As we all know Flash’s garbage collector is a hell of a beast. It tries to free memory from “unused” objects (aka objects not somehow cross-referenced' name='description'>
+<meta charset='utf-8'>
+<meta content='width=device-width, initial-scale=1.0' name='viewport'>
+<meta content='IE=edge' http-equiv='X-UA-Compatible'>
+<meta content='True' name='HandheldFriendly'>
+<meta content='320' name='MobileOptimized'>
+<link rel="alternate" type="application/atom+xml" title="Atom Feed" href="/feed.xml" />
+<link href="/images/favicon.ico" rel="icon" type="image/ico" />
+<link href="/stylesheets/application.css" rel="stylesheet" type="text/css" />
+</head>
+<body class='post-template tag-getting-started'>
+<main class='content' role='main'>
+<article class='post tag-getting-started'>
+<header class='post-header'>
+<a class='blog-logo' href='/'>
+<span class='blog-title'>Betablog</span>
+</a>
+</header>
+<span class='post-meta'>
+<time datetime='2009-09-09'>
+09 Sep 2009
+</time>
+</span>
+<h1 class='post-title'>Garbage Collection, Dictionaries and Listeners</h1>
+<section class='post-content'><p><img alt="031609_garbage_can" src="/uploads/2009/09/031609_garbage_can-211x300.jpg" />As we all know Flash&rsquo;s garbage collector is a hell of a beast. It tries to free memory from &ldquo;unused&rdquo; objects (aka objects not somehow cross-referenced by the root). <strong>So from time to time our garbage collector checks for those objects and kicks them out of memory.. at least some of them.</strong> There are lots of articles written about the garbage collector and I&rsquo;m not going into it any deeper. Let&rsquo;s just summarize that no developer likes that kind of behaviour &ndash; it&rsquo;s totally <strong>unpredictable</strong>. System.gc() would help a little, but it&rsquo;s only available to debug players. You may say: what do you care about memory handling! And I&rsquo;d answer: not that much actually! :-) But what I really care about is false behaviour that can result. Within Flash we have two ways to keep weak references to objects: Dictionary and weak listeners (weak method closures). We use weak references so that objects will be collected by the garbage collector. Now when it comes to Dictionaries, they behave as I&rsquo;d expect. A &ldquo;dead&rdquo; object won&rsquo;t be listed in a for each loop. But events events events&hellip;. <strong>they&rsquo;ll be dispatched to each and every &ldquo;dead&rdquo; object residing in memory!! Which is such a pain in the ass really!</strong> After a lot of testing I can give only the advice you&rsquo;ve probably heard many times before: <strong>Always remove listeners! Even the weak ones!</strong> Otherwise you have to potentially deal with unexpected behaviour. I may gonna create some utility class for that that deals with this problem.  Here my testing code: </p>
+<pre class="highlight plaintext"><code>package
+{
+    import flash.display.Sprite;
+    import flash.events.Event;
+    import flash.events.MouseEvent;
+    import flash.events.TimerEvent;
+    import flash.system.System;
+    import flash.text.TextField;
+    import flash.text.TextFieldAutoSize;
+    import flash.text.TextFormat;
+    import flash.utils.Dictionary;
+    import flash.utils.Timer;
+
+    import net.hires.debug.Stats;
+
+    public class MemoryLeakTest extends Sprite
+    {
+        public static var counter : uint;
+        public static var dict:Dictionary = new Dictionary( true );
+
+        private var t:TextField;
+        private var makeGC:Boolean;
+        private var switcher:uint;
+
+        public function MemoryLeakTest()
+        {
+            super();
+
+            t = new TextField();
+            t.defaultTextFormat = new TextFormat( null, 18 , 0x999999 , true );
+            t.autoSize = TextFieldAutoSize.LEFT;
+            addChild(t);
+
+            var timer : Timer = new Timer( 100 );
+            timer.addEventListener(TimerEvent.TIMER,handleTimer);
+            timer.start();
+
+            stage.addEventListener(MouseEvent.CLICK,handleClick);
+
+
+            stage.addChild( new Stats() );
+        }
+
+        public function handleTimer( event : TimerEvent ) : void {
+            counter = 0;
+            if ( makeGC ) System.gc();
+            dispatchEvent( new Event( Event.CHANGE ) );
+
+            var i:uint;
+            for each ( var obj:* in dict ) {
+                i++;
+            }
+
+            t.text = ( "Still " + counter + " dead objects living... (GC " + (makeGC?'on':'off') + ')' );
+            t.appendText( '\nIn dictionary: ' + i );
+            t.appendText( '\nClick to switch manual Garbage Collection aka System.gc()' );
+
+            if ( switcher++ % 2 ) {
+                new TestSprite( this );
+                t.appendText( '\nAdded new test object (should live for 10 msec)' );
+            }
+        }
+        public function handleClick( event : Event ) : void {
+            makeGC = !makeGC;
+        }
+    }   
+}
+import flash.display.Sprite;
+import flash.display.InteractiveObject;
+import flash.utils.Timer;
+import flash.events.TimerEvent;
+import flash.events.Event;
+import flash.system.System;
+
+
+
+class TestSprite extends Sprite {
+
+    // the TestSprite instance should not live longer than 10 msec
+
+
+    public function TestSprite( parent : Sprite ) : void {
+        // add to weak dictionary
+        //MemoryLeakTest.dict[ this ] = true;
+
+        // temporarily add to parent
+        parent.addChild( this );
+        var timer : Timer = new Timer( 10 );
+        timer.addEventListener(TimerEvent.TIMER,handleTimer);
+        timer.start();
+
+        // listen (weak!!) to parent event - this is just for control purposes
+        parent.addEventListener( Event.CHANGE , handleChange , false , 0 , true );
+
+        // let's have those sprites eat some memory while alive
+        this.cacheAsBitmap = true;
+        graphics.beginFill(0xff0000,0.1);
+        graphics.drawRect(0,0,500,500);
+        graphics.endFill();
+    }
+    public function handleTimer( event : TimerEvent ) : void {
+        ( event.target as Timer ).removeEventListener(TimerEvent.TIMER,handleTimer);
+        parent.removeChild(this);
+    }
+    public function handleChange( event : Event ) : void {
+        MemoryLeakTest.counter++;
+    }
+}
+</code></pre>
+</section>
+<footer class='post-footer'>
+<section class='author'>
+<h4>Severin Klaus</h4>
+<p>@betabong.</p>
+</section>
+<section class='share'>
+<h4>Share this post</h4>
+<a class='icon-twitter' href='https://twitter.com/share?text=Garbage Collection, Dictionaries and Listeners&amp;amp;url=http://blog.betabong.com/2009/09/09/garbage-collection-dictionary-listener/' onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+<span class='hidden'>Twitter</span>
+</a>
+<a class='icon-facebook' href='https://www.facebook.com/sharer/sharer.php?u=http://blog.betabong.com/2009/09/09/garbage-collection-dictionary-listener/' onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+<span class='hidden'>Facebook</span>
+</a>
+<a class='icon-google-plus' href='https://plus.google.com/share?url=http://blog.betabong.com/2009/09/09/garbage-collection-dictionary-listener/' onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+<span class='hidden'>Google+</span>
+</a>
+</section>
+</footer>
+</article>
+</main>
+
+<footer class='site-footer'>
+<a class='subscribe icon-feed' href='/feed.xml'>
+<span class='tooltip'>Subscribe!</span>
+</a>
+<div class='inner'>
+<section class='copyright'>
+All content copyright
+<a href="/">Betablog</a>
+&copy;
+2015
+&bull; All rights reserved.
+</section>
+<section class='poweredby'>
+Proudly published with
+<a href='http://middlemanapp.com'>Middleman</a>
+</section>
+<section class='poweredby'>
+Casper theme powered by
+<a class='icon-ghost' href='https://ghost.org'>Ghost</a>
+</section>
+</div>
+</footer>
+<link href='//fonts.googleapis.com/css?family=Old+Standard+TT:400,400italic,700' rel='stylesheet' type='text/css'>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  
+  ga('create', 'UA-359384-6', 'auto');
+  ga('send', 'pageview');
+</script>
+</body>
+</html>

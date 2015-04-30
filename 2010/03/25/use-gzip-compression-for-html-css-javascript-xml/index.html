@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Betablog: Use GZip compression for your website</title>
+<meta content='Most of my Flash apps or websites use XML files, either for communication or initial data. They can get quite large, reaching about 100 kb or more is not' name='description'>
+<meta charset='utf-8'>
+<meta content='width=device-width, initial-scale=1.0' name='viewport'>
+<meta content='IE=edge' http-equiv='X-UA-Compatible'>
+<meta content='True' name='HandheldFriendly'>
+<meta content='320' name='MobileOptimized'>
+<link rel="alternate" type="application/atom+xml" title="Atom Feed" href="/feed.xml" />
+<link href="/images/favicon.ico" rel="icon" type="image/ico" />
+<link href="/stylesheets/application.css" rel="stylesheet" type="text/css" />
+</head>
+<body class='post-template tag-getting-started'>
+<main class='content' role='main'>
+<article class='post tag-getting-started'>
+<header class='post-header'>
+<a class='blog-logo' href='/'>
+<span class='blog-title'>Betablog</span>
+</a>
+</header>
+<span class='post-meta'>
+<time datetime='2010-03-25'>
+25 Mar 2010
+</time>
+</span>
+<h1 class='post-title'>Use GZip compression for your website</h1>
+<section class='post-content'><p>Most of my Flash apps or websites use XML files, either for communication or initial data. They can get quite large, reaching about 100 kb or more is not seldom. You might say: so what?! 100 kb is like nothing for a bandwidth nowadays! Well, if you&rsquo;ve every used iPhone tethering in an area where there is no 3g network, you start appreciating every single byte you won&rsquo;t have to suck from the net. (On a side note: That&rsquo;s when Opera really comes in handy.) </p>
+
+<h3>XML files compress really well</h3>
+
+<p>Because XML usually contains a lot of repetitive elements (noticably tags and attributes), they are like a compressor&rsquo;s darling. Just zip a few of your XML files and you&rsquo;ll see. Now I kind of always thought that on nowadays webservers gzip compression is activated by default anyway. Which was wrong, at least for quite a bunch of servers I use. </p>
+
+<h3>Activate GZip compression</h3>
+
+<p>If your server installation contains the deflate module (which is the case for all of the ones I use), then you can simply add the following line to your .htaccess file: </p>
+<pre class="highlight plaintext"><code># compress all html, plain text, xml, css and javascript:
+AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css application/x-javascript
+</code></pre>
+
+<p>AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css application/x-javascript </p>
+
+<p>I&rsquo;ve also tried more complex constructs found on the web, but they resulted in «Internal server errors» which is why I&rsquo;ll go along with this simple one for now.</p>
+
+<p>*<em>The effects are dramatic! I usually get about 70% – 80% of reduction for non-minimized files, *</em></p>
+
+<h3>Examples</h3>
+
+<p>Uncompressed Compressed Reduction</p>
+
+<p><strong>Javascript minimized</strong> <a href="http://ajax.googleapis.com/ajax/libs/mootools/1.2.4/mootools-yui-compressed.js">MooTools YUI compressed</a>
+66,867
+20,964
+68.6%</p>
+
+<p><strong>Javascript minimized</strong> <a href="http://ajax.googleapis.com/ajax/libs/mootools/1.2.4/mootools.jss">MooTools uncompressed</a>
+102,991
+27,599
+73.2%</p>
+
+<p><strong>XML/CSS combined</strong> <a href="http://www.ceylor.ch/pages/home.xml">A larger initial XML file for a Flash website of mine</a>
+84,316
+18,229
+78.4%</p>
+
+<p><strong>XML/CSS combined</strong> <a href="http://www.ceylor.ch/pages/home.xml">A larger initial XML file for a Flash website of mine</a>
+84,316
+18,229
+78.4%</p>
+
+<p><strong>HTML</strong> <a href="http://20min.ch">A swiss news website, 20 Minuten</a>
+148,587
+29,385
+80.2%</p>
+
+<p><strong>HTML</strong> <a href="#">My blogs home page</a>
+51,638
+12,991
+74.8%</p>
+
+<h3>Tools</h3>
+
+<p>If you want to test your website, these pages are very informative (first one is faster, second one more informative): <a href="http://www.whatsmyip.org/http_compression/">http://www.whatsmyip.org/http_compression/</a></p>
+
+<p><a href="http://www.gidnetwork.com/tools/gzip-test.php">http://www.gidnetwork.com/tools/gzip-test.php</a> I also like this one, although it only gives you little info on content-encoding. But very much on top of that :-) <a href="http://www.wmtips.com/tools/info/">http://www.wmtips.com/tools/info/</a> This little Firefox addon will tell you wether any site you visit has GZip activated: <a href="https://addons.mozilla.org/en-US/firefox/addon/54647">https://addons.mozilla.org/en-US/firefox/addon/54647</a> (Content Encoding Detector) </p>
+
+<h3>Conclusion</h3>
+
+<p>HTML websites will profit a lot from this compression, as well as Flash sites (if just for your swfobject.js) that use textual communication. And best of all: it won&rsquo;t need any kungfu effort on your side! And: practically all browsers support it. (I&rsquo;ve only heard of problems with IE6, but then, you know, f*** IE6) </p>
+
+<h3>Update:</h3>
+
+<p>A more complete solution for your .htaccess file: </p>
+<pre class="highlight plaintext"><code>    AddOutputFilterByType DEFLATE text/html
+    AddOutputFilterByType DEFLATE text/xml
+
+    AddOutputFilterByType DEFLATE image/x-icon
+
+    AddOutputFilterByType DEFLATE text/css
+
+    AddOutputFilterByType DEFLATE text/javascript
+    AddOutputFilterByType DEFLATE application/javascript
+    AddOutputFilterByType DEFLATE application/x-javascript
+    AddOutputFilterByType DEFLATE text/x-js
+    AddOutputFilterByType DEFLATE text/ecmascript
+    AddOutputFilterByType DEFLATE application/ecmascript
+    AddOutputFilterByType DEFLATE text/vbscript
+    AddOutputFilterByType DEFLATE text/fluffscript
+
+    AddOutputFilterByType DEFLATE image/svg+xml
+    AddOutputFilterByType DEFLATE application/x-font-ttf
+    AddOutputFilterByType DEFLATE application/x-font
+    AddOutputFilterByType DEFLATE font/opentype
+    AddOutputFilterByType DEFLATE font/otf
+    AddOutputFilterByType DEFLATE font/ttf
+    AddOutputFilterByType DEFLATE application/x-font-truetype
+    AddOutputFilterByType DEFLATE application/x-font-opentype
+    AddOutputFilterByType DEFLATE application/vnd.ms-fontobject
+    AddOutputFilterByType DEFLATE application/vnd.oasis.opendocument.formula-template
+</code></pre>
+
+<p>(<a href="http://www.speedingupwebsite.com/2010/01/08/use-the-gzip-power/">Source</a>)</p>
+</section>
+<footer class='post-footer'>
+<section class='author'>
+<h4>Severin Klaus</h4>
+<p>@betabong.</p>
+</section>
+<section class='share'>
+<h4>Share this post</h4>
+<a class='icon-twitter' href='https://twitter.com/share?text=Use GZip compression for your website&amp;amp;url=http://blog.betabong.com/2010/03/25/use-gzip-compression-for-html-css-javascript-xml/' onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+<span class='hidden'>Twitter</span>
+</a>
+<a class='icon-facebook' href='https://www.facebook.com/sharer/sharer.php?u=http://blog.betabong.com/2010/03/25/use-gzip-compression-for-html-css-javascript-xml/' onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+<span class='hidden'>Facebook</span>
+</a>
+<a class='icon-google-plus' href='https://plus.google.com/share?url=http://blog.betabong.com/2010/03/25/use-gzip-compression-for-html-css-javascript-xml/' onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+<span class='hidden'>Google+</span>
+</a>
+</section>
+</footer>
+</article>
+</main>
+
+<footer class='site-footer'>
+<a class='subscribe icon-feed' href='/feed.xml'>
+<span class='tooltip'>Subscribe!</span>
+</a>
+<div class='inner'>
+<section class='copyright'>
+All content copyright
+<a href="/">Betablog</a>
+&copy;
+2015
+&bull; All rights reserved.
+</section>
+<section class='poweredby'>
+Proudly published with
+<a href='http://middlemanapp.com'>Middleman</a>
+</section>
+<section class='poweredby'>
+Casper theme powered by
+<a class='icon-ghost' href='https://ghost.org'>Ghost</a>
+</section>
+</div>
+</footer>
+<link href='//fonts.googleapis.com/css?family=Old+Standard+TT:400,400italic,700' rel='stylesheet' type='text/css'>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  
+  ga('create', 'UA-359384-6', 'auto');
+  ga('send', 'pageview');
+</script>
+</body>
+</html>

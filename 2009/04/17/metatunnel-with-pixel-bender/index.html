@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Betablog: MetaTunnel with Pixel Bender</title>
+<meta content='This is a follow-up of this. Yeah well, I was more than optimistic to show those JS guys how fast Flash can be with the help of some brand new Adobe magic' name='description'>
+<meta charset='utf-8'>
+<meta content='width=device-width, initial-scale=1.0' name='viewport'>
+<meta content='IE=edge' http-equiv='X-UA-Compatible'>
+<meta content='True' name='HandheldFriendly'>
+<meta content='320' name='MobileOptimized'>
+<link rel="alternate" type="application/atom+xml" title="Atom Feed" href="/feed.xml" />
+<link href="/images/favicon.ico" rel="icon" type="image/ico" />
+<link href="/stylesheets/application.css" rel="stylesheet" type="text/css" />
+</head>
+<body class='post-template tag-getting-started'>
+<main class='content' role='main'>
+<article class='post tag-getting-started'>
+<header class='post-header'>
+<a class='blog-logo' href='/'>
+<span class='blog-title'>Betablog</span>
+</a>
+</header>
+<span class='post-meta'>
+<time datetime='2009-04-17'>
+17 Apr 2009
+</time>
+</span>
+<h1 class='post-title'>MetaTunnel with Pixel Bender</h1>
+<section class='post-content'><p>This is a follow-up of <a href="/2009/04/13/metatunnel-1k-demo-as-vs-js/">this</a>. <img alt="metatunnel-pixelbender" src="/uploads/2009/04/metatunnel-pixelbender.jpg" /> Yeah well, I was more than optimistic to show <a href="http://demoscene.appjet.net/">those JS guys</a> how fast Flash can be with the help of some brand new Adobe magic – but Pixel Bender was, unfortunately, quite disappointing: </p>
+
+<ol>
+<li>I spent hours to successfully migrate the code to Pixel Bender Toolkit (wasn&rsquo;t that difficult actually, but a wrong character there and your math is all screwed up). So here the first letdown: Pixel Bender Toolkit is <strong>not a very nice coding environment</strong>. It&rsquo;s a rough baby. But I&rsquo;d do everything for speed :-)..</li>
+<li>Once I had it running (the above picture is captured from Pixel Bender) I tried to export it for Flash Player. But hoohoo! <strong>no support for loops</strong> in Flash Player! Yeah, well, ..(and also <strong>no custom functions</strong> by the way)</li>
+<li>But I didn&rsquo;t give up. I just calculated how many max loops where needed (about 100) and replicated the while loop with many if-conditions (I love to do computer&rsquo;s dummy job ;). Then finally: Export to Flash Player! But in Flash Player having the shader as Filter for a BitmapData just <strong>really fucked up the rendering</strong>. I even went down to 1fps, but still no luck. What a bummer! (sometimes I saw a few pixels blue, but very unusable: I&rsquo;ve written <a href="http://forums.adobe.com/thread/419485">to the Pixel Bender Forum </a>- invited by <a href="http://twitter.com/pixelbender">@Pixelbender</a> – but that led to nothing so far).</li>
+<li>Today, finally, I got it working by taking a more rough approach (not BitmapFilter, but ShaderJob). <strong>But hell is it slow!!!</strong> And it eats all my 8 cpu cores!! So I wondered how that could be: Fast as hell in Pixel Bender Toolkit (uses may be 2% of my cpu at full fps!), but slow as hell in Flash Player?! The answer is obvious: <strong>Adobe decided not to talk to the GCU (Graphics Card)</strong> for the calculations, probably to keep the Flash Player be as platform independent as possible - and as small as possible. But then I wonder.. WTF do you give us this toy if we can&rsquo;t use it?!! It&rsquo;s like Apple would say: «Great news: we have Core Graphics on the iPhone - without hardware acceleration..» Adobe, to me, this doesn&rsquo;t make too much sense. (But I&rsquo;m so very much pleased about the new Text Engine – <em>that</em> was a good job)
+Here the result: (Click to start, it&rsquo;ll eat your cpu!)<br></li>
+</ol>
+
+<p><object data="/uploads/flash/MetaTunnelBender.swf" height="128"></object></p>
+
+<p>And for the geeks, here we go with the source codes: </p>
+<pre class="highlight plaintext"><code>kernel MetaTunnel
+&lt;   namespace : "com.betabong";
+    vendor : "Betabong";
+    version : 1;
+    description : "MetaTunnel Port";
+&gt;
+
+{
+    parameter int size
+    &lt;
+        minValue: 16;
+        maxValue: 512;
+        defaultValue: 128;
+    &gt;;
+
+
+    parameter float time
+    &lt;
+        minValue: float( 0.0 );
+        maxValue: float( 15.0 );
+        defaultValue: float( 0.0 );
+    &gt;;
+
+
+
+
+    input image4 src;
+    output pixel3 dst;
+
+    void
+    evaluatePixel()
+    {
+        float cos1 = cos( time );
+        float cos0_5 = cos(time * 0.5);
+        float cos0_7 = cos(time * 0.7);
+        float sin1 = sin( time );
+        float sin0_2 = sin(time * 0.2);
+        float sin_0_5 = sin(time * 0.5);
+
+        float dim = float( size );
+        float2 point = outCoord() / dim;
+        if ( point.x &gt; 1.0 || point.y &gt; 1.0 ) {
+            dst.rgb = float3( 1.0 , 1.0 , 1.0 );
+        } else {
+
+        float2 vp = float2( point.x * 2.0 - 1.0 , -point.y * 2.0 + 1.0 );
+        float s = float( 0.4 );
+        float3 op = float3( vp.x , vp.y * 1.25 , 0.0 );
+        float3 dp = float3( (vp.x + cos1 * 0.3) / 64.0 , vp.y/64.0 , 1.0/64.0 );
+        float f = float( 1.0 );
+
+        float tt = float( 0.0 );
+        float g = float( 1.0 );
+        float3 p = float3(1.0,1.0,1.0);
+        while ( (g &gt; s) &amp;&amp; (tt&lt;375.0) ) {
+            p = op + ( dp * tt );
+            f = 1.0;
+            f *= abs( distance( float3( cos1+sin0_2 , 0.3 , 2.0+cos0_5*0.5 ) , p ) );
+            f *= abs( distance( float3( -cos0_7 , 0.3 , 2.0+sin_0_5 ) , p ) );
+            f *= abs( distance( float3( -sin0_2*0.5 , sin1 , 2.0 ) , p ) );
+            f *= cos(p.y)*cos(p.x) - 0.1 - cos( p.z*7.0 + time*7.0 ) *cos(p.x*3.0)*cos(p.y*4.0)*0.1;
+            g = f;
+            tt += g * 4.0;
+        }
+        float color = 0.0;
+        float3 dtt = op + ( dp * tt);
+
+        p = float3( dtt.x , dtt.y , dtt.z );
+        f = 1.0;
+        f *= distance( float3( cos1+sin0_2 , 0.3 , 2.0+cos0_5*0.5 ) , p );
+        f *= distance( float3( -cos0_7 , 0.3 , 2.0+sin_0_5 ) , p );
+            f *= distance( float3( -sin0_2*0.5 , sin1 , 2.0 ) , p );
+        f *= cos(p.y)*cos(p.x)-0.1-cos(p.z*7.0+time*7.0)*cos(p.x*3.0)*cos(p.y*4.0)*0.1;
+        float objd = f;
+
+        float3 np = float3( 0.0,0.0,0.0 );
+
+        p = float3( dtt.x + 0.01 , dtt.y , dtt.z );
+        f = 1.0;
+        f *= distance( float3( cos1+sin0_2 , 0.3 , 2.0+cos0_5*0.5 ) , p );
+        f *= distance( float3( -cos0_7 , 0.3 , 2.0+sin_0_5 ) , p );
+            f *= distance( float3( -sin0_2*0.5 , sin1 , 2.0 ) , p );
+        f *= cos(p.y)*cos(p.x)-0.1-cos(p.z*7.0+time*7.0)*cos(p.x*3.0)*cos(p.y*4.0)*0.1;
+        np.x = objd - f;
+
+        p = float3( dtt.x , dtt.y + 0.01 , dtt.z );
+        f = 1.0;
+        f *= distance( float3( cos1+sin0_2 , 0.3 , 2.0+cos0_5*0.5 ) , p );
+        f *= distance( float3( -cos0_7 , 0.3 , 2.0+sin_0_5 ) , p );
+            f *= distance( float3( -sin0_2*0.5 , sin1 , 2.0 ) , p );
+        f *= cos(p.y)*cos(p.x)-0.1-cos(p.z*7.0+time*7.0)*cos(p.x*3.0)*cos(p.y*4.0)*0.1;
+        np.y = objd - f;
+
+        p = float3( dtt.x , dtt.y , dtt.z + 0.01 );
+        f = 1.0;
+        f *= distance( float3( cos1+sin0_2 , 0.3 , 2.0+cos0_5*0.5 ) , p );
+        f *= distance( float3( -cos0_7 , 0.3 , 2.0+sin_0_5 ) , p );
+            f *= distance( float3( -sin0_2*0.5 , sin1 , 2.0 ) , p );
+        f *= cos(p.y)*cos(p.x)-0.1-cos(p.z*7.0+time*7.0)*cos(p.x*3.0)*cos(p.y*4.0)*0.1;
+        np.z = objd - f;
+
+        float d = length( np );
+        np.y /= d;
+        np.z /= d;
+
+        color = max( -0.5 * np.z , 0.0 ) + max( -0.5 *np.y + 0.5 * np.z , 0.0 ) * 0.5;
+        float3 rgb = float3(color  + 0.1 * tt * 0.025 , color  + 0.2 * tt * 0.025  , color + 0.5 * tt * 0.025   );
+        rgb.x = max( 0.0 , min( 1.0 , rgb.x ) );
+        rgb.y = max( 0.0 , min( 1.0 , rgb.y ) );
+        rgb.z = max( 0.0 , min( 1.0 , rgb.z ) );
+
+        dst.rgb = rgb;
+
+
+      }
+
+    }
+
+}
+</code></pre>
+
+<p>And here the Actionscript part: </p>
+<pre class="highlight plaintext"><code>package
+ {
+    import flash.display.*;
+    import flash.events.*;
+    import flash.filters.*;
+    import flash.net.*;
+    import flash.utils.ByteArray;
+
+    import net.hires.debug.Stats;
+    // SWF Metadata 
+    [SWF(width = "520", height = "128", backgroundColor = "#000000", framerate = "1")]
+    public class MetaTunnelBender extends Sprite {
+
+        [Embed("test/MetaTunnel-stupid.pbj", mimeType = "application/octet-stream")]
+        private var TestFilter: Class;
+        private var playing : Boolean;
+
+        private var im: Bitmap;
+        private var job:ShaderJob;
+        private var shader: Shader;
+        private var shaderfilter:ByteArray;
+        private var time:Number = 0.0;
+        private const SIZE:Number = 64;
+        private const WHITE:BitmapData = new BitmapData( SIZE , SIZE , false , 0xffffff );
+
+        public function MetaTunnelBender() : void {
+            stage.frameRate = 20;
+            im = new Bitmap( WHITE.clone() );
+            im.scaleX = im.scaleY = 2;
+            addChild(im);
+
+            // stat info
+            var s:DisplayObject = new Stats();
+            addChild( s );
+            s.x = 128;
+</code></pre>
+
+<h2>Comments</h2>
+
+<p><strong><a title="2009-10-01 02:25:31" href="#71">Jackson Dunstan</a>:</strong> I get about 8 FPS on a 3.0 Ghz Intel Core 2 Duo on Windows XP. Your AS3 version is a ton faster, although there is no framerate counter so I can&rsquo;t quantify that.</p>
+
+<p><strong><a title="2010-09-21 09:57:10" href="#139">Og2t</a>:</strong> Nice try though! The unrolled IFs might be a problem. Try http://www.simppa.fi/source/LoopMacros.pbk</p>
+
+<p><strong><a title="2010-09-21 16:39:41" href="#140">betabong</a>:</strong> Like that macro. If I ever find time to play around with Pixel Bender, I&rsquo;ll give it a try. Cheers!</p>
+
+<p><strong><a title="2012-03-04 21:33:10" href="#744">Christian</a>:</strong> I&rsquo;m having no noticable CPU usage and I&rsquo;m getting 13fps.</p>
+</section>
+<footer class='post-footer'>
+<section class='author'>
+<h4>Severin Klaus</h4>
+<p>@betabong.</p>
+</section>
+<section class='share'>
+<h4>Share this post</h4>
+<a class='icon-twitter' href='https://twitter.com/share?text=MetaTunnel with Pixel Bender&amp;amp;url=http://blog.betabong.com/2009/04/17/metatunnel-with-pixel-bender/' onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+<span class='hidden'>Twitter</span>
+</a>
+<a class='icon-facebook' href='https://www.facebook.com/sharer/sharer.php?u=http://blog.betabong.com/2009/04/17/metatunnel-with-pixel-bender/' onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+<span class='hidden'>Facebook</span>
+</a>
+<a class='icon-google-plus' href='https://plus.google.com/share?url=http://blog.betabong.com/2009/04/17/metatunnel-with-pixel-bender/' onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+<span class='hidden'>Google+</span>
+</a>
+</section>
+</footer>
+</article>
+</main>
+
+<footer class='site-footer'>
+<a class='subscribe icon-feed' href='/feed.xml'>
+<span class='tooltip'>Subscribe!</span>
+</a>
+<div class='inner'>
+<section class='copyright'>
+All content copyright
+<a href="/">Betablog</a>
+&copy;
+2015
+&bull; All rights reserved.
+</section>
+<section class='poweredby'>
+Proudly published with
+<a href='http://middlemanapp.com'>Middleman</a>
+</section>
+<section class='poweredby'>
+Casper theme powered by
+<a class='icon-ghost' href='https://ghost.org'>Ghost</a>
+</section>
+</div>
+</footer>
+<link href='//fonts.googleapis.com/css?family=Old+Standard+TT:400,400italic,700' rel='stylesheet' type='text/css'>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  
+  ga('create', 'UA-359384-6', 'auto');
+  ga('send', 'pageview');
+</script>
+</body>
+</html>

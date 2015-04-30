@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Betablog: CSS Alternative to Left Float</title>
+<meta content='I used to use float:left a lot for my layouts. But it can be a pain in the ass for several reasons – which of them the main may be that the surrounding' name='description'>
+<meta charset='utf-8'>
+<meta content='width=device-width, initial-scale=1.0' name='viewport'>
+<meta content='IE=edge' http-equiv='X-UA-Compatible'>
+<meta content='True' name='HandheldFriendly'>
+<meta content='320' name='MobileOptimized'>
+<link rel="alternate" type="application/atom+xml" title="Atom Feed" href="/feed.xml" />
+<link href="/images/favicon.ico" rel="icon" type="image/ico" />
+<link href="/stylesheets/application.css" rel="stylesheet" type="text/css" />
+</head>
+<body class='post-template tag-getting-started'>
+<main class='content' role='main'>
+<article class='post tag-getting-started'>
+<header class='post-header'>
+<a class='blog-logo' href='/'>
+<span class='blog-title'>Betablog</span>
+</a>
+</header>
+<span class='post-meta'>
+<time datetime='2009-02-25'>
+25 Feb 2009
+</time>
+</span>
+<h1 class='post-title'>CSS Alternative to Left Float</h1>
+<section class='post-content'><p>I used to use float:left a lot for my layouts. But it can be a pain in the ass for several reasons – which of them the main may be that the surrounding box doesn&rsquo;t surround it (so you&rsquo;d have to come up with some stupid clearfloat-hacks). Anyway, I recently discovered somewhere a great alternative (you can call it hack too, but then everything a little fancy that&rsquo;s supposed to work with IE is a hack, isn&rsquo;t it?). So while until now I&rsquo;d have something like this: </p>
+<pre class="highlight plaintext"><code>.inlinebox {
+    float:  left;
+    width: 49%;
+    min-height: 100px;
+}
+</code></pre>
+
+<p>the new method goes like this: </p>
+<pre class="highlight plaintext"><code>.inlinebox {
+    display: -moz-inline-stack;
+    display: inline-block;
+    vertical-align: top;
+    zoom: 1;
+    *display: inline;
+    width: 49%;
+    min-height: 100px;
+    _height: 100px;
+}
+</code></pre>
+
+<p>That&rsquo;s looks quite more complex. And it certainly is. But it works like a charm on all browsers I&rsquo;ve tested (IE7, Safari, FF3). _height, zoom and *display are some crappy IE hacks obviously. The zoom attribute by the way is quite interesting, as it activates the hidden (IE only) CSS attribute hasLayout. It also has some very nice benefits, like the alignement to the bottom&hellip; </p>
+
+<h3>Example</h3>
+
+<p><a href="/uploads/2009/02/example-inlineblock.html">View Example</a></p>
+<pre class="highlight plaintext"><code>&lt;style type="text/css" media="screen"&gt;
+    .codeexample span {
+        background-color: #68B6FF;
+        -webkit-box-reflect: below 1px -webkit-gradient(linear, left top, left bottom, from(transparent), color-stop(0.8, transparent), to(rgba(255, 255, 255, 0.8)));
+        -moz-border-radius: 5px;
+        -webkit-border-radius: 5px;
+        margin-right: 10px;
+        margin-bottom: 40px;
+        width: 140px;
+        padding: 10px;
+    }
+    .inlinebox1 {
+        display: block;
+        float:  left;
+        min-height: 32px;
+    }
+
+    .inlinebox2 {
+        display: -moz-inline-stack;
+        display: inline-block;
+        vertical-align: bottom;
+        zoom: 1;
+        *display: inline;
+        min-height: 32px;
+        _height: 32px;
+    }
+
+&lt;/style&gt;
+
+&lt;div class="codeexample"&gt;
+    &lt;h3&gt;Float: left&lt;/h3&gt;
+    &lt;span class="inlinebox1"&gt;Inlinebox&lt;/span&gt;
+    &lt;span class="inlinebox1"&gt;Inlinebox&lt;/span&gt;
+    &lt;span class="inlinebox1"&gt;Inlinebox Inlinebox Inlinebox Inlinebox Inlinebox Inlinebox&lt;/span&gt;
+    &lt;span class="inlinebox1"&gt;Inlinebox&lt;/span&gt;
+    &lt;span class="inlinebox1"&gt;Inlinebox&lt;/span&gt;
+    &lt;span class="inlinebox1"&gt;Inlinebox&lt;/span&gt;
+    &lt;span class="inlinebox1"&gt;Inlinebox&lt;/span&gt;
+
+    &lt;h3 style="clear: both;"&gt;Inline Block&lt;/h3&gt;
+    &lt;span class="inlinebox2"&gt;Inlinebox&lt;/span&gt;
+    &lt;span class="inlinebox2"&gt;Inlinebox&lt;/span&gt;
+    &lt;span class="inlinebox2"&gt;Inlinebox Inlinebox Inlinebox Inlinebox Inlinebox Inlinebox&lt;/span&gt;
+    &lt;span class="inlinebox2"&gt;Inlinebox&lt;/span&gt;
+    &lt;span class="inlinebox2"&gt;Inlinebox&lt;/span&gt;
+    &lt;span class="inlinebox2"&gt;Inlinebox&lt;/span&gt;
+    &lt;span class="inlinebox2"&gt;Inlinebox&lt;/span&gt;
+&lt;/div&gt;
+</code></pre>
+
+<h2>Comments</h2>
+
+<p><strong><a title="2009-02-26 11:06:57" href="#22">jens</a>:</strong> great! works also in opera and chrome and inlinebox2 even works down to IE4 (inlinebox1 doesn&rsquo;t work in IE4&hellip;).</p>
+
+<p><strong><a title="2009-04-03 08:48:18" href="#27">Umesh A</a>:</strong> Thanks This is help full for me.</p>
+
+<p><strong><a title="2009-04-10 22:32:35" href="#32">Tom West</a>:</strong> Worked like a charm! Thanks!</p>
+
+<p><strong><a title="2009-10-07 17:49:08" href="#74">Levi Page</a>:</strong> You&rsquo;re a genius! Man this saved me.</p>
+
+<p><strong><a title="2010-01-12 03:57:20" href="#76">A</a>:</strong> Awesome little hack, really is awesome.</p>
+
+<p><strong><a title="2010-07-19 10:28:21" href="#124">Anurag Bhandari</a>:</strong> Worked perfectly!</p>
+
+<p><strong><a title="2012-01-10 15:13:21" href="#590">Mario Arroyo</a>:</strong> You just saved my work! Thanks for that!</p>
+
+<p><strong><a title="2011-12-14 10:34:49" href="#538">Christian</a>:</strong> Thanks a lot for this very useful tip!</p>
+
+<p><strong><a title="2012-03-08 20:02:47" href="#755">Boerma</a>:</strong> I love u man! Thanks a lot!</p>
+
+<p><strong><a title="2014-05-13 06:19:15" href="#3191">Sunil Yadav</a>:</strong> Wow its working fine. I was having problem with &ldquo;float:left&rdquo;. This solution work perfectly.</p>
+</section>
+<footer class='post-footer'>
+<section class='author'>
+<h4>Severin Klaus</h4>
+<p>@betabong.</p>
+</section>
+<section class='share'>
+<h4>Share this post</h4>
+<a class='icon-twitter' href='https://twitter.com/share?text=CSS Alternative to Left Float&amp;amp;url=http://blog.betabong.com/2009/02/25/css-alternative-to-left-float/' onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+<span class='hidden'>Twitter</span>
+</a>
+<a class='icon-facebook' href='https://www.facebook.com/sharer/sharer.php?u=http://blog.betabong.com/2009/02/25/css-alternative-to-left-float/' onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+<span class='hidden'>Facebook</span>
+</a>
+<a class='icon-google-plus' href='https://plus.google.com/share?url=http://blog.betabong.com/2009/02/25/css-alternative-to-left-float/' onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+<span class='hidden'>Google+</span>
+</a>
+</section>
+</footer>
+</article>
+</main>
+
+<footer class='site-footer'>
+<a class='subscribe icon-feed' href='/feed.xml'>
+<span class='tooltip'>Subscribe!</span>
+</a>
+<div class='inner'>
+<section class='copyright'>
+All content copyright
+<a href="/">Betablog</a>
+&copy;
+2015
+&bull; All rights reserved.
+</section>
+<section class='poweredby'>
+Proudly published with
+<a href='http://middlemanapp.com'>Middleman</a>
+</section>
+<section class='poweredby'>
+Casper theme powered by
+<a class='icon-ghost' href='https://ghost.org'>Ghost</a>
+</section>
+</div>
+</footer>
+<link href='//fonts.googleapis.com/css?family=Old+Standard+TT:400,400italic,700' rel='stylesheet' type='text/css'>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  
+  ga('create', 'UA-359384-6', 'auto');
+  ga('send', 'pageview');
+</script>
+</body>
+</html>

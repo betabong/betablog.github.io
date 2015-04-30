@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Betablog: How to watch TV from abroad</title>
+<meta content='From time to time I spend a few weeks abroad. From time to time I’d like to watch swiss tv while I’m there. There are services like Zattoo or Wilmaa out' name='description'>
+<meta charset='utf-8'>
+<meta content='width=device-width, initial-scale=1.0' name='viewport'>
+<meta content='IE=edge' http-equiv='X-UA-Compatible'>
+<meta content='True' name='HandheldFriendly'>
+<meta content='320' name='MobileOptimized'>
+<link rel="alternate" type="application/atom+xml" title="Atom Feed" href="/feed.xml" />
+<link href="/images/favicon.ico" rel="icon" type="image/ico" />
+<link href="/stylesheets/application.css" rel="stylesheet" type="text/css" />
+</head>
+<body class='post-template tag-getting-started'>
+<main class='content' role='main'>
+<article class='post tag-getting-started'>
+<header class='post-header'>
+<a class='blog-logo' href='/'>
+<span class='blog-title'>Betablog</span>
+</a>
+</header>
+<span class='post-meta'>
+<time datetime='2009-11-30'>
+30 Nov 2009
+</time>
+</span>
+<h1 class='post-title'>How to watch TV from abroad</h1>
+<section class='post-content'><p>From time to time I spend a few weeks abroad. From time to time I&rsquo;d like to watch swiss tv while I&rsquo;m there. There are services like Zattoo or Wilmaa out there, that allow you to watch tv via internet, but they only allow IPs from within your home country, in my case Switzerland. So we want them to believe that we&rsquo;re home, not 4000 miles away on some sunny island (dream on). The solution is kind of simple actually, once you know how to do it, but it took me far too long to find it out anyway – so I thought it might be worth sharing (which also prevents me forgetting it). We just need to route all relevant internet traffice through a home computer. You need to have SSH access to this computer, and you need to have a decent internet upload speed for video stuff. Lucky me I have a loyal and faithful Mac Mini at home, acting as Media Center, SVN server and .. well, as a decent TV proxy :-) Here&rsquo;s how you do: </p>
+
+<ol>
+<li>Open Terminal, enter: <strong>ssh -2 -C -D 2001 **_</strong>username<strong>_</strong>@<strong>_</strong>yourserver.com**_ (<em>username</em> is your account on the remote machine – and <em>yourserver.com</em> could be an ip or whatever address your server has. I use <a href="http://www.dyndns.com/">Dynamic DNS</a> for mine.)</li>
+<li>Enter the password for <em>username</em></li>
+<li>Open «<strong>System Preferences</strong>» and go to «<strong>Network</strong>» (You can close the Terminal). Click the Button «<strong>Advanced&hellip;</strong>» <img alt="Screen shot 2009-11-30 at 15.41.17" src="/uploads/2009/11/Screen-shot-2009-11-30-at-15.41.17-300x234.png" /></li>
+<li>Go to «<strong>Proxies</strong>» and activate SOCKS Proxy and enter Socks Proxy Server: <strong>127.0.0.1</strong> : <strong>2001</strong> (see picture)</li>
+<li>Go to <a href="http://whatismyipaddress.com/">What Is My IP Address?</a> or this <a href="http://www.ip-adress.com/ip_tracer/">IP Tracer</a> to check if everything works. If the map shows you&rsquo;re at home, you&rsquo;re good to go!
+Now for TV I recommand <a href="http://www.wilmaa.com/">Wilmaa</a>: worked perfectly for me. Surprisingly good quality, and it&rsquo;s for free! Great for football matches or Heidi in swiss german ;-) <img alt="Screen shot 2009-11-30 at Mo. 30.11  16.24.56" src="/uploads/2009/11/Screen-shot-2009-11-30-at-Mo.-30.11-16.24.56-520x325.png" /></li>
+</ol>
+
+<h2>Comments</h2>
+
+<p><strong><a title="2010-09-02 16:30:07" href="#135">Leo Iqbal</a>:</strong> http://watch-tv-abroad.com Click this link to get a website that gives full video instructions and the necessary software to set up a private VPN proxy. This simply means BBC iPlayer, ITV Player, Channel 4OD, SkyPlayer will think you are in the UK and grant you access. The streaming speeds are the same as if you were on your broadband at home. The website is Watch-TV-Abroad.com and you can watch a youtube demo video by clicking this link and skipping the first 2 &frac12; minutes http://www.youtube.com/watch?v=r4Yy5uH4XyI</p>
+</section>
+<footer class='post-footer'>
+<section class='author'>
+<h4>Severin Klaus</h4>
+<p>@betabong.</p>
+</section>
+<section class='share'>
+<h4>Share this post</h4>
+<a class='icon-twitter' href='https://twitter.com/share?text=How to watch TV from abroad&amp;amp;url=http://blog.betabong.com/2009/11/30/how-to-watch-tv-from-abroad/' onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+<span class='hidden'>Twitter</span>
+</a>
+<a class='icon-facebook' href='https://www.facebook.com/sharer/sharer.php?u=http://blog.betabong.com/2009/11/30/how-to-watch-tv-from-abroad/' onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+<span class='hidden'>Facebook</span>
+</a>
+<a class='icon-google-plus' href='https://plus.google.com/share?url=http://blog.betabong.com/2009/11/30/how-to-watch-tv-from-abroad/' onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+<span class='hidden'>Google+</span>
+</a>
+</section>
+</footer>
+</article>
+</main>
+
+<footer class='site-footer'>
+<a class='subscribe icon-feed' href='/feed.xml'>
+<span class='tooltip'>Subscribe!</span>
+</a>
+<div class='inner'>
+<section class='copyright'>
+All content copyright
+<a href="/">Betablog</a>
+&copy;
+2015
+&bull; All rights reserved.
+</section>
+<section class='poweredby'>
+Proudly published with
+<a href='http://middlemanapp.com'>Middleman</a>
+</section>
+<section class='poweredby'>
+Casper theme powered by
+<a class='icon-ghost' href='https://ghost.org'>Ghost</a>
+</section>
+</div>
+</footer>
+<link href='//fonts.googleapis.com/css?family=Old+Standard+TT:400,400italic,700' rel='stylesheet' type='text/css'>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  
+  ga('create', 'UA-359384-6', 'auto');
+  ga('send', 'pageview');
+</script>
+</body>
+</html>

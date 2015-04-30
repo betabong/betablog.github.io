@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Betablog: Nested inner functions can be evil</title>
+<meta content='Sometimes it would be quite comfortable (from a programmer’s perspective) to use nested inner functions. But they are a potential source for nasty problems' name='description'>
+<meta charset='utf-8'>
+<meta content='width=device-width, initial-scale=1.0' name='viewport'>
+<meta content='IE=edge' http-equiv='X-UA-Compatible'>
+<meta content='True' name='HandheldFriendly'>
+<meta content='320' name='MobileOptimized'>
+<link rel="alternate" type="application/atom+xml" title="Atom Feed" href="/feed.xml" />
+<link href="/images/favicon.ico" rel="icon" type="image/ico" />
+<link href="/stylesheets/application.css" rel="stylesheet" type="text/css" />
+</head>
+<body class='post-template tag-getting-started'>
+<main class='content' role='main'>
+<article class='post tag-getting-started'>
+<header class='post-header'>
+<a class='blog-logo' href='/'>
+<span class='blog-title'>Betablog</span>
+</a>
+</header>
+<span class='post-meta'>
+<time datetime='2008-07-21'>
+21 Jul 2008
+</time>
+</span>
+<h1 class='post-title'>Nested inner functions can be evil</h1>
+<section class='post-content'><p>Sometimes it would be quite comfortable (from a programmer&rsquo;s perspective) to use nested inner functions. But they are a potential source for nasty problems. Let&rsquo;s take the following simple scenario:</p>
+<pre class="highlight xml"><code><span class="cp">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span>
+<span class="nt">&lt;mx:Application</span> <span class="na">xmlns:mx=</span><span class="s">"http://www.adobe.com/2006/mxml"</span> <span class="na">layout=</span><span class="s">"absolute"</span> <span class="na">creationComplete=</span><span class="s">"create()"</span> <span class="na">click=</span><span class="s">"destroy()"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;mx:Script&gt;</span>
+        <span class="cp">&lt;![CDATA[
+            private var dispatcher : Sprite;
+
+            private function create() : void {
+                dispatcher = new Sprite();
+                // listen to inner function
+                dispatcher.addEventListener( Event.ENTER_FRAME , function( e : Event ) : void { trace( e.type ); } );
+            }
+
+            private function destroy() : void {
+                // this should free created dispatcher from memory
+                dispatcher = null;
+                // what we would need is:
+                // dispatcher.destroy() or dispatcher.removeEventListener( Event.ENTER_FRAME )
+                // or dispatcher.removeAllEventListeners()
+            }
+        ]]]]&gt;&lt;![CDATA[&gt;</span>
+    <span class="nt">&lt;/mx:Script&gt;</span>
+<span class="nt">&lt;/mx:Application&gt;</span>
+</code></pre>
+
+<p>The dispatcher will just live on. The mean thing is that in method «destroy» we don&rsquo;t even have a chance to get rid of the sprite anymore – it just lives on and on (and dispatches its event every time it enters a frame to the listener function.) So 3 objects will just not be freed in memory because of our inner function listener: 1. the dispatcher object, 2. the listener function (the inner function) and 3. the creating object, because the listener function (or its method closure) is bound to the creating method create() scope.</p>
+
+<p>We also can&rsquo;t use the addEventListener&rsquo;s flag to use weak references, because the listener method wouldn&rsquo;t have any other references and would «dye» instantely. So what you should do right now is something like that:</p>
+<pre class="highlight plaintext"><code>    &lt;?xml version="1.0" encoding="utf-8"?&gt;
+    &lt;mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" creationComplete="create()" click="destroy()"&gt;
+        &lt;mx:Script&gt;
+            &lt;![CDATA[
+                private var dispatcher : Sprite;
+
+                private function create() : void {
+                    dispatcher = new Sprite();
+                    dispatcher.addEventListener( Event.ENTER_FRAME , handler );
+                }
+
+                private function destroy() : void {
+                    dispatcher.removeEventListener( Event.ENTER_FRAME , handler );
+                    dispatcher = null;
+                }
+
+                private function handler( event : Event ) : void {
+                    trace( e.type );
+                }
+            ]]]]&gt;&lt;![CDATA[&gt;
+        &lt;/mx:Script&gt;
+    &lt;/mx:Application&gt;
+</code></pre>
+
+<p>That&rsquo;s clean code. Good bye dispatcher, good bye sprite! But sometimes it can be quite difficult to maintain this. I personally would wish that actionscript objects, especially the EventDispatcher class, would provide a destroy() method. Calling it gets rid of all event listeners and also would unlisten to everything it has listened to. And for DisplayObjects it would also perform other operations like removing itself from its parent and destroying all children.</p>
+
+<p>I&rsquo;d also like to see the following method like this in EventDispatcher:</p>
+<pre class="highlight plaintext"><code>    EventDispatcher.removeListener( type : String = null , listener : Function = null , useCapture : Boolean = false );
+
+    // so this would remove all listeners
+    EventDispatcher.removeListener();
+
+    // and this all listeners to enter frame
+    EventDispatcher.removeListener( Event.ENTER_FRAME );
+</code></pre>
+
+<p>I get around many issues by implementing something like a IEventListener interface:</p>
+<pre class="highlight plaintext"><code>    interface IEventListener {
+    function listenTo( dispatcher : IEventDispatcher , type : String , listener : Function , useCapture : Boolean = false ) : void;
+    functon unlistenTo( dispatcher : IEventDispatcher , type : String , listener : Function , useCapture : Boolean = false ) : void;
+    function destroy() : void; // will remove myself as event listener from all registered dispatchers
+    }
+</code></pre>
+
+<p>Way to go :-)</p>
+
+<h2>Comments</h2>
+
+<p><strong><a title="2008-10-07 05:03:55" href="#7">Jeff</a>:</strong> Good post with good coding advice for the topic. Thank you.</p>
+</section>
+<footer class='post-footer'>
+<section class='author'>
+<h4>Severin Klaus</h4>
+<p>@betabong.</p>
+</section>
+<section class='share'>
+<h4>Share this post</h4>
+<a class='icon-twitter' href='https://twitter.com/share?text=Nested inner functions can be evil&amp;amp;url=http://blog.betabong.com/2008/07/21/nested-inner-functions-can-be-evil/' onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+<span class='hidden'>Twitter</span>
+</a>
+<a class='icon-facebook' href='https://www.facebook.com/sharer/sharer.php?u=http://blog.betabong.com/2008/07/21/nested-inner-functions-can-be-evil/' onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+<span class='hidden'>Facebook</span>
+</a>
+<a class='icon-google-plus' href='https://plus.google.com/share?url=http://blog.betabong.com/2008/07/21/nested-inner-functions-can-be-evil/' onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+<span class='hidden'>Google+</span>
+</a>
+</section>
+</footer>
+</article>
+</main>
+
+<footer class='site-footer'>
+<a class='subscribe icon-feed' href='/feed.xml'>
+<span class='tooltip'>Subscribe!</span>
+</a>
+<div class='inner'>
+<section class='copyright'>
+All content copyright
+<a href="/">Betablog</a>
+&copy;
+2015
+&bull; All rights reserved.
+</section>
+<section class='poweredby'>
+Proudly published with
+<a href='http://middlemanapp.com'>Middleman</a>
+</section>
+<section class='poweredby'>
+Casper theme powered by
+<a class='icon-ghost' href='https://ghost.org'>Ghost</a>
+</section>
+</div>
+</footer>
+<link href='//fonts.googleapis.com/css?family=Old+Standard+TT:400,400italic,700' rel='stylesheet' type='text/css'>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  
+  ga('create', 'UA-359384-6', 'auto');
+  ga('send', 'pageview');
+</script>
+</body>
+</html>

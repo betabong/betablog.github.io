@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Betablog: E4X String Parser</title>
+<meta content='I did a lot of string parsing in the recent time: CSS Selectors, XML Display Objects, Stylesheets, … I also need XML selection from String expressions' name='description'>
+<meta charset='utf-8'>
+<meta content='width=device-width, initial-scale=1.0' name='viewport'>
+<meta content='IE=edge' http-equiv='X-UA-Compatible'>
+<meta content='True' name='HandheldFriendly'>
+<meta content='320' name='MobileOptimized'>
+<link rel="alternate" type="application/atom+xml" title="Atom Feed" href="/feed.xml" />
+<link href="/images/favicon.ico" rel="icon" type="image/ico" />
+<link href="/stylesheets/application.css" rel="stylesheet" type="text/css" />
+</head>
+<body class='post-template tag-getting-started'>
+<main class='content' role='main'>
+<article class='post tag-getting-started'>
+<header class='post-header'>
+<a class='blog-logo' href='/'>
+<span class='blog-title'>Betablog</span>
+</a>
+</header>
+<span class='post-meta'>
+<time datetime='2008-09-23'>
+23 Sep 2008
+</time>
+</span>
+<h1 class='post-title'>E4X String Parser</h1>
+<section class='post-content'><p>I did a lot of string parsing in the recent time: CSS Selectors, XML Display Objects, Stylesheets, &hellip; I also need XML selection from String expressions – I formerly (AS2) used the great <a href="http://www.xfactorstudio.com/">XPath4AS2 from XFactorStudio</a> which did it&rsquo;s job well (though a bit slow, it&rsquo;s AS2 after all). There&rsquo;s also one for Actionscript 3 (<a href="http://code.google.com/p/xpath-as3/">xpath-as3</a>). But.. well&hellip; I wanted to go for some real speed! I like XPath a lot, but we now have native E4X selection in Actionscript 3, quite a different concept of node selection, and the conversion of XPath to E4X obviously results in quite a compromise in performance. So all I need is a decent E4X parser. And hey, I found one! E<a href="http://www.adobe.com/devnet/flex/articles/e4x_print.html">4XParser from Digital Primates</a>. It does its job really well, especially considering the very compact code it consists of. Thanks to some preparsing and caching, it&rsquo;s also quite fast. <strong>Still I thought I can do better :-)</strong> So I planted myself for a day (and a night) in front of my displays and hacked the hell out of it. The result is a little library which does pretty much the same thing as E4XParser, though pretty much more and a little faster too (15% to 50%). It&rsquo;s about half as fast as the native E4X selection (once parsed). You can do nearly anything you can do with E4X. Use it like this:   </p>
+<pre class="highlight plaintext"><code>import com.betabong.xml.e4x.E4X;
+var result : XMLList = E4X.evaluate( xmllist , "author.( name.@last == 'Jobs' )" );
+
+// E4X.evaluate( source : XMLList , expression : String ) : XMLList
+</code></pre>
+
+<p>  If your source is XML, just do XMLList( xml ), if your result should be xml, do xml = result[0] <a href="/showcase/e4x/E4X_Parse_Test.html">Test it here</a> <img src="/uploads/2008/09/e4x.png" /> <strong>Restrictions:</strong> You can&rsquo;t use AND/OR in comparisions. So, this won&rsquo;t go: author.( name.@first == &lsquo;Steve&rsquo; &amp;&amp; name.@last == &#39;Jobs&rsquo; ) – though this is only a real limitations for OR. do this for AND: author.( name.@first == &#39;Steve&rsquo; ).( name.@last == &#39;Jobs&rsquo; ). <strong>What you can do:</strong> Yes, you can do quite advanced stuff like author.( name.@first == name.@last ) or car.@rating.average() (one of the few proprietary functions I added). Or even </p>
+<pre class="highlight plaintext"><code>*..car.( @brand.toLowerCase() == 'volvo' ).( parent().( localName() == 'group' ).@rating &gt; @rating )
+</code></pre>
+
+<p>– a weird example, I admit, but fancy, ain&rsquo;t it? :-) This is the first time ever I&rsquo;m releasing part of my library as Open Source (MIT licence). As soon as I&rsquo;ll find some time (and if I see any interest), I&rsquo;m gonna put this into Google Code, so everybody can easily checkout and participate. Until then download it from here: <a href="/showcase/e4x/betabong-e4x.zip">Download</a> (zip 13kb)</p>
+
+<h2>Comments</h2>
+
+<p><strong><a title="2009-08-11 23:17:50" href="#51">David</a>:</strong> Thanks! This was just what I needed.</p>
+
+<p><strong><a title="2009-08-21 06:23:39" href="#54">Leonardo Diaz</a>:</strong> A great tool, but I haven&rsquo;t been able to make it work with xml code that defines namespaces and xsd like this for example: test it works without the namespace and all that stuff on the mpeg7 element Any advice??</p>
+
+<p><strong><a title="2009-08-21 06:34:27" href="#55">Leonardo Diaz</a>:</strong> opps for the las comment, it did not parse the xml code, I&rsquo;m trying with some mpeg7 document like this one: [Mpeg7 xmlns:mpeg7=&ldquo;urn:mpeg:schema:2001&rdquo; xmlns=&ldquo;urn:mpeg:schema:2001&rdquo; xmlns:xsi=&ldquo;http://www.w3.org/2001/XMLSchema-instance&rdquo; xmlns:xml=&ldquo;http://www.w3.org/XML/1998/namespace&rdquo; xsi:schemaLocation=&ldquo;urn:mpeg:schema:2001 XMLSchema/Mpeg7-2001.xsd &rdquo;] [Description type=&ldquo;ContentEntityType&rdquo;] [MultimediaContent type=&ldquo;AudioVisualType&rdquo;] [AudioVisual] [MediaInformation] [/MediaInformation] [/AudioVisual] [/MultimediaContent] [/Description] [/Mpeg7] if you delete all the extra params on the mpeg7 it works, but like this, it does not.</p>
+
+<p><strong><a title="2009-08-21 10:01:36" href="#56">betabong</a>:</strong> Namespaces are not easy to come by, that&rsquo;s for sure. Still&hellip; what exactly doesn&rsquo;t work? Can you provide me the example, so I can double check with my code?</p>
+
+<p><strong><a title="2009-08-21 16:53:55" href="#57">Leonardo Diaz</a>:</strong> Hi, well I tried more examples and googled and found that the problem is the default namespace. with the code added on my last comment (just change the [ for the ;&gt; symbol) it works just by deleting the default namespace (xmlns=&ldquo;urn:mpeg:schema:2001&rdquo;), now I&rsquo;m facing a different problem, and it&rsquo;s how to filter nodes by its params when they are defined using xsi:, for example some elements on the mpeg7 especification has a defined type (MultimediaContent xsi:type=&ldquo;AudioVisualType&rdquo; or MultimediaContent xsi:type=&ldquo;AudioType&rdquo;) or MultimediaContent xsi:type=&ldquo;VisualType&rdquo; ) if I use the e4x filter ..MultimediaContext.(@xsi:type==&ldquo;AudioType&rdquo;) it does not work, but if the nodes defines the params just as type=&ldquo;&rdquo; (not xsi:type=&ldquo;&rdquo;) then a normal expression ..MultimediaContext.(@type==&ldquo;AudioType&rdquo;) works as expected. &hellip;By the way your online parser has help me a lot, i&rsquo;d be crying by just debugin the code and e4x expressions.</p>
+
+<p><strong><a title="2009-08-21 17:21:06" href="#58">Leonardo Diaz</a>:</strong> Sorry to &ldquo;spam&rdquo; your comment section, but this article is one tof the best and on google one of the first results, so I think this one last comment will help others. All the &ldquo;problems&rdquo; I&rsquo;ve got are nicely explained here http://www.senocular.com/flash/tutorials/as3withflashcs3/?page=4 A great resource to fully understand E4X, I think it&rsquo;ll help you to update your app to dynamically load the namespaces on the xml (that would be awesome), and add an option to filter by using them.</p>
+
+<p><strong><a title="2009-08-21 17:35:02" href="#59">betabong</a>:</strong> Leonardo, I see your problem. My E4X parser doesn&rsquo;t (yet) support namespaces. It&rsquo;s mainly because I didn&rsquo;t really need it for my own purposes, but also because I think namespaces are a pain in the ass to handle. What I often do, is to just get rid of them: </p>
+<pre class="highlight plaintext"><code>public static function removeNamspaces( xml : XML ):XML {
+    return XML( removeNamspacesFromString( xml.toXMLString() ) );
+}
+
+public static function removeNamspacesFromString( value : String ):String  
+{  
+    value = value.replace(removeNS1, "");  
+    var attrs:Array = value.match(removeNS2);  
+    value = value.replace(removeNS2, "%attribute value%");  
+    value = value.replace(removeNS3, "$1");  
+    while (value.indexOf("%attribute value%") &gt; 0)  
+    {  
+        value = value.replace("%attribute value%", attrs.shift());  
+    }  
+    return value;  
+} 
+
+private static var removeNS1:RegExp = /xmlns[^"]+\"[^"]+\"/g;
+private static var removeNS2:RegExp = /\"[^"]*\"/g;
+private static var removeNS3:RegExp = /(&lt;\/?|\s)\w+\:/g;
+</code></pre>
+
+<p>I admit: this is not a beautiful solution. But it works for most cases. Call me lazy ;)</p>
+
+<p><strong><a title="2010-07-21 14:55:22" href="#125">Kevin</a>:</strong> Hi, did you put this great tool on Google Code? Anyway thank you very much, it was really what i was looking for!!</p>
+
+<p><strong><a title="2011-07-22 21:16:53" href="#330">Justin</a>:</strong> Very useful, thanks. Would be interested in hearing if you end up hosting this project somewhere.</p>
+
+<p><strong><a title="2012-03-21 00:38:14" href="#782">Danny Kopping</a>:</strong> Thank you!!! Wonderful library - helped us solve a very troubling issue</p>
+</section>
+<footer class='post-footer'>
+<section class='author'>
+<h4>Severin Klaus</h4>
+<p>@betabong.</p>
+</section>
+<section class='share'>
+<h4>Share this post</h4>
+<a class='icon-twitter' href='https://twitter.com/share?text=E4X String Parser&amp;amp;url=http://blog.betabong.com/2008/09/23/e4x-string-parser/' onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+<span class='hidden'>Twitter</span>
+</a>
+<a class='icon-facebook' href='https://www.facebook.com/sharer/sharer.php?u=http://blog.betabong.com/2008/09/23/e4x-string-parser/' onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+<span class='hidden'>Facebook</span>
+</a>
+<a class='icon-google-plus' href='https://plus.google.com/share?url=http://blog.betabong.com/2008/09/23/e4x-string-parser/' onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+<span class='hidden'>Google+</span>
+</a>
+</section>
+</footer>
+</article>
+</main>
+
+<footer class='site-footer'>
+<a class='subscribe icon-feed' href='/feed.xml'>
+<span class='tooltip'>Subscribe!</span>
+</a>
+<div class='inner'>
+<section class='copyright'>
+All content copyright
+<a href="/">Betablog</a>
+&copy;
+2015
+&bull; All rights reserved.
+</section>
+<section class='poweredby'>
+Proudly published with
+<a href='http://middlemanapp.com'>Middleman</a>
+</section>
+<section class='poweredby'>
+Casper theme powered by
+<a class='icon-ghost' href='https://ghost.org'>Ghost</a>
+</section>
+</div>
+</footer>
+<link href='//fonts.googleapis.com/css?family=Old+Standard+TT:400,400italic,700' rel='stylesheet' type='text/css'>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  
+  ga('create', 'UA-359384-6', 'auto');
+  ga('send', 'pageview');
+</script>
+</body>
+</html>

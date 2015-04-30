@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Betablog: Test Flex/Flash throttled (aka Simulate Download)</title>
+<meta content='Most of the Flash application deal with server side data like images, xml files etc. We tend to forget about that because the default Run or Debug commands' name='description'>
+<meta charset='utf-8'>
+<meta content='width=device-width, initial-scale=1.0' name='viewport'>
+<meta content='IE=edge' http-equiv='X-UA-Compatible'>
+<meta content='True' name='HandheldFriendly'>
+<meta content='320' name='MobileOptimized'>
+<link rel="alternate" type="application/atom+xml" title="Atom Feed" href="/feed.xml" />
+<link href="/images/favicon.ico" rel="icon" type="image/ico" />
+<link href="/stylesheets/application.css" rel="stylesheet" type="text/css" />
+</head>
+<body class='post-template tag-getting-started'>
+<main class='content' role='main'>
+<article class='post tag-getting-started'>
+<header class='post-header'>
+<a class='blog-logo' href='/'>
+<span class='blog-title'>Betablog</span>
+</a>
+</header>
+<span class='post-meta'>
+<time datetime='2008-12-06'>
+06 Dec 2008
+</time>
+</span>
+<h1 class='post-title'>Test Flex/Flash throttled (aka Simulate Download)</h1>
+<section class='post-content'><p>Most of the Flash application deal with server side data like images, xml files etc. We tend to forget about that because the default Run or Debug commands in Flex will open a local html file (and also because we developers often have quite a nice internet connection when testing remotely). Thus all data is loaded nearly instantely. In Flash we have a menu command called <strong>«Simulate Download»</strong> to see how things run at different bandwidth situations. <strong>But how to achieve this in Flex?</strong> I&rsquo;ve been using Sloppy for a long time. It&rsquo;s little java app that can be started via a simple web click. It&rsquo;s really easy to use and does very well what it does. For debugging your app (your flash website) throttled in Flex Builder simply follow these steps:   </p>
+
+<ol>
+<li><a href="http://www.dallaway.com/sloppy/">Open the <strong>Sloppy website</strong></a></li>
+<li>Click the little <strong>Sloppy icon</strong>: <img src="/uploads/2008/12/picture-10.png" /><a href="http://blog.betabong.com/uploads/2008/12/picture-10.png"> </a></li>
+<li>A «sloppy.jnlp» file is downloaded. <strong>Open it</strong> if doesn&rsquo;t open automatically.</li>
+<li>The actual application will be downloaded and started. If it asks you to trust: <strong>trust!</strong> :-)</li>
+<li><strong>Enter the address</strong> of your html file in the bin-debug or bin-release folder. It should be a webserver address. I usually create a <a href="http://www.macupdate.com/info.php/id/10433/symboliclinker">symbolic link</a> of my project directory and put it into my local webserver directory. <img src="/uploads/2008/12/picture-11.png" /></li>
+<li><strong>Click «Go»</strong> – this will start the Sloppy proxy and open the page in your default browser. </li>
+<li><strong>Copy the address</strong> from the browser window (usually http://127.0.0.1:7569/your/path) <img src="/uploads/2008/12/picture-12.png" /></li>
+<li>You may close the window. Go to Flex Builder and <strong>open the project properties</strong> (right click on project folder, last item). In an Actionscript Project, switch to ActionScript Build Path. <img src="/uploads/2008/12/picture-14-300x289.png" /> </li>
+<li>Enter the copied address into <strong>«Output folder URL»</strong>, clear the html name (e.g. App.html). <img src="/uploads/2008/12/picture-15.png" /></li>
+<li>Click «OK» and <strong>you&rsquo;re done</strong>. You can now Run and Debug as if your website was hosted on some server and you had a 256K ADSL connection (instead of your T1).
+Note: I tried to automate the whole thing (with Ant of course) and succeeded to a certain limit. What I did was download <a href="http://code.google.com/p/sloppy/">Sloopy&rsquo;s source code</a> (java), modify it so it can handle more terminal attributes and build the  .jar file. This can be run on command line, which will start the sloopy server. So I created an ant file that does all that for me, but this ant file would only be cool, if it could also trigger the run or debug commands and modify the output folder url. I haven&rsquo;t found a way (at least not a satisfying one) to do this, so I might just follow the manual street for once ;) Another note: If you are windows user, you might wanna try this Firefox plugin: <a href="https://addons.mozilla.org/en-US/firefox/addon/5917">Firefox Throttle</a></li>
+</ol>
+
+<h2>Comments</h2>
+
+<p><strong><a title="2008-12-15 23:13:11" href="#13">brandy</a>:</strong> Firefox Throttle doesn&rsquo;t work with localhost, sadly.</p>
+
+<p><strong><a title="2009-01-16 00:12:28" href="#20">Oliver</a>:</strong> There&rsquo;s nothing quite as useful as Charles IMHO&hellip; quite wonderful http://www.charlesproxy.com/</p>
+
+<p><strong><a title="2009-03-06 11:17:24" href="#24">Geoff</a>:</strong> @ Oliver, I have to agree on that one. Charles is one of my favourite pieces of software that I just during Flex / Flash development! It&rsquo;s just great and working perfectly. cheers geoff</p>
+
+<p><strong><a title="2010-03-06 19:30:32" href="#80">Ranoka</a>:</strong> This worked really well for me. I used MAMP to set up my local server, which was easy. Sloppy is a great little app, and symboliclinker works great too.</p>
+</section>
+<footer class='post-footer'>
+<section class='author'>
+<h4>Severin Klaus</h4>
+<p>@betabong.</p>
+</section>
+<section class='share'>
+<h4>Share this post</h4>
+<a class='icon-twitter' href='https://twitter.com/share?text=Test Flex/Flash throttled (aka Simulate Download)&amp;amp;url=http://blog.betabong.com/2008/12/06/test-flex-throttled-simulate-download/' onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+<span class='hidden'>Twitter</span>
+</a>
+<a class='icon-facebook' href='https://www.facebook.com/sharer/sharer.php?u=http://blog.betabong.com/2008/12/06/test-flex-throttled-simulate-download/' onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+<span class='hidden'>Facebook</span>
+</a>
+<a class='icon-google-plus' href='https://plus.google.com/share?url=http://blog.betabong.com/2008/12/06/test-flex-throttled-simulate-download/' onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+<span class='hidden'>Google+</span>
+</a>
+</section>
+</footer>
+</article>
+</main>
+
+<footer class='site-footer'>
+<a class='subscribe icon-feed' href='/feed.xml'>
+<span class='tooltip'>Subscribe!</span>
+</a>
+<div class='inner'>
+<section class='copyright'>
+All content copyright
+<a href="/">Betablog</a>
+&copy;
+2015
+&bull; All rights reserved.
+</section>
+<section class='poweredby'>
+Proudly published with
+<a href='http://middlemanapp.com'>Middleman</a>
+</section>
+<section class='poweredby'>
+Casper theme powered by
+<a class='icon-ghost' href='https://ghost.org'>Ghost</a>
+</section>
+</div>
+</footer>
+<link href='//fonts.googleapis.com/css?family=Old+Standard+TT:400,400italic,700' rel='stylesheet' type='text/css'>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  
+  ga('create', 'UA-359384-6', 'auto');
+  ga('send', 'pageview');
+</script>
+</body>
+</html>

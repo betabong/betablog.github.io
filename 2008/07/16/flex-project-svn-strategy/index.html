@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Betablog: Flex Project - SVN Strategy</title>
+<meta content='I like to keep all my projects on a svn server. So far this was just for myself and I didn’t care much about the simplicity of checking out and in – a' name='description'>
+<meta charset='utf-8'>
+<meta content='width=device-width, initial-scale=1.0' name='viewport'>
+<meta content='IE=edge' http-equiv='X-UA-Compatible'>
+<meta content='True' name='HandheldFriendly'>
+<meta content='320' name='MobileOptimized'>
+<link rel="alternate" type="application/atom+xml" title="Atom Feed" href="/feed.xml" />
+<link href="/images/favicon.ico" rel="icon" type="image/ico" />
+<link href="/stylesheets/application.css" rel="stylesheet" type="text/css" />
+</head>
+<body class='post-template tag-getting-started'>
+<main class='content' role='main'>
+<article class='post tag-getting-started'>
+<header class='post-header'>
+<a class='blog-logo' href='/'>
+<span class='blog-title'>Betablog</span>
+</a>
+</header>
+<span class='post-meta'>
+<time datetime='2008-07-16'>
+16 Jul 2008
+</time>
+</span>
+<h1 class='post-title'>Flex Project - SVN Strategy</h1>
+<section class='post-content'><p>I like to keep all my projects on a svn server. So far this was just for myself and I didn&rsquo;t care much about the simplicity of checking out and in – a little chaos is acceptable if you&rsquo;re up to handle it ;) Finally I was forced to rethink this strategy because I wanted to let other people work on a project. As many actionscript projects, this one also heavily relies on external libraries, most of them hosted by Google Code, another one being my own (closed) lib. So should I tell people: «hey, just svn checkout from here and there and then relink the libs in the project properties but don&rsquo;t check in the updated settings for christ&rsquo;s sake!»No. Too shaky, really. Fortunately, SVN provides a fucking cool way to solve this issue: svn:externals. Ha! This is so awesome, you won&rsquo;t believe it ;-) Okay, here are the steps to follow (on a mac at least): Create a flex project: </p>
+
+<ul>
+<li>project 
+
+<ul>
+<li>html-template</li>
+<li>src
+Add a new directory: </li>
+</ul></li>
+<li><p>project </p>
+
+<ul>
+<li>html-template</li>
+<li>src</li>
+<li><p>externals
+Now put this on your svn, either by svn add or by putting in the repos and checking out again (well.. just as you did). If you&rsquo;ve already got bin-debug or bin-release directories, just remove them on the repos and svn update (they are created with each publish in flex). Now let&rsquo;s say our project resides in ~/Documents/projects/project (path to project). Do the following in Terminal: </p>
+
+<p>cd ~/Documents/projects/project/externals
+svn svn propedit svn:externals .</p></li>
+</ul></li>
+</ul>
+
+<p>This should open an editor (in my case I&rsquo;ve defined textmate as my editor by doing:) </p>
+<pre class="highlight plaintext"><code>export EDITOR='mate -w'
+</code></pre>
+
+<p>Enter the following (example libraries): </p>
+<pre class="highlight plaintext"><code>caurinatweener http://tweener.googlecode.com/svn/trunk/as3/
+as3corelib http://as3corelib.googlecode.com/svn/
+</code></pre>
+
+<p>You can also add a specific release: </p>
+<pre class="highlight plaintext"><code>caurinatweener -r23 http://tweener.googlecode.com/svn/trunk/as3/
+</code></pre>
+
+<p>(in TextMate save and close, if you use vim you know what to do anyway) Now comes the magic part: </p>
+<pre class="highlight plaintext"><code>svn up
+</code></pre>
+
+<p>This will checkout all defined libraries into externals/xyz!! you do <code>svn commit</code> and now every time somebody checks out your project (or your externals directory) all the libs will be checked out automatically! I think this is just fucking awesome! :-) Now in Eclipse all paths to your external libraries will be relative to the project (of course you have to add the libs there or change the paths – you should know how to do that ;)) Now all we need to is ignoring bin-release and bin-debug. We don&rsquo;t want these directories to be in our svn repos: </p>
+<pre class="highlight plaintext"><code>cd ~/Documents/projects/project
+svn svn propedit svn:ignore .
+</code></pre>
+
+<p>enter a list of directories or files to be ignored. in our case: </p>
+<pre class="highlight plaintext"><code>bin-debug
+bin-release
+</code></pre>
+
+<p>That&rsquo;s it! Thanks, svn!</p>
+</section>
+<footer class='post-footer'>
+<section class='author'>
+<h4>Severin Klaus</h4>
+<p>@betabong.</p>
+</section>
+<section class='share'>
+<h4>Share this post</h4>
+<a class='icon-twitter' href='https://twitter.com/share?text=Flex Project - SVN Strategy&amp;amp;url=http://blog.betabong.com/2008/07/16/flex-project-svn-strategy/' onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+<span class='hidden'>Twitter</span>
+</a>
+<a class='icon-facebook' href='https://www.facebook.com/sharer/sharer.php?u=http://blog.betabong.com/2008/07/16/flex-project-svn-strategy/' onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+<span class='hidden'>Facebook</span>
+</a>
+<a class='icon-google-plus' href='https://plus.google.com/share?url=http://blog.betabong.com/2008/07/16/flex-project-svn-strategy/' onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+<span class='hidden'>Google+</span>
+</a>
+</section>
+</footer>
+</article>
+</main>
+
+<footer class='site-footer'>
+<a class='subscribe icon-feed' href='/feed.xml'>
+<span class='tooltip'>Subscribe!</span>
+</a>
+<div class='inner'>
+<section class='copyright'>
+All content copyright
+<a href="/">Betablog</a>
+&copy;
+2015
+&bull; All rights reserved.
+</section>
+<section class='poweredby'>
+Proudly published with
+<a href='http://middlemanapp.com'>Middleman</a>
+</section>
+<section class='poweredby'>
+Casper theme powered by
+<a class='icon-ghost' href='https://ghost.org'>Ghost</a>
+</section>
+</div>
+</footer>
+<link href='//fonts.googleapis.com/css?family=Old+Standard+TT:400,400italic,700' rel='stylesheet' type='text/css'>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  
+  ga('create', 'UA-359384-6', 'auto');
+  ga('send', 'pageview');
+</script>
+</body>
+</html>

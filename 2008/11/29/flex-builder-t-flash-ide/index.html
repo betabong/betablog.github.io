@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Betablog: Develop in Flex Builder, publish in Flash IDE (Mac OS X)</title>
+<meta content='Update: I’ve found an easier way without FlashCommand Once you got used to developing for Flash in Flex Builder, you hate to do any programming in Flash' name='description'>
+<meta charset='utf-8'>
+<meta content='width=device-width, initial-scale=1.0' name='viewport'>
+<meta content='IE=edge' http-equiv='X-UA-Compatible'>
+<meta content='True' name='HandheldFriendly'>
+<meta content='320' name='MobileOptimized'>
+<link rel="alternate" type="application/atom+xml" title="Atom Feed" href="/feed.xml" />
+<link href="/images/favicon.ico" rel="icon" type="image/ico" />
+<link href="/stylesheets/application.css" rel="stylesheet" type="text/css" />
+</head>
+<body class='post-template tag-getting-started'>
+<main class='content' role='main'>
+<article class='post tag-getting-started'>
+<header class='post-header'>
+<a class='blog-logo' href='/'>
+<span class='blog-title'>Betablog</span>
+</a>
+</header>
+<span class='post-meta'>
+<time datetime='2008-11-29'>
+29 Nov 2008
+</time>
+</span>
+<h1 class='post-title'>Develop in Flex Builder, publish in Flash IDE (Mac OS X)</h1>
+<section class='post-content'><p><strong>Update:</strong> <a href="/2008/12/03/test-movie-from-flex-to-flash-easy-way/">I&rsquo;ve found an easier way without FlashCommand</a> Once you got used to developing for Flash in Flex Builder, you hate to do any programming in Flash IDE. Still you sometimes might have to: Flex Builder won&rsquo;t allow to publish into a FLA file. (There are of course many other reasons, like supporting older AS1/AS2 projects, we don&rsquo;t go into that here.) Thanks to Eclipse&rsquo;s ability to be customized, there are ways to make things at least a little easier. I give here a little overview of how I&rsquo;ve set up my environment, based on several helpful resources I&rsquo;ve found in the web. </p>
+
+<ol>
+<li>Install FlashCommand</li>
+<li>Install Ant
+And for each project: </li>
+<li>Create/modify Ant file</li>
+<li>Create Actionscript project</li>
+<li>Set up project and FLA file</li>
+</ol>
+
+<h3>What you need</h3>
+
+<ul>
+<li><a href="http://www.adobe.com/products/flex/">Flex Builder</a></li>
+<li><a href="http://www.adobe.com/products/flash/">Flash IDE (CS3 or CS4)</a></li>
+</ul>
+
+<h3>Install FlashCommand</h3>
+
+<p><a href="http://www.mikechambers.com/blog/2008/05/02/flashcommand-for-os-x-updated-to-work-with-flash-cs3/">flashcommand</a> is a python script by <a href="http://www.mikechambers.com/blog/">Mike Chambers</a> that lets you compile FLA files from the command line using Flash IDE. <a href="http://code.google.com/p/flashcommand/downloads/list">Download it</a> and put it wherever you want. </p>
+
+<h3>Install ANT</h3>
+
+<p>If you&rsquo;re used to FDT (or Eclipse in any way) you may well know Ant. <a href="http://en.wikipedia.org/wiki/Apache_Ant">Ant</a> is the premier build tool for any developers working in <a href="http://www.eclipse.org/">Eclipse</a>, with many many cool possibilites to automate your workflow. Here&rsquo;s how you <a href="http://blog.jodybrewster.net/2008/04/09/installing-ant-in-flex-builder-3/">install Ant in Flex Builder 3 Standalone</a>: </p>
+
+<ol>
+<li>Go to Help &gt; Software Updates &gt; Find and Install</li>
+<li>Search for new features to install, click next</li>
+<li>Select «The Eclipse Project Updates», click finish Note: If you do not have the option above click «New Remote Site» and enter «The Eclipse Project Updates» as the name and «http://update.eclipse.org/updates/3.3» as the url.</li>
+<li>In Eclipse project updates look for «Eclipse Java Development Tools &hellip;» – it might be in «Eclipse SDK Eclipse 3.3.2» but this depends on what version you have installed and what version is currently available. Select it and click next.</li>
+<li>Accept licence agreement, click next. Then click «Finish» to start download.</li>
+<li>Once downloaded, click «Install all»</li>
+<li>Restart Eclipse (you&rsquo;ll be asked to)</li>
+</ol>
+
+<h3>Create Project</h3>
+
+<ol>
+<li>Create a new Actionscript Project in Flex Builder</li>
+<li>Add a new «build» directory in the project root</li>
+<li>Add your FLA file(s) and assets to the build folder and your source files to the src folder (I also strongly recommend adding external libraries to and «externals» directory and use svn:externals property on it, but that&rsquo;s another story) </li>
+<li>Add build paths. You have to do this at least twice: 
+
+<ul>
+<li>In the Flash IDE for the FLA: Publish Settings &gt; Actionscript 3 «Settings&hellip;». Don&rsquo;t forget to add the src folder at least. Test your FLA once done. It should compile just fine.</li>
+<li>In Flex Builder: Project &gt; Properties &gt; ActionScript Build Path. Add your external libraries here. This is used so Flex knows where to lookup your classes, it won&rsquo;t actually be needed for compiling, because that&rsquo;s what Flash IDE&rsquo;s gonna do.</li>
+</ul></li>
+<li>Now you&rsquo;re almost done: you can edit your classes in Flex Builder and switch to Flash IDE to publish and/or test your movie. We&rsquo;re gonna make this a little more comfortable with Ant and flashcommand.</li>
+</ol>
+
+<h3>Add Ant build file</h3>
+
+<ol>
+<li>Create a new file build.xml in the root folder and open it with Ant Editor (in Flex Builder aka Eclipse)</li>
+<li>Edit the build.xml according your setup (see below for example)</li>
+<li>Add build.xml to Ant View (Window &gt; Other Views&hellip;)</li>
+<li>Run an action by double clicking it in Ant View: there you go!! It will compile in Flash IDE and open in your browser for testing!</li>
+</ol>
+
+<h3>Sample Ant build.xml</h3>
+<pre class="highlight xml"><code>  <span class="cp">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
+  <span class="c">&lt;!-- ====================================================================== 
+       Nov 28, 2008 1:37:54 AM                                                        
+
+       MyProject    
+       Compile in Flash IDE
+
+       sev                                                                
+       ====================================================================== --&gt;</span>
+  <span class="nt">&lt;project</span> <span class="na">name=</span><span class="s">"MyProject"</span> <span class="na">default=</span><span class="s">"Compile and Run"</span> <span class="na">basedir=</span><span class="s">"./"</span><span class="nt">&gt;</span>
+          <span class="c">&lt;!-- project specifics --&gt;</span>
+          <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">"browser"</span> <span class="na">value=</span><span class="s">"Safari"</span><span class="nt">/&gt;</span>
+          <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">"swf.filename"</span> <span class="na">value=</span><span class="s">"MyProject"</span><span class="nt">/&gt;</span>
+          <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">"html.filename"</span> <span class="na">value=</span><span class="s">"fla/index.html"</span> <span class="nt">/&gt;</span>
+
+          <span class="c">&lt;!-- Flash IDE Commandline compiler --&gt;</span>
+          <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">"python"</span> <span class="na">value=</span><span class="s">"/usr/bin/python"</span> <span class="nt">/&gt;</span>
+          <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">"flash.command"</span> <span class="na">value=</span><span class="s">"/path/to/flashcommand"</span> <span class="nt">/&gt;</span>
+
+          <span class="c">&lt;!-- directories --&gt;</span>
+      <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">"user.path"</span> <span class="na">value=</span><span class="s">"/Users/yourname"</span><span class="nt">/&gt;</span>
+
+          <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">"build.dir"</span> <span class="na">value=</span><span class="s">"${basedir}/build"</span> <span class="nt">/&gt;</span>
+
+          <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">"main.fla"</span> <span class="na">value=</span><span class="s">"${build.dir}/${swf.filename}.fla"</span> <span class="nt">/&gt;</span>
+          <span class="c">&lt;!-- paths --&gt;</span>
+          <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">"output.path"</span> <span class="na">value=</span><span class="s">"${build.dir}/${swf.filename}.swf"</span> <span class="nt">/&gt;</span>
+
+      <span class="c">&lt;!-- you can also point to the file:///path/to/index.html --&gt;</span>
+          <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">"local.path"</span> <span class="na">value=</span><span class="s">"http://localhost/projects/MyProject/${html.filename}"</span><span class="nt">/&gt;</span>
+          <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">"log.path"</span> <span class="na">value=</span><span class="s">"${user.path}/Library/Preferences/Macromedia/Flash Player/Logs/flashlog.txt"</span><span class="nt">/&gt;</span>
+
+          <span class="c">&lt;!-- Compile python flashcommand -e  -s build/MyProject.fla -o build/MyProject.swf 
+
+          usage: flashcommand -e | -c | -p [-v] [-x] (-s &lt;sourcefile&gt;) ([-o] &lt;exportpath&gt;) ([-t] &lt;timeout&gt;)([-d] &lt;tempdir&gt;) [-j]
+
+          Options and arguments:
+
+          -a : Prints version and about information.
+          -c : Specifies save and compact action. 
+          -d : Specifies temp directory that will be used for temporary files. Optional.
+          -e : Specifies export action.
+          -h : Prints usage information.
+          -j : Specifies that the generated JSFL file should be printed. If this option is specified, Flash will not be executed.
+          -o : Specifies the output file if -e flag is also set. Optional. If not specified, file will be output to same directory as source.
+          -p : Specifies publish action.
+          -s : Specifies source file. Required.
+          -t : Specifies timeout value. Optional.
+          -v : Specifies verbose mode. Optional.
+          -f : Specifies that the Flash authoring version installed is a version other than Flash CS3
+          -x : Specifies whether Flash should be closed after it is done processing. Optional.    
+
+          --&gt;</span>
+
+  <span class="nt">&lt;target</span> <span class="na">name=</span><span class="s">"Compile and Run"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;antcall</span> <span class="na">target=</span><span class="s">"Compile in IDE"</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;antcall</span> <span class="na">target=</span><span class="s">"Clear Log"</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;antcall</span> <span class="na">target=</span><span class="s">"Open in Browser"</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;/target&gt;</span>
+
+        <span class="nt">&lt;target</span> <span class="na">name=</span><span class="s">"Compile in IDE"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;echo&gt;</span>${flash.command} -e -c -s ${main.fla} -o ${output.path}<span class="nt">&lt;/echo&gt;</span>
+                <span class="nt">&lt;exec</span> <span class="na">executable=</span><span class="s">"${python}"</span> <span class="na">failonerror=</span><span class="s">"true"</span> <span class="na">logError=</span><span class="s">"true"</span><span class="nt">&gt;</span>
+                        <span class="nt">&lt;arg</span> <span class="na">line=</span><span class="s">"${flash.command}"</span> <span class="nt">/&gt;</span>
+                        <span class="nt">&lt;arg</span> <span class="na">line=</span><span class="s">"-e "</span> <span class="nt">/&gt;</span>
+                        <span class="nt">&lt;arg</span> <span class="na">line=</span><span class="s">"-s ${main.fla} "</span><span class="nt">/&gt;</span>
+                        <span class="nt">&lt;arg</span> <span class="na">line=</span><span class="s">"-o ${output.path}"</span><span class="nt">/&gt;</span>
+                <span class="nt">&lt;/exec&gt;</span>
+        <span class="nt">&lt;/target&gt;</span>
+
+
+        <span class="c">&lt;!-- Open in local browser --&gt;</span>
+        <span class="nt">&lt;target</span> <span class="na">name=</span><span class="s">"Open in Browser"</span><span class="nt">&gt;</span>
+                <span class="nt">&lt;exec</span> <span class="na">executable=</span><span class="s">"open"</span><span class="nt">&gt;</span>
+                        <span class="nt">&lt;arg</span> <span class="na">line=</span><span class="s">"-a ${browser} ${local.path}"</span> <span class="nt">/&gt;</span>
+                <span class="nt">&lt;/exec&gt;</span>
+        <span class="nt">&lt;/target&gt;</span>
+
+        <span class="c">&lt;!-- Clear Debug Log --&gt;</span>
+        <span class="nt">&lt;target</span> <span class="na">name=</span><span class="s">"Clear Log"</span><span class="nt">&gt;</span>
+
+          <span class="nt">&lt;concat</span> <span class="na">destfile=</span><span class="s">"${log.path}"</span><span class="nt">&gt;</span>                                                                                                            
+.: Sev Log File :.
+
+<span class="nt">&lt;/concat&gt;</span>
+            <span class="nt">&lt;exec</span> <span class="na">executable=</span><span class="s">"open"</span><span class="nt">&gt;</span>
+                    <span class="nt">&lt;arg</span> <span class="na">line=</span><span class="s">"-a console '${log.path}'"</span> <span class="nt">/&gt;</span>
+            <span class="nt">&lt;/exec&gt;</span>
+        <span class="nt">&lt;/target&gt;</span>
+  <span class="nt">&lt;/project&gt;</span>
+</code></pre>
+
+<h2>Comments</h2>
+
+<p><strong><a title="2009-01-11 05:18:05" href="#17">Andres Garcia</a>:</strong> Hi, maybe should be useful to add these lines: shellCommand = &ldquo;open \&rdquo;&ldquo; + outputPath + &rdquo;\&ldquo;&rdquo; os.system(shellCommand) To the Mike Chambers Phyton file. That way the generated swf file opens in case that you need a similar functionality as in &ldquo;Publish Preview&rdquo;</p>
+
+<p><strong><a title="2009-01-11 05:58:07" href="#18">Andres Garcia</a>:</strong> Or, just adding this line in the temporary jsfl file in the phyton file: jsfl.append(&ldquo;doc.testMovie();\n&rdquo;)</p>
+
+<p><strong><a title="2009-05-30 12:36:04" href="#44">Kirill</a>:</strong> We did something similar in our office. But we launch flash directly from Ant instead of requiring python, using the open command on the Mac which on Leopard has flags for using the already opened instance of Flash or starting a new one, as well as making flash open below everything so it doesn&rsquo;t steal focus as you&rsquo;re doing something else. We support Windows too since a lot of our contractors use it as well as our clients, but on windows we had a hard time getting the Windows open command to work on files with spaces in them through Ant&rsquo;s exec task. So we ended up specifying the temporary jsfl file as the command to launch Flash on windows.</p>
+</section>
+<footer class='post-footer'>
+<section class='author'>
+<h4>Severin Klaus</h4>
+<p>@betabong.</p>
+</section>
+<section class='share'>
+<h4>Share this post</h4>
+<a class='icon-twitter' href='https://twitter.com/share?text=Develop in Flex Builder, publish in Flash IDE (Mac OS X)&amp;amp;url=http://blog.betabong.com/2008/11/29/flex-builder-t-flash-ide/' onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+<span class='hidden'>Twitter</span>
+</a>
+<a class='icon-facebook' href='https://www.facebook.com/sharer/sharer.php?u=http://blog.betabong.com/2008/11/29/flex-builder-t-flash-ide/' onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+<span class='hidden'>Facebook</span>
+</a>
+<a class='icon-google-plus' href='https://plus.google.com/share?url=http://blog.betabong.com/2008/11/29/flex-builder-t-flash-ide/' onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+<span class='hidden'>Google+</span>
+</a>
+</section>
+</footer>
+</article>
+</main>
+
+<footer class='site-footer'>
+<a class='subscribe icon-feed' href='/feed.xml'>
+<span class='tooltip'>Subscribe!</span>
+</a>
+<div class='inner'>
+<section class='copyright'>
+All content copyright
+<a href="/">Betablog</a>
+&copy;
+2015
+&bull; All rights reserved.
+</section>
+<section class='poweredby'>
+Proudly published with
+<a href='http://middlemanapp.com'>Middleman</a>
+</section>
+<section class='poweredby'>
+Casper theme powered by
+<a class='icon-ghost' href='https://ghost.org'>Ghost</a>
+</section>
+</div>
+</footer>
+<link href='//fonts.googleapis.com/css?family=Old+Standard+TT:400,400italic,700' rel='stylesheet' type='text/css'>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  
+  ga('create', 'UA-359384-6', 'auto');
+  ga('send', 'pageview');
+</script>
+</body>
+</html>

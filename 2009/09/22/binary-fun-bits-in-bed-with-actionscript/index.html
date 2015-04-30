@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Betablog: Binary Fun - Bits in Bed with Actionscript</title>
+<meta content='I went down a few algorithmic roads recently, digging into path finding and – for some obscure reasons – bit manipulations. Or byte. Whatever. Along this' name='description'>
+<meta charset='utf-8'>
+<meta content='width=device-width, initial-scale=1.0' name='viewport'>
+<meta content='IE=edge' http-equiv='X-UA-Compatible'>
+<meta content='True' name='HandheldFriendly'>
+<meta content='320' name='MobileOptimized'>
+<link rel="alternate" type="application/atom+xml" title="Atom Feed" href="/feed.xml" />
+<link href="/images/favicon.ico" rel="icon" type="image/ico" />
+<link href="/stylesheets/application.css" rel="stylesheet" type="text/css" />
+</head>
+<body class='post-template tag-getting-started'>
+<main class='content' role='main'>
+<article class='post tag-getting-started'>
+<header class='post-header'>
+<a class='blog-logo' href='/'>
+<span class='blog-title'>Betablog</span>
+</a>
+</header>
+<span class='post-meta'>
+<time datetime='2009-09-22'>
+22 Sep 2009
+</time>
+</span>
+<h1 class='post-title'>Binary Fun - Bits in Bed with Actionscript</h1>
+<section class='post-content'><p><img alt="betabits" src="/uploads/2009/09/betabits.png" /> I went down a few algorithmic roads recently, digging into path finding and – for some obscure reasons – bit manipulations. Or byte. Whatever. Along this way some utility methods (or functions) were born, and I thought: May be some day some of them may be in use to any of you ;) For my dear non-geeky readers: A bit is the smallest part in software. It&rsquo;s either this or that, either 0 or 1, either false or true. With a group of 2 bits you already have 4 states: 00, 01, 10 and 11. With 8 it&rsquo;s 256 and so on (2^n). As it would be too boring to just type 0 or 1, and because we have more than 2 fingers, man invented numbers to accumulate these bits: so 9 stands for 1001, and because 9 is shorter than 1001, we prefer 9. Some even write AB for 10101011, but that&rsquo;s where we come back to geeky world. So after this highly informative introduction, let&rsquo;s get to some code. First, let&rsquo;s count bits: </p>
+<pre class="highlight plaintext"><code>static public function countBits( value : uint ) : uint {
+    var count:uint = 0;
+    while (value) {
+        if ( value &amp; 1 ) {
+            count++;
+        }
+        value &gt;&gt;&gt;= 1;
+    }
+    return count;
+}
+</code></pre>
+
+<p>Example: countBits( 0xAB ) -&gt; 5 Now sometimes you might wanna know: Does this data contain no more than 1 bit? We could just ask countBits( value ) == 1. But that&rsquo;s not as speedy as it should be, right? So here we go: </p>
+<pre class="highlight plaintext"><code>static public function is_1_bit( value : uint ) : Boolean {
+    var count:uint = 0;
+    while (value) {
+        if ( value &amp; 1 ) {
+            if (count == 1) return false;
+            count++;
+        }
+        value &gt;&gt;&gt;= 1;
+    }
+    return count == 1;
+}
+</code></pre>
+
+<p>Examples: is<em>1</em>bit( 0xAB ) -&gt; false is<em>1</em>bit( 0x400 ) -&gt; true uint are by the way 32bit data, so a maximum of 32 of these bits we&rsquo;re talking about can be turned on or off. That&rsquo;s a lot of data. 4&#39;294&#39;967&#39;296 combinations (though not that high compared to the numbers we read every day in the newspapers recently). Anyway, sometimes we might wanna access and set only a group of bits (usually 4 or 8) within this quite large row of bits: </p>
+<pre class="highlight plaintext"><code>static public function getBitGroup( value : uint , group : uint , len : uint = 4 ) : uint {
+    return ( value &gt;&gt; (group*len) ) % (1 &lt;&lt; len);
+}
+
+static public function setBitGroup( value : uint , groupValue :uint , group : uint , len : uint = 4 ) : uint {
+    var pos:uint = group * len;
+    var mask:uint = n_bits(pos);
+    var right_bits:uint = value &amp; mask;
+    value &gt;&gt;&gt;= pos + len;
+    value &lt;&lt;= len;
+    value |= groupValue;
+    value &lt;&lt;= pos;
+    value |= right_bits;
+    return value;
+}
+</code></pre>
+
+<p>Don&rsquo;t they look just groovy?! Yeah baby! Anyway, that&rsquo;s all for now. Stay tuned for some crazy path finding. If I find time (sometimes I wonder how all those bloggers find their time to write so much..) Not to mention Twitter. Boohaa.</p>
+
+<h2>Comments</h2>
+
+<p><strong><a title="2009-09-22 15:50:49" href="#67">peko</a>:</strong> What about binary xor? AS3 don`t have an default operator :(</p>
+
+<p><strong><a title="2009-09-22 17:52:23" href="#68">betabong</a>:</strong> XOR is deadly easy :-) </p>
+<pre class="highlight plaintext"><code>function xor( v1:uint , v2:uint ) : uint {
+    return v1 ^ v2;
+}
+</code></pre>
+
+<p><strong><a title="2009-10-01 02:19:53" href="#70">Jackson Dunstan</a>:</strong> Your function to check if an int has only a single one value is the same as a function that checks if an int is a power of two. You can do so without the loop for extra speed like this: </p>
+<pre class="highlight plaintext"><code>function is_1_bit(value:uint): Boolean
+{
+    return value == 0x80000000 || (value &amp; -value) == value;
+}
+</code></pre>
+
+<p>The formula won&rsquo;t work for (1&lt;&lt;31), hence the need for the explicit check.</p>
+
+<p><strong><a title="2009-10-01 08:41:29" href="#73">betabong</a>:</strong> Love that!! And it&rsquo;s about 40% faster too :) Allow me one tiny little correction though: </p>
+<pre class="highlight plaintext"><code>function is_1_bit(value:uint): Boolean
+{
+    return value != 0 &amp;&amp; ( value == 0x80000000 || (value &amp; -value) == value );
+}
+</code></pre>
+
+<p><strong><a title="2010-04-20 21:40:19" href="#91">Andy Stricker</a>:</strong> countBits is called population count or hamming weight in computer science. There is a good chapter about the optimization available for population count in the O&#39;Reilly book &ldquo;Beautiful Code&rdquo; in chapter Chapter 10: &ldquo;The Quest for an Accelerated Population Count&rdquo; (http://oreilly.com/catalog/9780596510046). I&rsquo;ll like to see how those improvements apply for high level languages. Following an optimized function for 32 bit unsigned int population count in Javascript (derived from http://en.wikipedia.org/wiki/Hamming_weight): </p>
+<pre class="highlight plaintext"><code>function pop(x) {
+   x &amp;= 0xFFFFFFFF;
+   x -= (x &gt;&gt; 1) &amp; 0x55555555;
+   x = (x &amp; 0x33333333) + ((x &gt;&gt; 2) &amp; 0x33333333);
+   x = (x + (x &gt;&gt; 4)) &amp; 0x0f0f0f0f;
+   return (x * 0x01010101) &gt;&gt; 24;
+}
+</code></pre>
+</section>
+<footer class='post-footer'>
+<section class='author'>
+<h4>Severin Klaus</h4>
+<p>@betabong.</p>
+</section>
+<section class='share'>
+<h4>Share this post</h4>
+<a class='icon-twitter' href='https://twitter.com/share?text=Binary Fun - Bits in Bed with Actionscript&amp;amp;url=http://blog.betabong.com/2009/09/22/binary-fun-bits-in-bed-with-actionscript/' onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+<span class='hidden'>Twitter</span>
+</a>
+<a class='icon-facebook' href='https://www.facebook.com/sharer/sharer.php?u=http://blog.betabong.com/2009/09/22/binary-fun-bits-in-bed-with-actionscript/' onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+<span class='hidden'>Facebook</span>
+</a>
+<a class='icon-google-plus' href='https://plus.google.com/share?url=http://blog.betabong.com/2009/09/22/binary-fun-bits-in-bed-with-actionscript/' onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+<span class='hidden'>Google+</span>
+</a>
+</section>
+</footer>
+</article>
+</main>
+
+<footer class='site-footer'>
+<a class='subscribe icon-feed' href='/feed.xml'>
+<span class='tooltip'>Subscribe!</span>
+</a>
+<div class='inner'>
+<section class='copyright'>
+All content copyright
+<a href="/">Betablog</a>
+&copy;
+2015
+&bull; All rights reserved.
+</section>
+<section class='poweredby'>
+Proudly published with
+<a href='http://middlemanapp.com'>Middleman</a>
+</section>
+<section class='poweredby'>
+Casper theme powered by
+<a class='icon-ghost' href='https://ghost.org'>Ghost</a>
+</section>
+</div>
+</footer>
+<link href='//fonts.googleapis.com/css?family=Old+Standard+TT:400,400italic,700' rel='stylesheet' type='text/css'>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  
+  ga('create', 'UA-359384-6', 'auto');
+  ga('send', 'pageview');
+</script>
+</body>
+</html>

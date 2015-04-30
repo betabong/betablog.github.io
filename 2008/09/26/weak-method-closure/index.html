@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Betablog: Weak Method Closure</title>
+<meta content='Sometimes you want to pass an objects function as an argument and store that function (along its arguments) for later calling. Still you don’t want that' name='description'>
+<meta charset='utf-8'>
+<meta content='width=device-width, initial-scale=1.0' name='viewport'>
+<meta content='IE=edge' http-equiv='X-UA-Compatible'>
+<meta content='True' name='HandheldFriendly'>
+<meta content='320' name='MobileOptimized'>
+<link rel="alternate" type="application/atom+xml" title="Atom Feed" href="/feed.xml" />
+<link href="/images/favicon.ico" rel="icon" type="image/ico" />
+<link href="/stylesheets/application.css" rel="stylesheet" type="text/css" />
+</head>
+<body class='post-template tag-getting-started'>
+<main class='content' role='main'>
+<article class='post tag-getting-started'>
+<header class='post-header'>
+<a class='blog-logo' href='/'>
+<span class='blog-title'>Betablog</span>
+</a>
+</header>
+<span class='post-meta'>
+<time datetime='2008-09-26'>
+26 Sep 2008
+</time>
+</span>
+<h1 class='post-title'>Weak Method Closure</h1>
+<section class='post-content'><p>Sometimes you want to pass an objects function as an argument and store that function (along its arguments) for later calling. Still you don&rsquo;t want that storage to prevent its object (instance) from being destroyed (from being removed by the garbage collector). But storing a function does so, because it holds a reference to the function which belongs to an object. It&rsquo;s one of the biggest traps you can fall into when developing a larger project where many objects are created and destroyed and created and so on&hellip; geeks call that kind of thing memory leaks I think :) So if you can avoid it: avoid it! If you can&rsquo;t.. may be this little thing can help: </p>
+<pre class="highlight plaintext"><code>package com.betabong.util
+{
+    import flash.utils.Dictionary;
+
+    public class WeakMethodClosure {
+
+        private var holder : Dictionary;
+
+        function WeakMethodClosure( target : Object , method : Function , arguments : Array = null ) : void {
+            holder = new Dictionary( true );
+            holder[ target ] =  new MethodStorage( method , arguments );
+        }
+
+        public function call() : Boolean {
+            var args : Array;
+            var f : Function;
+            var cache : MethodStorage;
+            for ( var obj : * in holder ) {
+                cache = holder[obj] as MethodStorage;
+                cache.method.apply( obj , cache.arguments );
+                return true;
+            }
+            return false;
+        }
+    }
+}
+
+class MethodStorage {
+    public var method : Function;
+    public var arguments : Array;
+    function MethodStorage( method : Function , arguments : Array = null ) : void {
+        this.method = method;
+        this.arguments = arguments;
+    }
+}
+</code></pre>
+
+<p>This actually uses one of the two mechanisms Flash provides to store objects by weak reference: the magic Dictionary. So instead of storing the function, you actually store the method storage or call method: </p>
+<pre class="highlight plaintext"><code>public function callAfterTime( f : Function , a : Array , t : uint ) : void {
+this.storedfunction = ( new WeakMethodClosure( this , f , a ) ).call;
+// and later:
+storedfunction();
+</code></pre>
+
+<p>It might not be obvious where you&rsquo;d wanna use this, but I guess if you&rsquo;ve found your way to this blog entry, you might be able to find out if that&rsquo;s of any value for you anyway ;) <a href="/showcase/WeakMethodClosure.as.zip">Download WeakMethodClosure.as (zip)</a> Just be aware that this solution might not be superduper save in all cases: the Garbage Collector is a wayward beast – there&rsquo;s no guarantee it&rsquo;ll clean your dictionary on time. Still, in my experience, it&rsquo;s save enough. It&rsquo;s comparable to adding a weak event listener.. And hey, if you&rsquo;ve got any better idea, I&rsquo;d love to hear! <strong>Update:</strong> Below a test application&hellip; </p>
+<pre class="highlight plaintext"><code>package
+{
+    import com.betabong.util.WeakMethodClosure;
+    import flash.display.Sprite;
+    import flash.events.TimerEvent;
+    import flash.utils.Timer;
+    import flash.utils.getTimer;
+
+    public class WeakClosureTest extends Sprite
+    {
+        private var closure : WeakMethodClosure;
+        private var timer : Timer;
+
+        public function WeakClosureTest()
+        {           
+            testWeakClosure();
+        }
+
+        public function testWeakClosure() : void {
+            var tempObject : Object = {
+                test: testTrace
+            }
+            closure = new WeakMethodClosure( tempObject , tempObject.test );
+            callWeakClosure();
+
+            timer = new Timer( 50 );
+            timer.addEventListener(TimerEvent.TIMER , callWeakClosure );
+            timer.start();
+        }
+
+        public function callWeakClosure( event : TimerEvent = null ) : void {
+            if ( !closure.call() ) {
+                trace( "Closure failed" );
+            }
+        }
+
+        public function testTrace() : void {
+            trace("Called test");
+        }
+
+
+    }
+}
+</code></pre>
+
+<p>Outputs: </p>
+<pre class="highlight plaintext"><code>Called test
+Called test
+Closure failed
+Closure failed
+Closure failed
+Closure failed
+Closure failed
+Closure failed
+Closure failed
+Closure failed
+Closure failed
+Closure failed
+Closure failed
+Closure failed
+Closure failed
+Closure failed
+Closure failed
+</code></pre>
+
+<h2>Comments</h2>
+
+<p><strong><a title="2008-10-09 04:23:03" href="#8">Aidan</a>:</strong> Fantastic. Like you say, it&rsquo;s not completely obvious to me <em>exactly</em> where I&rsquo;ll use this in my large, complex as3 application, but I&rsquo;m very sure it will be very handy. Unfortunately, it&rsquo;s not just functions that are obstructing garbage collection for me. Reassuring to know that other people are having similar memory hurdles. Cheers!</p>
+
+<p><strong><a title="2009-01-09 14:12:43" href="#16">Kirill</a>:</strong> I&rsquo;m not sure how gc safe this is. A weak dictionary doesn&rsquo;t increase the reference count of an object used as a key in it, but does it also not increase the reference count of any objects stored IN the objects that are in it? You operate under the assumption that it does. But I don&rsquo;t think that may be the case. What I mean is that when you do holder[ target ] = &hellip; target doesn&rsquo;t have its reference count increased allowing it to be gced later. BUT you store a MethodStorage object, which has references to the method and the arguments array. This will cause the reference counts of the method and the array to increase. The method by virtue of its method closure will hold a reference back to the target. Since this doesn&rsquo;t seem to be a circular reference scenario, which I think fp gc catches, this method&rsquo;s reference back to the target will prevent it from being gced since the method&rsquo;s reference count has increased. As well as this, because the arguments array has references back to the objects stored in it those objects will not be gced either. I&rsquo;m not saying code code doesn&rsquo;t work period, I may in fact be wrong. But from looking at it I&rsquo;m seeing a flaw in it. I&rsquo;d be interested in seeing the test code you have for this and trying it out.</p>
+
+<p><strong><a title="2009-01-11 13:12:57" href="#19">betabong</a>:</strong> Kirill, I&rsquo;ve added a test application to the post. As you can see the garbage collection gets rid of the temporary object, though has to be run once (that&rsquo;s why the method can be called by the TimerEvent although it&rsquo;s ready to be garbaged already). So to be absolutely sure that this works as intended, we&rsquo;d need to force garbage collection before each call (wasn&rsquo;t there a command for that? hmm..) Its main purpose is though to avoid accidental memory leaks, and for this it has it&rsquo;s uses. There is btw a class flash.events.WeakMethodClosure that&rsquo;s used internally – I&rsquo;m not sure what it does exactly though (no code available..). You certainly have more knowledge of the garbage collection process, so if you can shed more light on this, it would be cool. I&rsquo;d also love to hear from the Flash Player team what exactly is going on with those weak references, so we&rsquo;re not so much moving in the dark.</p>
+
+<p><strong><a title="2009-05-29 12:43:12" href="#41">Kirill</a>:</strong> Great to see follow-ups on this. This is indeed very frustrating. But&hellip; It is possible to do as I&rsquo;ve learned. When storing references to methods what has to happen for garbage collection to act right is the objects involved must form a closed circuit. If there&rsquo;s ANY reference to one of the objects in the circuit from outside then none of them will be garbage collected. Note that this is actually desired behavior for only one of the objects in the circuit, which is the user object. So imagine we have the user object and the WeakMethodClosure which stores a reference to its method. What has to happen is the user object must store a reference to the WeakClosureMethod object. When the user object has references to it from outside the circuit then neither it or the WeakMethodClosure get GCed (which is correct), when no outside reference exists then they both get garbage collected (desired behavior). If there isn&rsquo;t a circuit and the user object doesn&rsquo;t have a reference to the WeakMethodClosure then WeakMethodClosure object will get GCed even when the user has references to it and doesn&rsquo;t get GCed. If there&rsquo;s any reference to WeakMethodClosure other than from user object or any other object in the circuit then nothing will get GCed. The problem with creating a utility like WeakMethodClosure is forming that reference from the user to it. WeakMethodClosure can&rsquo;t do this automatically without placing some really heavy restrictions on the user. Like requiring it to be dynamic, or subclass of EventDispatcher (so that it can add a dummy event listener to itself), or an interface which requires the hassle of implementing a way to store WeakMethodClosure in the user. One more or less sensible way to implement this utility is adding a 3rd object to store WeakMethodClosure. So that the user has to explicitly define a variable and assign an instance of this manager to it and then instead of doing new WeakMethodClosure( myMethod ), it would do weakMethods.createClosure( myMethod ). Note that the user, manager, and WeakMethodClosure form a circuit so it&rsquo;s fine. It&rsquo;s an ugly interface but it works and there&rsquo;s considerably less magic in it than in other ways of attempting to do this.</p>
+
+<p><strong><a title="2009-04-15 11:27:37" href="#33">Thijs</a>:</strong> The weakreference only works for anonymous objects. When you use typed objects, the object is still kept in memory. I think this is caused by method inside the MethodStorage object. Try this example: </p>
+<pre class="highlight plaintext"><code>package  
+{
+    import com.betabong.util.WeakMethodClosure;
+
+    import flash.display.Sprite;
+    import flash.events.TimerEvent;
+    import flash.utils.Timer;   
+
+    public class NotificationCenterExample extends Sprite 
+    {
+        private var closure : WeakMethodClosure;
+        private var timer : Timer;
+
+        public function NotificationCenterExample()
+        {           
+            testWeakClosure();
+        }
+
+        public function testWeakClosure() : void {
+            var tempObject:TestObject = new TestObject();
+            closure = new WeakMethodClosure( tempObject , tempObject.test );
+            callWeakClosure();
+
+            timer = new Timer( 50 );
+            timer.addEventListener(TimerEvent.TIMER , callWeakClosure );
+            timer.start();
+        }
+
+        public function callWeakClosure( event : TimerEvent = null ) : void {
+            if ( !closure.call() ) {
+                trace( "Closure failed" );
+            }
+        }
+    }
+}
+
+class TestObject
+{
+    public function test():void
+    {
+        trace("Called test");
+    }
+}
+</code></pre>
+
+<p>Outputs: </p>
+<pre class="highlight plaintext"><code>Called test
+Called test
+Called test
+Called test
+Called test
+Called test
+Called test
+Called test
+Called test
+Called test
+Called test
+Called test
+Called test
+Called test
+Called test
+Called test
+Called test
+Called test
+Called test
+Called test
+Called test
+Called test
+Called test
+Called test
+Called test
+Called test
+</code></pre>
+
+<p>So I guess your class is useless</p>
+
+<p><strong><a title="2009-04-15 11:58:50" href="#34">Thijs</a>:</strong> I also found out a solution: - Store the object inside the MethodStorage - use the MethodStorage as key - use a dummy value (like true, or a timestamp) as value</p>
+
+<p><strong><a title="2009-04-15 12:17:54" href="#35">betabong</a>:</strong> To Thijs: Useless is a bit harsh for my poor class ;) It&rsquo;s just useless as soon as you use an instance function. Though you&rsquo;re right: it <em>usually</em> is totally useless :) For what you want (and what I probably want too) we just have to make the closure a little bit weaker: </p>
+<pre class="highlight plaintext"><code>package com.betabong.util
+{
+    import flash.utils.Dictionary;
+
+    public class WeakerMethodClosure
+    {
+        private var holder : Dictionary;
+
+        function WeakerMethodClosure( target : Object , method : Function , arguments : Array = null ) : void {
+            var fholder : Dictionary = new Dictionary( true );
+            fholder[ method ] = arguments;
+            holder = new Dictionary( true );
+            holder[ target ] =  fholder;
+        }
+
+        public function call() : Boolean {
+            var args : Array;
+            var f : Function;
+            var cache : Dictionary;
+            for ( var obj : * in holder ) {
+                cache = holder[obj] as Dictionary;
+                for ( var fnc : * in cache ) {
+                    f = fnc as Function;
+                    args = cache[ fnc ] as Array;
+                    f.apply( obj , args );
+                    return true;
+                }
+            }
+            return false;
+        }
+    }
+}
+</code></pre>
+
+<p>testing with: </p>
+<pre class="highlight plaintext"><code>package {
+    import com.betabong.util.WeakerMethodClosure;
+
+    import flash.display.Sprite;
+    import flash.events.TimerEvent;
+    import flash.utils.Timer;
+
+    import test.TestTrace;
+
+    public class ActionscriptTests extends Sprite
+    {
+        private var holder : WeakerMethodClosure;
+
+        public function ActionscriptTests()
+        {
+            init();
+        }
+
+        public function init() : void {
+            var o:TestTrace = new TestTrace();
+            holder = new WeakerMethodClosure( o , o.test );
+
+            // let's call it once to make sure it works
+            holder.call();
+
+            var timer : Timer = new Timer( 1000 , 10 );
+            timer.addEventListener(TimerEvent.TIMER , call );
+            timer.start();
+        }
+
+        public function call( e:* ) : void {
+            trace( "Calling holder" );
+            holder.call();
+        }
+    }
+}
+</code></pre>
+
+<p>and: </p>
+<pre class="highlight plaintext"><code>package test
+{
+    public class TestTrace
+    {
+        static public var globalindex : uint = 0;
+        private var localindex : uint = 0;
+        private var callcounter : uint = 0;
+
+        public function TestTrace()
+        {
+            localindex = ++globalindex;
+            trace( toString() + " created" );
+        }
+
+        public function test() : void {
+            trace( toString() + " called " + (++callcounter) + " times" );
+        }
+
+        public function toString() : String {
+            return "TestTrace " + localindex;
+        }
+
+
+    }
+}
+</code></pre>
+
+<p>outputs: </p>
+<pre class="highlight plaintext"><code>TestTrace 1 created
+TestTrace 1 called 1 times
+Calling holder
+Calling holder
+Calling holder
+Calling holder
+</code></pre>
+
+<p>Is this more useful? Probably. A very little bit. Under normal situations we hopefully don&rsquo;t have to use such weird constructs.</p>
+
+<p><strong><a title="2009-04-15 13:02:03" href="#36">Thijs</a>:</strong> My solution is not working either :&rsquo;-( I am trying to create a better solution for creating weak references to a method. But I guess it&rsquo;s not possible. For some reasons it&rsquo;s not possible to use a method as a key in a Dictionary with weak-keys (they are deleted immediatly, even when the method still exists), so maybe it&rsquo;s a bug.</p>
+
+<p><strong><a title="2009-04-19 13:50:21" href="#37">Thijs</a>:</strong> &ldquo;Note that there is a known bug with Dictionary that prevents it from operating correctly with references to methods. It seems that Dictionary does not resolve the method reference properly, and uses the closure object (ie. the &quot;behind the scenes&rdquo; object that facilitates method closure by maintaining a reference back to the method and its scope) instead of the function as the key. This causes two problems: the reference is immediately available for collection in a weak Dictionary (because while the method is still referenced, the closure object is not), and it can create duplicate entries if you add the same method twice. This can cause some big problems for things like doLater queues. &ldquo; http://www.gskinner.com/blog/archives/2006/07/as3_dictionary.html</p>
+
+<p><strong><a title="2009-04-20 16:32:04" href="#38">betabong</a>:</strong> @Thijs: Good point. Didn&rsquo;t think about that, but it makes absolutely sense. One more reason why Adobe should allow us to somehow access the MethodClosure. Apart from that I conclude that it&rsquo;s still best practice to just have clean coding instead of using semi-functional hacks like those (mine) above.</p>
+
+<p><strong><a title="2009-05-29 13:09:14" href="#42">Kirill</a>:</strong> The first test is actually misleading, because it creates a dynamic object and has the WeakMethodClosure store a method actually defined in the Test as though it was part of this object. This doesn&rsquo;t work in AS3 because the method will always be owned by the test object due to its closure. The reason you saw it &quot;working&rdquo; is that you didn&rsquo;t store the dynamic object anywhere and the weak dictionary allowed it to be GCed, but the real owner of the method didn&rsquo;t get GCed since it has references to it. The 2nd test is more correct, but it stores a reference to WeakMethodClosure in the main object rather than in TestObject. This creates an outside reference and stops TestObject and WeakMethodClosure from getting Gced. For this to work the &lsquo;closure&rsquo; instance variable has to be moved to TestObject. But there&rsquo;s another reference via the Timer event listener, which isn&rsquo;t weak in the test so that will also prevent garbage collection. That listener has to be weak for it to not count as a reference into the circuit. One other thing is this has to be tested inside the profiler and not in the debugger if you guys are using FlexBuilder. Because the debugger has somekind of a bug that prevents garbage collector from running as opposed to the profiler.</p>
+
+<p><strong><a title="2009-05-29 13:11:15" href="#43">Kirill</a>:</strong> BTW I&rsquo;m testing using FP10 which had a lot of the GC bugs fixed. All I said is moot in FP9, which as far as I&rsquo;m concerned has no garbage collection.</p>
+</section>
+<footer class='post-footer'>
+<section class='author'>
+<h4>Severin Klaus</h4>
+<p>@betabong.</p>
+</section>
+<section class='share'>
+<h4>Share this post</h4>
+<a class='icon-twitter' href='https://twitter.com/share?text=Weak Method Closure&amp;amp;url=http://blog.betabong.com/2008/09/26/weak-method-closure/' onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+<span class='hidden'>Twitter</span>
+</a>
+<a class='icon-facebook' href='https://www.facebook.com/sharer/sharer.php?u=http://blog.betabong.com/2008/09/26/weak-method-closure/' onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+<span class='hidden'>Facebook</span>
+</a>
+<a class='icon-google-plus' href='https://plus.google.com/share?url=http://blog.betabong.com/2008/09/26/weak-method-closure/' onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+<span class='hidden'>Google+</span>
+</a>
+</section>
+</footer>
+</article>
+</main>
+
+<footer class='site-footer'>
+<a class='subscribe icon-feed' href='/feed.xml'>
+<span class='tooltip'>Subscribe!</span>
+</a>
+<div class='inner'>
+<section class='copyright'>
+All content copyright
+<a href="/">Betablog</a>
+&copy;
+2015
+&bull; All rights reserved.
+</section>
+<section class='poweredby'>
+Proudly published with
+<a href='http://middlemanapp.com'>Middleman</a>
+</section>
+<section class='poweredby'>
+Casper theme powered by
+<a class='icon-ghost' href='https://ghost.org'>Ghost</a>
+</section>
+</div>
+</footer>
+<link href='//fonts.googleapis.com/css?family=Old+Standard+TT:400,400italic,700' rel='stylesheet' type='text/css'>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  
+  ga('create', 'UA-359384-6', 'auto');
+  ga('send', 'pageview');
+</script>
+</body>
+</html>

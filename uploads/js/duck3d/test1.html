@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+	<title>untitled</title>
+	<script src="3dEngine.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript" charset="utf-8">
+		var scene3d = new Scene3D( 250 );
+		var group3d = new Group3D( scene3d , 0 , 0 , 0 );
+		var points = [];
+		var p,x,y,z;
+		for ( var i=0 ; i<2000 ; i++ ) {
+			x = -200 + Math.random() * 400;
+			y = -200 + Math.random() * 400;
+			z = -50 + ( Math.sin( x/25 ) + Math.cos( y/50 ) ) * 20;
+			points.push( p = new Point3D( x , y , z , group3d ) );
+			group3d.addPoint( p );
+		}
+		setInterval( loop1 , 20 );
+		setInterval( loop2 , 20 );
+		//setInterval( loop3 , 10 );
+		setInterval( loop4 , 200 );
+		
+		function loop1() {
+			group3d.rotateVector( new Vector3D(1,2,3) , 0.01 );
+			scene3d.project();
+		}
+		
+		function loop2() {
+			render( 0 , Math.round(points.length/2) );
+		}
+		
+		function loop3() {
+			render( Math.round(points.length/2) , points.length );
+		}
+		
+		function loop4() {
+	        var canvas = document.getElementById("canvas");  
+	        if (canvas.getContext)  
+	        {  
+	          var ctx = canvas.getContext("2d");  
+				ctx.fillStyle = "rgb(255,255,255)";
+				ctx.fillRect( 0 , 0 , 800 , 600 );
+			}
+		}
+		
+		
+		function render( from , to ) {
+	        var canvas = document.getElementById("canvas");  
+	        if (canvas.getContext)  
+	        {  
+	          var ctx = canvas.getContext("2d");  
+
+				
+				var p,alpha;
+				for ( var i=from ; i<to ; i++ ) {
+					p = points[i];
+					alpha = (p.z/-200);
+					if ( alpha > 0 && p.z > -250 ) {
+						ctx.fillStyle = "rgba(200,0,0,"+alpha+")";
+						ctx.fillRect( 400 + p.xReal , 300+ p.yReal , 3 , 3 );  		
+					}
+					
+				}
+	        }  
+			
+		}
+	</script>
+</head>
+
+<body>
+    <canvas id="canvas" width="800" height="600"></canvas>  
+
+
+</body>
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Betablog: SVN Hook – auto-upload to FTP</title>
+<meta content='SVN is definitely cool. So I use it for quite all of my projects. Being able to jump back, having a versioned backup, share-coding with others – awesome' name='description'>
+<meta charset='utf-8'>
+<meta content='width=device-width, initial-scale=1.0' name='viewport'>
+<meta content='IE=edge' http-equiv='X-UA-Compatible'>
+<meta content='True' name='HandheldFriendly'>
+<meta content='320' name='MobileOptimized'>
+<link rel="alternate" type="application/atom+xml" title="Atom Feed" href="/feed.xml" />
+<link href="/images/favicon.ico" rel="icon" type="image/ico" />
+<link href="/stylesheets/application.css" rel="stylesheet" type="text/css" />
+</head>
+<body class='post-template tag-getting-started'>
+<main class='content' role='main'>
+<article class='post tag-getting-started'>
+<header class='post-header'>
+<a class='blog-logo' href='/'>
+<span class='blog-title'>Betablog</span>
+</a>
+</header>
+<span class='post-meta'>
+<time datetime='2008-08-14'>
+14 Aug 2008
+</time>
+</span>
+<h1 class='post-title'>SVN Hook – auto-upload to FTP</h1>
+<section class='post-content'><p>SVN is definitely cool. So I use it for quite all of my projects. Being able to jump back, having a versioned backup, share-coding with others – awesome. But most of my projects are to run on some kind of webserver. Usually I use my local webserver to test, so I can symlink directly into the projects (and then upload to productive manually). That&rsquo;s okay for me. But for a recent project I have to test on some remote ftp. So shall I each time commit/update then upload to FTP? And all other team members too? Come on, we are humans, that is stupid repetitive computer work! So I discovered SVN hooks. These are kind of scripts that can be called each time a SVN repository is changed. Find the directory in path/to/repos/hooks. I found this for my FTP hook: <a href="http://svn2web.svn.sourceforge.net/viewvc/svn2web/trunk/">svn2web</a> – it&rsquo;ll give you all you need to setup the hook. The real cool thing is that you can define the ftp/sftp-behaviour in SVN properties: </p>
+<pre class="highlight plaintext"><code>svn propset svn2web "sftp:username:password@machine:/path" .
+</code></pre>
+
+<p>My pre-commit hook looks like this: </p>
+<pre class="highlight shell"><code><span class="c">#!/bin/bash</span>
+<span class="nb">export </span><span class="nv">PATH</span><span class="o">=</span>/usr/local/bin:/usr/bin:/bin
+svn2web <span class="nv">$1</span> <span class="nv">$2</span> &gt;&gt; /tmp/svn2web.log <span class="o">||</span> <span class="nb">exit </span>1
+<span class="nb">exit </span>0
+</code></pre>
+
+<p>Be aware of two things: </p>
+
+<ol>
+<li>Install svn2web commands in /usr/local/bin – now you have to export the path variables in the hook script, because it will be called without any path variables (for security reasons)</li>
+<li><p>If the ftp upload fails for whatever reason, the commmit will fail too. That&rsquo;s what we want, usually, because otherwise we wouldn&rsquo;t get any feedback on comitting. If you don&rsquo;t want, just setup the hook as post-commit.
+For some reasons my ftp-upload hook wouldn&rsquo;t work on this stupid test server. I spent quite some time figuring out why and what. It seemed that whenever ftp tried to PUT, the ftp server tried to change to some extended passive mode and would hang there. I found out that when calling the command </p>
+
+<p>epsv</p></li>
+</ol>
+
+<p>before ftp operations, this wouldn&rsquo;t happen. So, cool :-)</p>
+
+<h2>Comments</h2>
+
+<p><strong><a title="2008-09-20 14:40:53" href="#4">dharma</a>:</strong> Man, thanks for the time u invested finding this super-useful solution.. Bye!</p>
+
+<p><strong><a title="2008-12-17 00:48:29" href="#14">manolo</a>:</strong> i really dont get how to isntall svn2web, i should copy it to /bin ??</p>
+
+<p><strong><a title="2009-01-08 04:56:00" href="#15">Tobz</a>:</strong> Hi, how hard is it to change this for a windows server(visualSVN)?</p>
+
+<p><strong><a title="2009-03-13 01:10:00" href="#25">Programmatore PHP</a>:</strong> Wow, that&rsquo;s great! Thank you. I look for this feature for a lot of time, I will try it as soon as possible.</p>
+
+<p><strong><a title="2009-06-02 23:02:30" href="#47">Joe</a>:</strong> Can you provide screenshots of this process? I am not really following it and really need the help? Thanks!</p>
+
+<p><strong><a title="2010-08-06 16:18:31" href="#129">svnlabs</a>:</strong> Amazing!! Really very helpful.. Thanks</p>
+
+<p><strong><a title="2011-01-27 21:10:05" href="#207">Sanwali</a>:</strong> Can i use the above hook for tortoisehg of mercurial? Cant seem to find one on google :( Any help will be highly appreciated</p>
+</section>
+<footer class='post-footer'>
+<section class='author'>
+<h4>Severin Klaus</h4>
+<p>@betabong.</p>
+</section>
+<section class='share'>
+<h4>Share this post</h4>
+<a class='icon-twitter' href='https://twitter.com/share?text=SVN Hook – auto-upload to FTP&amp;amp;url=http://blog.betabong.com/2008/08/14/svn-hook-%e2%80%93-auto-upload-to-ftp/' onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+<span class='hidden'>Twitter</span>
+</a>
+<a class='icon-facebook' href='https://www.facebook.com/sharer/sharer.php?u=http://blog.betabong.com/2008/08/14/svn-hook-%e2%80%93-auto-upload-to-ftp/' onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+<span class='hidden'>Facebook</span>
+</a>
+<a class='icon-google-plus' href='https://plus.google.com/share?url=http://blog.betabong.com/2008/08/14/svn-hook-%e2%80%93-auto-upload-to-ftp/' onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+<span class='hidden'>Google+</span>
+</a>
+</section>
+</footer>
+</article>
+</main>
+
+<footer class='site-footer'>
+<a class='subscribe icon-feed' href='/feed.xml'>
+<span class='tooltip'>Subscribe!</span>
+</a>
+<div class='inner'>
+<section class='copyright'>
+All content copyright
+<a href="/">Betablog</a>
+&copy;
+2015
+&bull; All rights reserved.
+</section>
+<section class='poweredby'>
+Proudly published with
+<a href='http://middlemanapp.com'>Middleman</a>
+</section>
+<section class='poweredby'>
+Casper theme powered by
+<a class='icon-ghost' href='https://ghost.org'>Ghost</a>
+</section>
+</div>
+</footer>
+<link href='//fonts.googleapis.com/css?family=Old+Standard+TT:400,400italic,700' rel='stylesheet' type='text/css'>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  
+  ga('create', 'UA-359384-6', 'auto');
+  ga('send', 'pageview');
+</script>
+</body>
+</html>

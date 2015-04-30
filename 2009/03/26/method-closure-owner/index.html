@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Betablog: Method Closure Owner (arguments.caller)</title>
+<meta content='In AS1 and AS2 we had access to arguments.caller within a function/method scope. This is not the case anymore in AS3. I wonder why. And I wonder why I' name='description'>
+<meta charset='utf-8'>
+<meta content='width=device-width, initial-scale=1.0' name='viewport'>
+<meta content='IE=edge' http-equiv='X-UA-Compatible'>
+<meta content='True' name='HandheldFriendly'>
+<meta content='320' name='MobileOptimized'>
+<link rel="alternate" type="application/atom+xml" title="Atom Feed" href="/feed.xml" />
+<link href="/images/favicon.ico" rel="icon" type="image/ico" />
+<link href="/stylesheets/application.css" rel="stylesheet" type="text/css" />
+</head>
+<body class='post-template tag-getting-started'>
+<main class='content' role='main'>
+<article class='post tag-getting-started'>
+<header class='post-header'>
+<a class='blog-logo' href='/'>
+<span class='blog-title'>Betablog</span>
+</a>
+</header>
+<span class='post-meta'>
+<time datetime='2009-03-26'>
+26 Mar 2009
+</time>
+</span>
+<h1 class='post-title'>Method Closure Owner (arguments.caller)</h1>
+<section class='post-content'><p>In AS1 and AS2 we had access to arguments.caller within a function/method scope. This is not the case anymore in AS3. I wonder why. And I wonder why I can&rsquo;t find a workaround, because everything should be there under the hood: </p>
+
+<blockquote>
+<p><em>ActionScript</em> 3.0 enables a <em>method closure</em> to automatically remember its original object instance (from <a href="http://help.adobe.com/en_US/ActionScript/3.0_ProgrammingAS3_Flex/WS5b3ccc516d4fbf351e63e3d118a9b90204-7ff3.html">Adobe ActionScript 3.0 * Core language features</a>)</p>
+</blockquote>
+
+<p>Method Closure are quite a wonderful thing: They come in handy in many situations, especially when it comes to event listening and handling. And they stay kind of wonderful in terms of «hidden magic». Hidden magic is all that stuff never officially explained by Adobe. These things often are very core to the language (e.g. exact processing order, frame splitting, event handling), but Adobe decided – certainly for reasons – to only let us see and manipulate what common developers are to see and manipulate. Still, I&rsquo;d like to have to possibility to dig deeper if I want. If there is a MethodClosure Type, why is there no way to access its properties. After all it holds a reference to its owner. I may wanna know what the owner is! I admit that its not that there aren&rsquo;t many obvious reasons why I would do so, but there are! For example: </p>
+<pre class="highlight plaintext"><code>public function get width() : Number {
+    var caller : * = MethodClosure( arguments.callee ).owner;
+    if ( isChild( caller ) ) {
+        return widthValueForChild;
+    } else {
+        return actualWidthValue;
+    }
+}
+</code></pre>
+
+<p>May be may be there is a way.. I&rsquo;m not a hardcore byte array hacker, but if I find a solution (or explanation why o why), I&rsquo;ll update this post.</p>
+
+<h2>Comments</h2>
+
+<p><strong><a title="2009-08-24 01:14:10" href="#60">Lance</a>:</strong> Hey man, These posts on Method Closures have been amazing&hellip; nothing like it out there. I have a question/case, what do you think&hellip; I have a &lsquo;public static EventHandler&rsquo; class, which creates an EventHandler object, which allows you to pass arguments to the event handler, like so: </p>
+<pre class="highlight plaintext"><code>var handler:Function = EventHandler.handler(theRealHandler, [arg1, arg2], true);
+target.addEventListener("something", handler);
+
+public function theRealHandler(event:Event, arg1:*, arg2:*):void ...
+</code></pre>
+
+<p>&hellip;where the last parameter, &ldquo;true&rdquo;, says you also want the event. The first question is, if I declare that &ldquo;var handler&rdquo; inside of a method, where is it stored? Because the EventHandler static class created a new object, and passed the result to the handler inside that method, it seems like a loop and I don&rsquo;t know well enough how things are stored in Flash to see how that would be garbage collected (the handler, and the EventHandler object). The EventHandler object looks like this: </p>
+<pre class="highlight plaintext"><code>class EventHandler {
+
+    public var args:Array;
+    public var eventHandler:Function;
+    public var includeEvent:Boolean;
+
+    public function EventHandler(eventHandler:Function, arguments:Array = null, includeEvent:Boolean = false) {
+        this.eventHandler = eventHandler;
+        this.args = arguments;
+        this.includeEvent = includeEvent;
+    }
+
+    public function handleEvent(event:*):void {
+        var result:Array = args.concat();
+        if (includeEvent) result.splice(0, 0, event); // add event to beginning of array
+        eventHandler.apply(null, result);
+    }
+
+    public static function handler(eventHandler:Function, arguments:Array = null, includeEvent:Boolean = false):Function {
+        return new EventHandler(eventHandler, arguments, includeEvent).handleEvent;
+    }
+}
+</code></pre>
+
+<p>&hellip;Second question is in regards to making this easy to read and more customizable. In order to make code clean, I created another object, SmartEvent. This is all the EventHandler without the static methods. In addition, it&rsquo;s a dynamic class, so you can pass through any properties in the event, and reset them whenever. Looks like this: </p>
+<pre class="highlight plaintext"><code>var event:SmartEvent(realHandler);
+event.arg1 = value;
+event.arg2 = value2;
+target.addEventListener("something", event.handler);
+
+...where "handler" is the internal handler from the EventHandler class, and it just passes the SmartEvent to the "realHandler".
+
+So SmartEvent looks like this:
+
+public dynamic class SmartEvent extends flash.events.Event
+{
+    public var originalEvent:flash.events.Event;
+
+    public var eventHandler:Function;
+
+    public function SmartEvent(eventHandler:Function) {
+        super();
+        this.eventHandler = eventHandler;
+    }
+
+    public function handler(event:Event):void {
+        originalEvent = event;
+        eventHandler(this);
+    }
+}
+</code></pre>
+
+<p>&hellip;Then you can reset variables (aka &#39;arguments&rsquo;) on your SmartEvent every time it is handled. This is basically an adapter for a PropertyChangeEvent when you don&rsquo;t know the property, source, or target (from Flex binding), and can be used like a Scope object in Mate. So in the &ldquo;realHandler&rdquo;, you could do this: </p>
+<pre class="highlight plaintext"><code>public function realHandler(event:SmartEvent):void {
+    var oldValue:* = event.oldValue; // defined in some method
+    var target:Object = event.targetObject;
+    var source:Object = event.target;
+    var property:String = event.property; // defined in some method
+    var newValue:* = source[property];
+    if (oldValue != newValue) {
+        target[property] = newValue;
+        event.oldValue = newValue; // reset oldValue, so the next time through its different
+    }
+}
+</code></pre>
+
+<p>&hellip;I made all this from reading your posts, but I&rsquo;m not sure how the garbage collection because everything&rsquo;s referencing everything else. It makes a lot more possible in event handling though! Any ideas if this this is okay practice or how to make it better? Thanks man! Lance</p>
+
+<p><strong><a title="2009-08-24 10:14:10" href="#61">betabong</a>:</strong> Hey Lance, interesting post! I&rsquo;m still not totally sure about the reason for these extra handler classes - may be because you haven&rsquo;t posted all the code? For example SmartEvent: Why is it dynamic? Are targetObjet, target, property, oldValue defined somewhere, or are those dynamic properties? It&rsquo;s generally a good idea to avoid dynamic classes for several reasons (speed and control), so I don&rsquo;t really see the big benefit here. Then there&rsquo;s several potential problems with your &ldquo;shadow&rdquo; classes here, especially with EventHandler. As it seems to me neither its instance nor its target object will be garbage collected, resulting not only in memory leaks but also in potential misbehaviour (though I&rsquo;m not totally sure about both, I&rsquo;d have to take more time to think this trough thouroughly). It also seems that you won&rsquo;t have any more possibility to get to EventHandler once you&rsquo;ve created it: So how would you remove a listener at a later time? As for me I try to keep as much control as I can by keeping things as basic as possible: - never reference an object in another one if not absolutely necessary. And if I have to do so: make sure the reference will be nulled on destruction. - if you have instances listen to dispatchers, make sure you&rsquo;ll unlisten on destruction - or/and use weak listeners if possible Still, I also use &ldquo;helpers&rdquo; sometimes, especially for bigger stuff. For once I subclassed EventDispatcher into BetterEventDispatcher which can keep track of listeners, providing things I&rsquo;d wish for all event dispatcher, especially the method removeAllListeners. And then I&rsquo;d subclass from that one instead of EventDispatcher. And for my framework classes I&rsquo;ve added listenTo and unlistenTo methods for the core class. Here also I keep track of what instances I&rsquo;m listening to (opposed to the BetterEventDispatcher who keeps track of who&rsquo;s listening to me). So on destruction I can call unlistenToAll() and I&rsquo;m fine with the garbage collector if I&rsquo;ve always gone through those two methods listenTo and unlistenTo. May be I&rsquo;m gonna write a post about this one time. Still in my opinion it&rsquo;s too much work for us to do: These kind of things should be in the core language, with a better event framework and the addition of destructors.</p>
+
+<p><strong><a title="2009-08-24 19:11:30" href="#62">Lance</a>:</strong> For sure Betabong, I totally agree. I&rsquo;m coming from a Ruby background and there&rsquo;s just so much cool stuff left out in compiled languages, like blocks/yields for instance, and modules, so I find myself trying to recreate those core language features in actionscript for 1) keeping code lean so I don&rsquo;t repeat myself, and 2) making it intuitive to do hardcore things. They should go into the core language:) Anyway, thanks a lot for the great response. When I get some time I&rsquo;ll have to check out how garbage collection would work exactly in this case. I&rsquo;m thinking about creating an EventUtil class that does what your BetterEventDispatcher does, so I can use it here and there. - Lance</p>
+
+<p><strong><a title="2009-08-24 19:12:30" href="#63">Lance</a>:</strong> If only dynamic classes weren&rsquo;t bad practice in Actionscript :) Those properties were dynamically defined.</p>
+
+<p><strong><a title="2010-11-21 11:02:33" href="#175">betabong</a>:</strong> This is indeed very interesting. Thing is: all you get is a string information about which class and which method was calling. But not the calling method itself. And I don&rsquo;t see how you could derive this reference from it. Still, nice :-) (it&rsquo;s index 2 by the way:) </p>
+<pre class="highlight plaintext"><code>trace((new Error()).getStackTrace().split(’\n’)[2]);
+</code></pre>
+
+<p><strong><a title="2010-11-21 10:39:24" href="#174">Steven Vachon</a>:</strong> I realize that this post is over a year old, but I was looking for this very thing, and I found this on a website just now: // the 3rd line is the equivalent of &ldquo;attributes.caller&rdquo; trace((new Error()).getStackTrace().split(&rsquo;\n&rsquo;)[3]);</p>
+
+<p><strong><a title="2010-12-17 23:47:36" href="#190">Steven Vachon</a>:</strong> True, but it&rsquo;s great for debugging And yeah, oops, heheh&hellip; only needed this once so far and knowing the calling class was enough :)</p>
+</section>
+<footer class='post-footer'>
+<section class='author'>
+<h4>Severin Klaus</h4>
+<p>@betabong.</p>
+</section>
+<section class='share'>
+<h4>Share this post</h4>
+<a class='icon-twitter' href='https://twitter.com/share?text=Method Closure Owner (arguments.caller)&amp;amp;url=http://blog.betabong.com/2009/03/26/method-closure-owner/' onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+<span class='hidden'>Twitter</span>
+</a>
+<a class='icon-facebook' href='https://www.facebook.com/sharer/sharer.php?u=http://blog.betabong.com/2009/03/26/method-closure-owner/' onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+<span class='hidden'>Facebook</span>
+</a>
+<a class='icon-google-plus' href='https://plus.google.com/share?url=http://blog.betabong.com/2009/03/26/method-closure-owner/' onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+<span class='hidden'>Google+</span>
+</a>
+</section>
+</footer>
+</article>
+</main>
+
+<footer class='site-footer'>
+<a class='subscribe icon-feed' href='/feed.xml'>
+<span class='tooltip'>Subscribe!</span>
+</a>
+<div class='inner'>
+<section class='copyright'>
+All content copyright
+<a href="/">Betablog</a>
+&copy;
+2015
+&bull; All rights reserved.
+</section>
+<section class='poweredby'>
+Proudly published with
+<a href='http://middlemanapp.com'>Middleman</a>
+</section>
+<section class='poweredby'>
+Casper theme powered by
+<a class='icon-ghost' href='https://ghost.org'>Ghost</a>
+</section>
+</div>
+</footer>
+<link href='//fonts.googleapis.com/css?family=Old+Standard+TT:400,400italic,700' rel='stylesheet' type='text/css'>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  
+  ga('create', 'UA-359384-6', 'auto');
+  ga('send', 'pageview');
+</script>
+</body>
+</html>

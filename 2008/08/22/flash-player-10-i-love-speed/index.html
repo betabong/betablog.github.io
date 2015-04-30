@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Betablog: Flash Player 10 – I love speed</title>
+<meta content='So Flash Player 10 is on its way. Soon, very soon, we’ll be able to enjoy 3D effects on every other website, youhaa. While some are eagerly waiting for' name='description'>
+<meta charset='utf-8'>
+<meta content='width=device-width, initial-scale=1.0' name='viewport'>
+<meta content='IE=edge' http-equiv='X-UA-Compatible'>
+<meta content='True' name='HandheldFriendly'>
+<meta content='320' name='MobileOptimized'>
+<link rel="alternate" type="application/atom+xml" title="Atom Feed" href="/feed.xml" />
+<link href="/images/favicon.ico" rel="icon" type="image/ico" />
+<link href="/stylesheets/application.css" rel="stylesheet" type="text/css" />
+</head>
+<body class='post-template tag-getting-started'>
+<main class='content' role='main'>
+<article class='post tag-getting-started'>
+<header class='post-header'>
+<a class='blog-logo' href='/'>
+<span class='blog-title'>Betablog</span>
+</a>
+</header>
+<span class='post-meta'>
+<time datetime='2008-08-22'>
+22 Aug 2008
+</time>
+</span>
+<h1 class='post-title'>Flash Player 10 – I love speed</h1>
+<section class='post-content'><p><img src="/uploads/2008/08/astro.jpg" />So Flash Player 10 is on its way. Soon, very soon, we&rsquo;ll be able to enjoy 3D effects on every other website, youhaa. While some are eagerly waiting for this or the enhanced drawing API, I&rsquo;m very much looking forward to the speed enhancements. Visual Speed While Flash Player 9 or more precisely the underlying actionscript 3 interpreter have lead to great speed enhancements on the logic side (meaning much faster data manipulation), it&rsquo;s still rather slow when it comes to rendering. In a project I&rsquo;m currently working on there&rsquo;s quite some stuff going on here, but when I check speed performance with the Flex Profiler, most time is spent for rendering. Significant time. And it&rsquo;s not some freaky Papervision 3D stuff ;) So with Flash Player 10 this will be better. Adobe finally improves rendering speed, and the good thing is that every exisiting project (at least &gt;= f9, all?) will profit without republishing. I had done some little tests with a beta, and though I don&rsquo;t remember the results, they looked quite promising (even on a Mac). I&rsquo;m not sure though when they&rsquo;re gonna use the graphic card to speed up – I don&rsquo;t think it made use of that in my tests. Most people mention the hardware acceleration (some rendering tasks can be offloaded to your graphics card), but in my understanding the overhauled the entire rendering system, so everything and everyone should profit. Vectors Vectors are simply typed Arrays. A limited array. Ha! why would we want that?! For two reasons: </p>
+
+<ul>
+<li>Developers have more feedback while coding: the IDE will be able to tell you when you put some wrong stuff in an array – as for now you could mix whatever data in an array, the compiler wouldn&rsquo;t complain. But above all, the IDE will be able to provide you help while typing: no more casting all the time to get to the methods of an array item!</li>
+<li><p>Speed. A typed array can be much faster. And it will be.
+It looks like this: </p>
+
+<p>var vector:Vector.<int> = new Vector.<int>();</p></li>
+</ul>
+
+<p>I&rsquo;m not too much a fan of the definition syntax – something like this would look better, I think: </p>
+<pre class="highlight plaintext"><code>var vector:Vector::int = new Vector::int();
+// or
+var vector:int[] = new int[]();
+</code></pre>
+
+<p>But I haven&rsquo;t thought of it much. Adobe certainly thought about it. Or some ECMA comittee. (Copy-pasting in Wordpress HTML mode also won&rsquo;t work anymore.. pfff) Also I personally would have preferred not to have another class for that (just enhance the good old Array), but there are reasons for that too (backward compatibility, I guess, I can sing a song about that too). So anyway, I&rsquo;m eagerly looking forward to use that stuff. I just love speed. More infos here: <a href="http://www.mikechambers.com/blog/2008/08/19/using-vectors-in-actionscript-3-and-flash-player-10/">Using Vectors in ActionScript 3 and Flash Player 10</a> Update: Ok, I can&rsquo;t make to appear the new Vector syntax in Wordpress. Now I like the syntax even less ;-)</p>
+</section>
+<footer class='post-footer'>
+<section class='author'>
+<h4>Severin Klaus</h4>
+<p>@betabong.</p>
+</section>
+<section class='share'>
+<h4>Share this post</h4>
+<a class='icon-twitter' href='https://twitter.com/share?text=Flash Player 10 – I love speed&amp;amp;url=http://blog.betabong.com/2008/08/22/flash-player-10-i-love-speed/' onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+<span class='hidden'>Twitter</span>
+</a>
+<a class='icon-facebook' href='https://www.facebook.com/sharer/sharer.php?u=http://blog.betabong.com/2008/08/22/flash-player-10-i-love-speed/' onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+<span class='hidden'>Facebook</span>
+</a>
+<a class='icon-google-plus' href='https://plus.google.com/share?url=http://blog.betabong.com/2008/08/22/flash-player-10-i-love-speed/' onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+<span class='hidden'>Google+</span>
+</a>
+</section>
+</footer>
+</article>
+</main>
+
+<footer class='site-footer'>
+<a class='subscribe icon-feed' href='/feed.xml'>
+<span class='tooltip'>Subscribe!</span>
+</a>
+<div class='inner'>
+<section class='copyright'>
+All content copyright
+<a href="/">Betablog</a>
+&copy;
+2015
+&bull; All rights reserved.
+</section>
+<section class='poweredby'>
+Proudly published with
+<a href='http://middlemanapp.com'>Middleman</a>
+</section>
+<section class='poweredby'>
+Casper theme powered by
+<a class='icon-ghost' href='https://ghost.org'>Ghost</a>
+</section>
+</div>
+</footer>
+<link href='//fonts.googleapis.com/css?family=Old+Standard+TT:400,400italic,700' rel='stylesheet' type='text/css'>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  
+  ga('create', 'UA-359384-6', 'auto');
+  ga('send', 'pageview');
+</script>
+</body>
+</html>
