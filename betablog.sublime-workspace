@@ -1,0 +1,1100 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"tex",
+				"text-align"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "source/posts/2014-12-10-camelcase-css-style.html.md",
+			"settings":
+			{
+				"buffer_size": 2005,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "source/posts/2014-12-10-reset-all-css.html.md",
+			"settings":
+			{
+				"buffer_size": 599,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "Middleman",
+	"command_palette":
+	{
+		"height": 375.0,
+		"selected_items":
+		[
+			[
+				"ins",
+				"Package Control: Install Package"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"remo",
+				"Package Control: Remove Package"
+			],
+			[
+				"remove",
+				"Package Control: Remove Package"
+			],
+			[
+				"code",
+				"MdCodeBlock: Wrap Github Flavered Code Block"
+			],
+			[
+				"wrap",
+				"HTML: Wrap Selection With Tag"
+			],
+			[
+				"wrao",
+				"HTML: Wrap Selection With Tag"
+			],
+			[
+				"prett",
+				"HTMLPrettify"
+			],
+			[
+				"lint",
+				"SublimeLinter: Lint This View"
+			]
+		],
+		"width": 732.0
+	},
+	"console":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/Users/sklaus/Documents/Private/betablog",
+		"/Users/sklaus/Documents/Private/betablog/data",
+		"/Users/sklaus/Documents/Private/betablog/source",
+		"/Users/sklaus/Documents/Private/betablog/source/posts"
+	],
+	"file_history":
+	[
+		"/Users/sklaus/Documents/Private/betablog/betablog.sublime-project",
+		"/Users/sklaus/HV/HV-Dev/HV-Middleman/source/docs/coding_guidelines.md",
+		"/Users/sklaus/Documents/Private/betablog/data/wordpress.xml",
+		"/Users/sklaus/Documents/Private/betablog/source/posts/2009-03-05-javascript-canvas-3d.html.md",
+		"/Users/sklaus/Documents/Private/betablog/build/showcase/jquery-roundtext/jquery.min.js",
+		"/Users/sklaus/Documents/Private/betablog/source/posts/2008-07-21-nested-inner-functions-can-be-evil.html.md",
+		"/Users/sklaus/Documents/Private/betablog/source/posts/2008-08-25-iphone-os-20-great-new-feature.html.md",
+		"/Users/sklaus/Documents/Private/betablog/source/posts/2009-01-26-get-rid-of-build_hd_index.html.md",
+		"/Users/sklaus/Documents/Private/betablog/source/layouts/post.haml",
+		"/Users/sklaus/Documents/Private/betablog/source/posts/2008-07-16-flex-project-svn-strategy.html.md",
+		"/Users/sklaus/Documents/Private/betablog/source/posts/2008-10-06-finnish-disco-lesson.html.md",
+		"/Users/sklaus/Documents/Private/betablog/source/posts/2012-02-02-fluid-ratio-height.html.md",
+		"/Users/sklaus/HV/Postfinance/efinance/frontend/source/modules/detail/table_list/_table_list.haml",
+		"/Users/sklaus/HV/Postfinance/efinance/frontend/data/dev/detail_pages_items.yml",
+		"/Users/sklaus/HV/Postfinance/efinance/frontend/source/layouts/detail.haml",
+		"/Users/sklaus/HV/Postfinance/efinance/frontend/source/js/uxui/vendor/datepicker/datepicker.js",
+		"/Users/sklaus/HV/Postfinance/efinance/frontend/source/templates/ef1/02_detail_json/erechnung_eingang.html.haml",
+		"/Users/sklaus/HV/Postfinance/efinance/frontend/source/js/uxui/ef1.js",
+		"/Users/sklaus/HV/Postfinance/efinance/frontend/source/css/error.css.scss",
+		"/Users/sklaus/Library/Caches/TemporaryItems/.htaccess",
+		"/Users/sklaus/Documents/Private/betablog/source/posts/2009-11-19-links-for-2009-11-18.html.md",
+		"/Users/sklaus/Documents/Private/betablog/README.md",
+		"/Users/sklaus/Documents/Private/betablog/source/posts/2008-07-17-ra-d-iohea_d-ho_us-e-of-card_s.html.md",
+		"/Users/sklaus/Documents/Private/betablog/source/posts/2008-07-18-garbage-collector-and-dictionary.html.md",
+		"/Users/sklaus/Documents/Private/betablog/source/posts/2008-07-18-links-for-2008-07-18.html.md",
+		"/Users/sklaus/Documents/Private/betablog/source/posts/2008-07-18-photoshop-cs3-for-iphone.html.md",
+		"/Users/sklaus/Documents/Private/betablog/source/posts/2008-07-18-wptouch-and-wphone.html.md",
+		"/Users/sklaus/Documents/Private/betablog/source/posts/2008-07-23-design-is.html.md",
+		"/Users/sklaus/Documents/Private/betablog/source/posts/2008-08-14-svn-hook-%e2%80%93-auto-upload-to-ftp.html.md",
+		"/Users/sklaus/Documents/Private/betablog/source/posts/2008-08-22-flash-player-10-i-love-speed.html.md",
+		"/Users/sklaus/Documents/Private/betablog/source/posts/2008-08-27-multitouch-progress.html.md",
+		"/Users/sklaus/Documents/Private/betablog/source/posts/2008-08-28-sheeps.html.md",
+		"/Users/sklaus/Documents/Private/betablog/source/posts/2008-09-01-speed-parsing-string-in-as3.html.md",
+		"/Users/sklaus/Documents/Private/betablog/source/posts/2008-09-19-freitag-rolling-for-15-years.html.md",
+		"/Users/sklaus/Documents/Private/betablog/source/posts/2008-09-23-e4x-string-parser.html.md",
+		"/Users/sklaus/Documents/Private/betablog/source/posts/2008-09-26-weak-method-closure.html.md",
+		"/Users/sklaus/Documents/Private/betablog/source/posts/2008-10-03-blog-feature-code-lightbox.html.md",
+		"/Users/sklaus/Documents/Private/betablog/source/posts/2008-10-06-links-for-2008-10-05.html.md",
+		"/Users/sklaus/Documents/Private/betablog/source/posts/2008-10-09-how-about-we-go-fuck-instead.html.md",
+		"/Users/sklaus/Documents/Private/betablog/source/posts/2008-10-30-edelflash-v2.html.md",
+		"/Users/sklaus/Documents/Private/betablog/source/posts/2008-11-19-alchemy-release.html.md",
+		"/Users/sklaus/Documents/Private/betablog/source/posts/2008-11-29-flex-builder-t-flash-ide.html.md",
+		"/Users/sklaus/Documents/Private/betablog/source/posts/2008-12-03-test-movie-from-flex-to-flash-easy-way.html.md",
+		"/Users/sklaus/Documents/Private/betablog/source/posts/2008-12-06-test-flex-throttled-simulate-download.html.md",
+		"/Users/sklaus/Documents/Private/betablog/source/posts/2008-12-08-coverflow-3d-with-flash-player-10.html.md",
+		"/Users/sklaus/Documents/Private/betablog/source/posts/2008-12-09-vw-microbus-concept-why-not.html.md",
+		"/Users/sklaus/Documents/Private/betablog/source/posts/2009-02-13-embed-assets-in-flash-project.html.md",
+		"/Users/sklaus/Documents/Private/betablog/source/posts/2009-02-25-css-alternative-to-left-float.html.md",
+		"/Users/sklaus/Documents/Private/betablog/source/posts/2009-03-05-links-for-2009-03-04.html.md",
+		"/Users/sklaus/Documents/Private/betablog/source/posts/2009-03-17-links-for-2009-03-16.html.md",
+		"/Users/sklaus/Documents/Private/betablog/source/posts/2009-03-22-links-for-2009-03-21.html.md",
+		"/Users/sklaus/Documents/Private/betablog/source/posts/2009-03-26-method-closure-owner.html.md",
+		"/Users/sklaus/Documents/Private/betablog/source/posts/2009-04-01-bug-hunting-shadowed-3d-and-scrollrect.html.md",
+		"/Users/sklaus/Documents/Private/betablog/source/posts/2009-04-05-flash-debug-speed.html.md",
+		"/Users/sklaus/Documents/Private/betablog/source/posts/2009-04-07-swffit-pro-con.html.md",
+		"/Users/sklaus/Documents/Private/betablog/source/posts/2009-04-13-gridfittype-animation.html.md",
+		"/Users/sklaus/Documents/Private/betablog/source/posts/2009-04-13-metatunnel-1k-demo-as-vs-js.html.md",
+		"/Users/sklaus/Documents/Private/betablog/source/posts/2009-04-17-metatunnel-with-pixel-bender.html.md",
+		"/Users/sklaus/Documents/Private/betablog/source/posts/2009-04-19-links-for-2009-04-18.html.md",
+		"/Users/sklaus/Documents/Private/betablog/source/posts/2009-04-22-bbml-presentation.html.md",
+		"/Users/sklaus/Documents/Private/betablog/source/posts/2009-04-27-switch-flash-browser-plugin-mac.html.md",
+		"/Users/sklaus/Documents/Private/betablog/source/posts/2009-08-03-daily-live-of-webdesigners.html.md",
+		"/Users/sklaus/Documents/Private/betablog/source/posts/2009-09-09-garbage-collection-dictionary-listener.html.md",
+		"/Users/sklaus/Documents/Private/betablog/source/posts/2009-09-22-binary-fun-bits-in-bed-with-actionscript.html.md",
+		"/Users/sklaus/Documents/Private/betablog/source/posts/2008-07-16-betaruss.html.md",
+		"/Users/sklaus/Documents/Private/betablog/source/posts/2009-11-30-how-to-watch-tv-from-abroad.html.md",
+		"/Users/sklaus/Documents/Private/betablog/source/posts/2010-03-23-links-for-2010-03-22.html.md",
+		"/Users/sklaus/Documents/Private/betablog/source/posts/2010-03-25-use-gzip-compression-for-html-css-javascript-xml.html.md",
+		"/Users/sklaus/Documents/Private/betablog/source/posts/2010-04-02-links-for-2010-04-01.html.md",
+		"/Users/sklaus/Documents/Private/betablog/source/posts/2010-05-13-jquery-plugin-round-text.html.md",
+		"/Users/sklaus/Documents/Private/betablog/source/posts/2011-05-15-using-cssedit-with-less.html.md",
+		"/Library/WebServer/Documents/bblog/source/layouts/layout.haml",
+		"/Library/WebServer/Documents/bblog/source/stylesheets/_syntax.css.erb",
+		"/Library/WebServer/Documents/bblog/source/posts/2009-04-07-swffit-pro-con.html.md",
+		"/Library/WebServer/Documents/bblog/source/posts/2008-12-03-test-movie-from-flex-to-flash-easy-way.html.md",
+		"/Library/WebServer/Documents/bblog/source/posts/2008-11-29-flex-builder-t-flash-ide.html.md",
+		"/Library/WebServer/Documents/bblog/source/posts/2008-07-16-betaruss.html.md",
+		"/Library/WebServer/Documents/bblog/source/posts/2008-09-23-e4x-string-parser.html.md",
+		"/Library/WebServer/Documents/bblog/source/posts/2012-02-02-fluid-ratio-height.html.md",
+		"/Library/WebServer/Documents/bblog/source/posts/2011-05-15-using-cssedit-with-less.html.md",
+		"/Library/WebServer/Documents/bblog/source/posts/2008-07-18-wptouch-and-wphone.html.md",
+		"/Library/WebServer/Documents/bblog/source/posts/2008-08-22-flash-player-10-i-love-speed.html.md",
+		"/Library/WebServer/Documents/bblog/source/posts/2008-08-25-iphone-os-20-great-new-feature.html.md",
+		"/Library/WebServer/Documents/bblog/source/posts/2008-08-28-sheeps.html.md",
+		"/Library/WebServer/Documents/bblog/source/posts/2008-09-19-freitag-rolling-for-15-years.html.md",
+		"/Library/WebServer/Documents/bblog/source/posts/2008-12-06-test-flex-throttled-simulate-download.html.md",
+		"/Library/WebServer/Documents/bblog/source/posts/2008-12-08-coverflow-3d-with-flash-player-10.html.md",
+		"/Library/WebServer/Documents/bblog/source/posts/2008-12-09-vw-microbus-concept-why-not.html.md",
+		"/Library/WebServer/Documents/bblog/source/posts/2008-10-09-how-about-we-go-fuck-instead.html.md",
+		"/Library/WebServer/Documents/bblog/source/stylesheets/vendor/casper.css",
+		"/Library/WebServer/Documents/bblog/source/stylesheets/application.css.scss",
+		"/Library/WebServer/Documents/bblog/config.rb",
+		"/Library/WebServer/Documents/bblog/source/uploads/2009/04/sfug-presentation-bbml-hq.mov",
+		"/Library/WebServer/Documents/bblog/source/showcase/fluid-proportion.html",
+		"/Library/WebServer/Documents/bblog/source/feed.xml.builder",
+		"/Library/WebServer/Documents/bblog/source/posts/2009-04-01-bug-hunting-shadowed-3d-and-scrollrect.html.md",
+		"/Library/WebServer/Documents/bblog/source/posts/2008-08-27-multitouch-progress.html.md",
+		"/Library/WebServer/Documents/bblog/source/posts/2008-09-01-speed-parsing-string-in-as3.html.md",
+		"/Library/WebServer/Documents/bblog/source/posts/2008-09-26-weak-method-closure.html.md",
+		"/Library/WebServer/Documents/bblog/source/posts/2008-10-03-blog-feature-code-lightbox.html.md",
+		"/Library/WebServer/Documents/bblog/source/posts/2008-10-06-finnish-disco-lesson.html.md",
+		"/Library/WebServer/Documents/bblog/source/posts/2008-10-06-links-for-2008-10-05.html.md",
+		"/Library/WebServer/Documents/bblog/source/posts/2008-10-30-edelflash-v2.html.md",
+		"/Library/WebServer/Documents/bblog/source/posts/2008-11-19-alchemy-release.html.md",
+		"/Library/WebServer/Documents/bblog/source/posts/2009-01-26-get-rid-of-build_hd_index.html.md",
+		"/Library/WebServer/Documents/bblog/source/posts/2009-02-13-embed-assets-in-flash-project.html.md",
+		"/Library/WebServer/Documents/bblog/source/posts/2009-02-25-css-alternative-to-left-float.html.md",
+		"/Library/WebServer/Documents/bblog/source/posts/2009-03-05-javascript-canvas-3d.html.md",
+		"/Library/WebServer/Documents/bblog/source/posts/2009-03-05-links-for-2009-03-04.html.md",
+		"/Library/WebServer/Documents/bblog/source/posts/2009-03-17-links-for-2009-03-16.html.md",
+		"/Library/WebServer/Documents/bblog/source/posts/2009-03-22-links-for-2009-03-21.html.md",
+		"/Library/WebServer/Documents/bblog/source/posts/2009-03-26-method-closure-owner.html.md",
+		"/Library/WebServer/Documents/bblog/source/posts/2009-04-05-flash-debug-speed.html.md",
+		"/Library/WebServer/Documents/bblog/source/posts/2009-04-13-gridfittype-animation.html.md",
+		"/Library/WebServer/Documents/bblog/source/posts/2009-04-13-metatunnel-1k-demo-as-vs-js.html.md",
+		"/Library/WebServer/Documents/bblog/source/posts/2009-04-17-metatunnel-with-pixel-bender.html.md",
+		"/Library/WebServer/Documents/bblog/source/posts/2009-04-19-links-for-2009-04-18.html.md",
+		"/Library/WebServer/Documents/bblog/source/posts/2009-04-22-bbml-presentation.html.md",
+		"/Library/WebServer/Documents/bblog/source/posts/2009-04-27-switch-flash-browser-plugin-mac.html.md",
+		"/Library/WebServer/Documents/bblog/source/posts/2009-08-03-daily-live-of-webdesigners.html.md",
+		"/Library/WebServer/Documents/bblog/source/posts/2009-09-09-garbage-collection-dictionary-listener.html.md",
+		"/Library/WebServer/Documents/bblog/source/posts/2009-09-22-binary-fun-bits-in-bed-with-actionscript.html.md",
+		"/Library/WebServer/Documents/bblog/source/posts/2009-11-19-links-for-2009-11-18.html.md",
+		"/Library/WebServer/Documents/bblog/source/posts/2009-11-30-how-to-watch-tv-from-abroad.html.md",
+		"/Library/WebServer/Documents/bblog/source/posts/2010-03-23-links-for-2010-03-22.html.md",
+		"/Library/WebServer/Documents/bblog/source/posts/2010-03-25-use-gzip-compression-for-html-css-javascript-xml.html.md",
+		"/Library/WebServer/Documents/bblog/source/posts/2010-04-02-links-for-2010-04-01.html.md",
+		"/Library/WebServer/Documents/bblog/source/posts/2010-05-13-jquery-plugin-round-text.html.md"
+	],
+	"find":
+	{
+		"height": 23.0
+	},
+	"find_in_files":
+	{
+		"height": 140.0,
+		"where_history":
+		[
+			"*.md",
+			"*.xml",
+			"*.md",
+			"*.*",
+			"*.scss",
+			"*.haml",
+			"*.*",
+			"*.haml",
+			"*.*",
+			"*.haml",
+			"*.scss",
+			"*.haml",
+			"*.scss",
+			"*.*",
+			"*.scss",
+			"*.haml",
+			"*.*",
+			"*.haml",
+			"*.scss",
+			"*.haml",
+			"*pfjson/*.haml",
+			"*pfjson*.haml",
+			"*.haml",
+			"*.scss",
+			"*.haml",
+			"*.scss",
+			"*.haml",
+			"*.*",
+			"*.haml",
+			"*.scss",
+			"*.haml"
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"canvas",
+			"\",\"",
+			"every point to canvas",
+			"link",
+			"post_name: .+\\n",
+			"description: \n",
+			"post_type: .+\\n",
+			"created_gmt: .+\\n",
+			"created: .+\\n",
+			"post_id: \\d+\\n",
+			"post_id: 13\\n",
+			"post_id: 13",
+			"disq",
+			"lang=\"xml\"",
+			"sample ant bui",
+			"![](post_type: post\n---\n\n",
+			"![](post_type: post\n---\n\n/",
+			"![](",
+			"![](post_type: post\n---\n\n",
+			"![](post_type: post",
+			"f4",
+			"$",
+			"text-shadow",
+			"box-shadow",
+			"transition",
+			"font-fa",
+			"    font-family: 'Open Sans', sans-serif;\n",
+			"font-fam",
+			"open sans",
+			"---\n\n# .+?$",
+			"---\n\n# ",
+			"post_type: post\n",
+			"status: publish\n",
+			"comment_status: open\n",
+			"author: betabong\n",
+			"created: (\\d\\d\\d\\d)/(\\d\\d)/(\\d\\d)",
+			"created: 2008/07/16",
+			"/wp-content",
+			"wp-content",
+			"post_type: post\n\n",
+			"---\n---\n",
+			"title: ",
+			"0/2",
+			"partial",
+			"urlArgs",
+			"WallisMap",
+			"circle",
+			"diamond",
+			"do\n					.tile_info--diamond\n						.tile_info--diamond--inner 0/2",
+			".l-grid.l-grid-gap",
+			".l-grid",
+			".l-grid.l-grid-gap",
+			"tile_info--padding",
+			"column",
+			".l-column",
+			"lead_text",
+			"96",
+			".icon.icon",
+			"footer",
+			"tile_item",
+			"tile_info",
+			"value",
+			"bootstrap",
+			"js-accordion",
+			"accordion",
+			"Produktion",
+			"Genehmigung",
+			"label",
+			"\\.content-pane-wrapper[\\s\\S]+\\.content-pane-wrapper",
+			"\\.content-pane-wrapper[\\s\\S]+\\.buttons",
+			"\\.content-pane-wrapper.+\\.buttons",
+			"helplink",
+			".DRAG",
+			"startdrag",
+			"startTouch",
+			"@include font-size(19px);",
+			"@include font-size(19px);\n\\s+@include font-weight(light);",
+			"@include font-size(19px);\n\\t+@include font-weight(light);",
+			"@include font-size(19px);\n	@include font-weight(light);",
+			"@include font-size(19px)",
+			"font-style(italic)",
+			"%img",
+			"%h4",
+			"%h3",
+			"extend %h2",
+			"%h1",
+			"%h1 {",
+			"%h1",
+			"margin",
+			"padding",
+			"forecast_line--height",
+			"text-truncate",
+			"-content",
+			"text-truncate",
+			"inner-item",
+			"is-success",
+			"dotted",
+			"margin-left",
+			"Capabilities.DRAGSTART",
+			"DRAGSTART",
+			"18px",
+			"table_list--rowlink",
+			".table_list",
+			"bold",
+			":checkbox",
+			"checkbox:",
+			"modules/detail/table_list/table_list",
+			"checkbox",
+			"id",
+			".content-pane-collapsed",
+			"content-pane-collapsed",
+			"062 432",
+			"tel:",
+			"js-table_list--row",
+			"is-top_right",
+			"  right",
+			"right",
+			"\"table_list--row js-table_list--row",
+			"table_list--row",
+			" data-has-module=\"yes\"",
+			"widget--title",
+			"opacity",
+			"background",
+			",\n",
+			"input",
+			"A9101D",
+			"-error",
+			"translate"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": true,
+		"replace_history":
+		[
+			"",
+			"![](",
+			"    font-family: inherit; /*title*/\n",
+			"    font-family: 'Open Sans', sans-serif;\n",
+			"---\n",
+			"",
+			"date: $1-$2-$3\ncreated: $1/$2/$3",
+			"post_id: 19\ncreated: 2008/07/16",
+			"post_type: post\n---\n\n",
+			"---\ntitle: ",
+			"@extend %text-lead_text;",
+			"has-success",
+			".pane-collapsed",
+			"pane-collapsed",
+			"$1−"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 1,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "source/posts/2014-12-10-camelcase-css-style.html.md",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2005,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								11,
+								46
+							]
+						],
+						"settings":
+						{
+							"color_scheme": "Packages/User/Color Highlighter/themes/Sev-Light (SL).tmTheme",
+							"syntax": "Packages/MarkdownEditing/Markdown.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "source/posts/2014-12-10-reset-all-css.html.md",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 599,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								168,
+								395
+							]
+						],
+						"settings":
+						{
+							"color_scheme": "Packages/User/Color Highlighter/themes/Sev-Light (SL).tmTheme",
+							"open_with_edit": true,
+							"syntax": "Packages/MarkdownEditing/Markdown.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 23.0
+	},
+	"input":
+	{
+		"height": 33.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 266.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"project": "betablog.sublime-project",
+	"replace":
+	{
+		"height": 42.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+			[
+				"jc",
+				"source/posts/2009-03-05-javascript-canvas-3d.html.md"
+			],
+			[
+				"tabsjs",
+				"source/js/uxui/app/modules/content/tabs.js"
+			],
+			[
+				"detailpagescss",
+				"source/modules/detail/detail_page/_detail_page.scss"
+			],
+			[
+				"erebez",
+				"source/templates/ef1/02_detail_json/erechnung_bezahlen.html.haml"
+			],
+			[
+				"erra",
+				"source/templates/ef1/02_detail_json/erechnung_ratenzahlen.html.haml"
+			],
+			[
+				"config",
+				"config.rb"
+			],
+			[
+				"layout",
+				"source/layouts/post.haml"
+			],
+			[
+				"scss",
+				"source/stylesheets/application.css.scss"
+			],
+			[
+				"confi",
+				"config.rb"
+			],
+			[
+				"using",
+				"source/posts/2011-05-15-using-cssedit-with-less.html.md"
+			],
+			[
+				"fluid",
+				"source/posts/2012-02-02-fluid-ratio-height.html.md"
+			],
+			[
+				"welcom",
+				"source/2013-10-26-welcome-to-ghost.html.markdown"
+			],
+			[
+				"altern",
+				"20090225-css-alternative-to-left-float.md"
+			],
+			[
+				"tilde",
+				"source/js/app/modules/content/TileDetail.js"
+			],
+			[
+				"tile",
+				"source/modules/content/tile_info_detail/tile_info_detail.html.haml"
+			],
+			[
+				"forc",
+				"source/modules/content/forecast_large/_forecast_large.haml"
+			],
+			[
+				"bas",
+				"source/layouts/base.haml"
+			],
+			[
+				"main",
+				"source/js/main.js"
+			],
+			[
+				"mod",
+				"source/js/app/modules.js"
+			],
+			[
+				"content",
+				"source/modules/content/content_teaser/content_teaser.html.haml"
+			],
+			[
+				"teaser",
+				"source/modules/content/content_teaser/content_teaser_small.html.haml"
+			],
+			[
+				"mediaq",
+				"source/css/mixins/_mediaqueries.scss"
+			],
+			[
+				"4c",
+				"source/templates/04_destinations/04c_destination_portrait.html.haml"
+			],
+			[
+				"settings",
+				"source/css/_0.settings.scss"
+			],
+			[
+				"module",
+				"source/modules.haml"
+			],
+			[
+				"gem",
+				"Gemfile"
+			],
+			[
+				"sett",
+				"source/css/_0.settings.scss"
+			],
+			[
+				"font",
+				"source/css/helpers/_fonts.scss"
+			],
+			[
+				"bootsc",
+				"source/css/bootstrap.css.scss.erb"
+			],
+			[
+				"boot",
+				"source/layouts/bootstrap.haml"
+			],
+			[
+				"app",
+				"helpers/application_helper.rb"
+			],
+			[
+				"bootscs",
+				"source/css/bootstrap.css.scss.erb"
+			],
+			[
+				"base",
+				"source/layouts/base.haml"
+			],
+			[
+				"lightboxscss",
+				"source/modules/content/lightbox/_lightbox.scss"
+			],
+			[
+				"tooltip",
+				"source/modules/content/tooltip/_tooltip_label.haml"
+			],
+			[
+				"efse",
+				"source/modules/form/ef_select/ef_select.html.haml"
+			],
+			[
+				"tableli",
+				"source/modules/detail/table_list/_table_list.haml"
+			],
+			[
+				"dettable",
+				"source/modules/detail/detail_page/_detail_content_table.scss"
+			],
+			[
+				"raten",
+				"source/templates/ef1/02_detail_json/erechnung_ratenzahlen.html.haml"
+			],
+			[
+				"tablelist",
+				"source/modules/detail/table_list/_table_list.haml"
+			],
+			[
+				"capa",
+				"source/js/uxui/app/util/Capabilities.js"
+			],
+			[
+				"widgetgrid",
+				"source/js/uxui/app/modules/layout/WidgetGrid.js"
+			],
+			[
+				"widgetlist",
+				"source/js/uxui/app/modules/layout/WidgetList.js"
+			],
+			[
+				"tiltab",
+				"source/modules/content/tile_tab_nav/tile_tab_nav.html.haml"
+			],
+			[
+				"basescs",
+				"source/css/_1.base.scss"
+			],
+			[
+				"helpers",
+				"source/css/helpers/_helpers.scss"
+			],
+			[
+				"foreca",
+				"source/modules/content/forecast_large/forecast_large.html.haml"
+			],
+			[
+				"wcms",
+				"source/modules/content/wcms/_wcms.scss.erb"
+			],
+			[
+				"ti",
+				"source/modules/form/text_input/_text_input.haml"
+			],
+			[
+				"tin",
+				"source/modules/form/text_input_row_narrow/_text_input_row_narrow.haml"
+			],
+			[
+				"textinput",
+				"source/modules/form/text_input/_text_input.scss"
+			],
+			[
+				"detatext",
+				"source/modules/detail/detail_page/_detail_content_text.scss"
+			],
+			[
+				"pfchec",
+				"source/modules/form/pf_checkbox/_pf_checkbox.scss"
+			],
+			[
+				"radio",
+				"source/modules/form/pf_radiotoggle/_pf_radiotoggle.scss"
+			],
+			[
+				"menu",
+				"source/js/uxui/app/util/AccessibleMenu.js"
+			],
+			[
+				"dettl",
+				"source/modules/detail/detail_page/_detail_content_table_list.scss"
+			],
+			[
+				"tali",
+				"source/modules/detail/table_list/_table_list.haml"
+			],
+			[
+				"detailtable",
+				"source/modules/detail/detail_page/_detail_content_table_list.scss"
+			],
+			[
+				"ef1",
+				"source/js/uxui/ef1.js"
+			],
+			[
+				"collaps",
+				"source/modules/detail/content-pane-collapsed/content-pane-collapsed.html.haml"
+			],
+			[
+				"efmora",
+				"source/modules/widgets_shared/ef_more_actions/_ef_more_actions.scss"
+			],
+			[
+				"mustertab3",
+				"source/templates/ef2/02_detail_muster/muster_tabelle_3.html.haml"
+			],
+			[
+				"widgetscss",
+				"source/modules/widgets_shared/widget/_widget.scss"
+			],
+			[
+				"loading",
+				"source/modules/widgets_shared/widget/_widget_loading.scss"
+			],
+			[
+				"widgsettings",
+				"source/modules/widgets_shared/widget_settings/_widget_settings.haml"
+			],
+			[
+				"efmoreac",
+				"source/modules/widgets_shared/ef_more_actions/_ef_more_actions.scss"
+			],
+			[
+				"btn",
+				"source/modules/form/btn/_btn.scss"
+			],
+			[
+				"widgetscs",
+				"source/modules/widgets_shared/widget/_widget.scss"
+			],
+			[
+				"check",
+				"source/modules/form/checkbox/_checkbox.scss"
+			],
+			[
+				"popin",
+				"source/modules/form/pf_pop_input/pf_pop_input.html.haml"
+			],
+			[
+				"erec",
+				"source/templates/ef1/02_detail_json/erechnung_bezahlen.html.haml"
+			],
+			[
+				"select_input",
+				"source/modules/form/select_input/select_input.html.haml"
+			],
+			[
+				"inputrow",
+				"source/modules/form/input_row/_input_row.scss"
+			],
+			[
+				"fileinput",
+				"source/modules/form/file_input/_file_input.scss"
+			],
+			[
+				"formscss",
+				"source/modules/ui/_form.scss"
+			],
+			[
+				"checkbox",
+				"source/modules/form/checkbox/_checkbox.scss"
+			],
+			[
+				"efselescs",
+				"source/modules/form/ef_select/_ef_select.scss"
+			],
+			[
+				"popinpu",
+				"source/modules/form/pf_pop_input/_pf_pop_input.haml"
+			],
+			[
+				"erechnu",
+				"source/templates/ef1/02_detail_json/erechnung_bezahlen.html.haml"
+			],
+			[
+				"detailform",
+				"source/modules/detail/detail_page/form.html.haml"
+			],
+			[
+				"form",
+				"source/modules/detail/detail_page/_detail_content_form.scss"
+			],
+			[
+				"settingsscss",
+				"source/css/_0.settings.scss"
+			],
+			[
+				"formsc",
+				"source/modules/form/_form.scss"
+			],
+			[
+				"tooltiplabel",
+				"source/modules/content/tooltip/_tooltip_label.haml"
+			],
+			[
+				"efdatepicker",
+				"source/modules/form/ef_datepicker/ef_datepicker.html.haml"
+			],
+			[
+				"textinputscss",
+				"source/modules/form/text_input/_text_input.scss"
+			],
+			[
+				"datepicker",
+				"source/modules/form/ef_datepicker/_ef_datepicker.scss"
+			],
+			[
+				"detailjs",
+				"source/js/uxui/app/plugins/detailLoader.js"
+			],
+			[
+				"efsel",
+				"source/js/uxui/app/modules/forms/EfSelect.js"
+			],
+			[
+				"login",
+				"source/templates/ef1/03_signed_off/login_02_pfid.html.haml"
+			],
+			[
+				"ere",
+				"source/templates/ef1/02_detail_json/erechnung_eingang.html.haml"
+			],
+			[
+				"widgettabs",
+				"source/modules/widgets_shared/widget_tabs/_widget_tabs.scss"
+			],
+			[
+				"loginscs",
+				"source/modules/various/pf-login/_pf-login.scss"
+			],
+			[
+				"ctr",
+				"source/js/uxui/lib/util/contextTrigger.js"
+			],
+			[
+				"loginstart",
+				"source/templates/ef2/03_signed_off/login_01_start.html.haml"
+			],
+			[
+				"loginstar",
+				"source/templates/ef1/03_signed_off/login_01_start.html.haml"
+			],
+			[
+				"layou",
+				"source/css/_2.layout.scss"
+			],
+			[
+				"detabutton",
+				"source/modules/detail/detail_page/_detail_content_buttons.scss"
+			],
+			[
+				"buttons",
+				"source/modules/detail/detail_page/_detail_content_buttons.scss"
+			],
+			[
+				"access",
+				"source/js/uxui/app/util/AccessibleMenu.js"
+			],
+			[
+				"widgsett",
+				"source/modules/widgets_shared/widget_settings/_widget_settings.haml"
+			],
+			[
+				"button",
+				"source/modules/detail/detail_page/_detail_content_buttons.scss"
+			],
+			[
+				"contex",
+				"source/js/uxui/lib/util/contextTrigger.js"
+			],
+			[
+				"efsli",
+				"source/js/uxui/app/modules/content/EfSlider.js"
+			],
+			[
+				"table",
+				"source/modules/detail/table_list/_table_list.haml"
+			],
+			[
+				"radiotogg",
+				"source/modules/form/pf_radiotoggle/_pf_radiotoggle.haml"
+			],
+			[
+				"helper",
+				"source/css/_4.helpers.scss"
+			],
+			[
+				"mobnav",
+				"source/modules/mobile/mobile_nav/_mobile_nav.haml"
+			],
+			[
+				"wstabl",
+				"source/modules/widgets_shared/widget_state_table/_widget_state_table.haml"
+			],
+			[
+				"efda",
+				"source/js/uxui/app/modules/forms/EfDatepicker.js"
+			],
+			[
+				"dat",
+				"source/js/uxui/vendor/datepicker/datepicker.js"
+			],
+			[
+				"mobilena",
+				"source/modules/mobile/mobile_user_nav/mobile_user_nav.html.haml"
+			],
+			[
+				"home",
+				"source/templates/ef1/01_home/home.html.haml"
+			],
+			[
+				"hook",
+				"source/js/uxui-temp/pf-hooks.js"
+			],
+			[
+				"dialo",
+				"source/js/uxui/app/plugins/detailLoader.js"
+			],
+			[
+				"detail",
+				"source/layouts/detail.haml"
+			],
+			[
+				"moreac",
+				"source/js/uxui/app/modules/content/EfMoreActions.js"
+			],
+			[
+				"acc",
+				"source/js/uxui/app/util/AccessibleMenu.js"
+			],
+			[
+				"help",
+				"source/modules/widgets_shared/widget_help/_widget_help.scss"
+			],
+			[
+				"modulma",
+				"source/js/uxui/app/modules/ModuleManager.js"
+			],
+			[
+				"widgetjs",
+				"source/js/uxui/app/modules/widget/Widget.js"
+			],
+			[
+				"mobiletabs",
+				"source/modules/mobile/mobile_tabs/_mobile_tabs.haml"
+			],
+			[
+				"tabs",
+				"source/modules/content/tabs/_tabs.haml"
+			],
+			[
+				"erech",
+				"source/templates/ef1/02_detail_json/erechnung_eingang.html.haml"
+			],
+			[
+				"siteheader",
+				"source/modules/global/site_header/_site_header.haml"
+			],
+			[
+				"withbn",
+				"source/modules/form/text_input_with_btn/_text_input_with_btn.scss"
+			],
+			[
+				"num",
+				"source/modules/content/pf_num/pf_num.html.haml"
+			],
+			[
+				"widget_state_table",
+				"source/modules/widgets_shared/widget_state_table/_widget_state_table.haml"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 342.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
