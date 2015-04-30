@@ -8,8 +8,8 @@ env:
 
 
 install:
-  - git config --global user.email $GIT_NAME
-  - git config --global user.name $GIT_EMAIL
+  - git config --global user.email ${GIT_NAME}
+  - git config --global user.name ${GIT_EMAIL}
   - bundle install
 
 script:  bundle exec middleman build
@@ -17,7 +17,7 @@ script:  bundle exec middleman build
 after_success:
   - cd build
   - git init
-  - git git remote add origin https://$GH_TOKEN@github.com/betabong/betablog.github.io.git
+  - git git remote add origin https://${GH_TOKEN}@github.com/betabong/betablog.github.io.git
   - git fetch
   - git add .
   - git commmit -m "Build update"
