@@ -1,0 +1,21 @@
+language: ruby
+rvm:
+  - 2.0.0-p247
+
+env:
+  # GIT_NAME GIT_EMAIL GH_TOKEN
+  secure: "ID29MmNChgRcCOXUjUtfmewOc8NVbUF06d1/BWKg1bPdNRn0FaollarmBov77RaahQ3GkFCSny8T6jeKAABf+nZGkDyX9fGugC5Bf2PqFppx8xvd0B6tkjmn/dVjEsL0RNLD2ElKTZAo28Ik+zflfiPSDRZhxS716XX+4gZI9YE="
+
+
+install:
+  - bundle install
+  - git config --global user.email "betabong@gmail.com"
+  - git config --global user.name "Severin Klaus"
+
+script:  bundle exec middleman build
+
+after_success:
+  - git checkout deploy
+  - git add build
+  - git commmit -m "Build update"
+  - git push
