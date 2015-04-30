@@ -9,13 +9,16 @@ env:
 
 install:
   - bundle install
-  - git config --global user.email "betabong@gmail.com"
-  - git config --global user.name "Severin Klaus"
+  - git config --global user.email #{GIT_NAME}
+  - git config --global user.name #{GIT_EMAIL}
 
 script:  bundle exec middleman build
 
 after_success:
-  - git checkout deploy
-  - git add build
+  - cd build
+  - git init
+  - git git remote add origin https://#{GH_TOKEN}@github.com/betabong/betablog.github.io.git
+  - git fetch
+  - git add .
   - git commmit -m "Build update"
-  - git push
+  - git push --set-upstream origin master
