@@ -81,6 +81,8 @@ set :sass, { :line_comments => false, :debug_info => false, :style => :expanded 
 
 # Pretty URLs - http://middlemanapp.com/pretty-urls/
 activate :directory_indexes
+page '/uploads/*', :directory_index => false
+page '/showcase/*', :directory_index => false
 
 # Middleman-Syntax - https://github.com/middleman/middleman-syntax
 set :haml, { ugly: true }
@@ -172,10 +174,17 @@ set :images_dir, 'images'
 # Build-specific configuration
 configure :build do
   # For example, change the Compass output style for deployment
-  # activate :minify_css
+  activate :minify_css
 
   # Minify Javascript on build
-  # activate :minify_javascript
+  activate :minify_javascript
+
+  activate :sitemap, :hostname => "http://blog.betabong.com"
+
+  activate :robots, :rules => [
+    {:user_agent => '*', :allow => %w(/)}
+  ], :sitemap => "http://blog.betabong.com/sitemap.xml"
+
 
   # Enable cache buster
   # activate :asset_hash
