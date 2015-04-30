@@ -13,14 +13,12 @@ install:
   - git config --global user.email ${GIT_NAME}
   - git config --global user.name ${GIT_EMAIL}
   - bundle install
+  - git clone -b master https://${GH_TOKEN}@github.com/betabong/betablog.github.io.git build
 
 script:  bundle exec middleman build
 
 after_success:
   - cd build
-  - git init
-  - git remote add origin https://${GH_TOKEN}@github.com/betabong/betablog.github.io.git
-  - git fetch
   - git add .
   - git commit -m "Build update"
-  - git push --set-upstream origin master
+  - git push
