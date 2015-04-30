@@ -20,5 +20,5 @@ after_success:
   - git remote add origin https://${GH_TOKEN}@github.com/betabong/betablog.github.io.git
   - git fetch
   - git add .
-  - git commmit -m "Build update"
+  - git commit -m "Build update"
   - git push --set-upstream origin master
