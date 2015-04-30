@@ -17,7 +17,7 @@ script:  bundle exec middleman build
 after_success:
   - cd build
   - git init
-  - git git remote add origin https://${GH_TOKEN}@github.com/betabong/betablog.github.io.git
+  - git remote add origin https://${GH_TOKEN}@github.com/betabong/betablog.github.io.git
   - git fetch
   - git add .
   - git commmit -m "Build update"
